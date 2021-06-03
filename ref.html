@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>References | Understanding Propensity Score Matching</title>
+  <meta name="description" content="References | Understanding Propensity Score Matching." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="References | Understanding Propensity Score Matching" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="References | Understanding Propensity Score Matching." />
+  <meta name="github-repo" content="ehsanx/UnderstandingPropensityScore" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="References | Understanding Propensity Score Matching" />
+  
+  <meta name="twitter:description" content="References | Understanding Propensity Score Matching." />
+  
+
+<meta name="author" content="Ehsan Karim" />
+
+
+<meta name="date" content="2021-06-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="guide.html"/>
+
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script type="text/javascript">
+
+// toggle visibility of R source blocks in R Markdown output
+function toggle_R() {
+  var x = document.getElementsByClassName('r');
+  if (x.length == 0) return;
+  function toggle_vis(o) {
+    var d = o.style.display;
+    o.style.display = (d == 'block' || d == '') ? 'none':'block';
+  }
+
+  for (i = 0; i < x.length; i++) {
+    var y = x[i];
+    if (y.tagName.toLowerCase() === 'pre') toggle_vis(y);
+  }
+
+    var elem = document.getElementById("myButton1");
+    if (elem.value === "Hide Global") elem.value = "Show Global";
+    else elem.value = "Hide Global";
+}
+
+document.write('<input onclick="toggle_R();" type="button" value="Hide Global" id="myButton1" style="position: absolute; top: 10%; right: 2%; z-index: 200"></input>')
+
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Understanding Propensity Score Matching</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Description</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#main-references"><i class="fa fa-check"></i><b>1.2</b> Main references</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="terms.html"><a href="terms.html"><i class="fa fa-check"></i><b>2</b> Useful Terminologies</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="terms.html"><a href="terms.html#potential-outcome"><i class="fa fa-check"></i><b>2.1</b> Potential outcome</a></li>
+<li class="chapter" data-level="2.2" data-path="terms.html"><a href="terms.html#parameters-of-interest"><i class="fa fa-check"></i><b>2.2</b> Parameters of interest</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="terms.html"><a href="terms.html#te"><i class="fa fa-check"></i><b>2.2.1</b> TE</a></li>
+<li class="chapter" data-level="2.2.2" data-path="terms.html"><a href="terms.html#ate"><i class="fa fa-check"></i><b>2.2.2</b> ATE</a></li>
+<li class="chapter" data-level="2.2.3" data-path="terms.html"><a href="terms.html#interpretation-of-ate"><i class="fa fa-check"></i><b>2.2.3</b> Interpretation of ATE</a></li>
+<li class="chapter" data-level="2.2.4" data-path="terms.html"><a href="terms.html#identifiability-assumptions"><i class="fa fa-check"></i><b>2.2.4</b> Identifiability Assumptions</a></li>
+<li class="chapter" data-level="2.2.5" data-path="terms.html"><a href="terms.html#att"><i class="fa fa-check"></i><b>2.2.5</b> ATT</a></li>
+<li class="chapter" data-level="2.2.6" data-path="terms.html"><a href="terms.html#interpretation-of-att"><i class="fa fa-check"></i><b>2.2.6</b> Interpretation of ATT</a></li>
+<li class="chapter" data-level="2.2.7" data-path="terms.html"><a href="terms.html#att-vs.-ate"><i class="fa fa-check"></i><b>2.2.7</b> ATT vs. ATE</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="terms.html"><a href="terms.html#balance"><i class="fa fa-check"></i><b>2.3</b> Balance</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="terms.html"><a href="terms.html#measures-of-balance"><i class="fa fa-check"></i><b>2.3.1</b> Measures of Balance</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="terms.html"><a href="terms.html#adjustment"><i class="fa fa-check"></i><b>2.4</b> Adjustment</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="terms.html"><a href="terms.html#why-adjust"><i class="fa fa-check"></i><b>2.4.1</b> Why adjust?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="terms.html"><a href="terms.html#adjustment-methods"><i class="fa fa-check"></i><b>2.4.2</b> Adjustment Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="terms.html"><a href="terms.html#overlap"><i class="fa fa-check"></i><b>2.5</b> Overlap</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ps.html"><a href="ps.html"><i class="fa fa-check"></i><b>3</b> Propensity score</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ps.html"><a href="ps.html#motivating-problem"><i class="fa fa-check"></i><b>3.1</b> Motivating problem</a></li>
+<li class="chapter" data-level="3.2" data-path="ps.html"><a href="ps.html#defining-propensity-score"><i class="fa fa-check"></i><b>3.2</b> Defining Propensity score</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="ps.html"><a href="ps.html#theoretical-result"><i class="fa fa-check"></i><b>3.2.1</b> Theoretical result</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ps.html"><a href="ps.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
+<li class="chapter" data-level="3.2.3" data-path="ps.html"><a href="ps.html#ways-to-use-ps"><i class="fa fa-check"></i><b>3.2.3</b> Ways to use PS</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ps.html"><a href="ps.html#ps-matching-steps"><i class="fa fa-check"></i><b>3.3</b> PS Matching Steps</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="s1.html"><a href="s1.html"><i class="fa fa-check"></i><b>4</b> Step 1: Exposure modelling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="s1.html"><a href="s1.html#model-specification"><i class="fa fa-check"></i><b>4.1</b> Model specification</a></li>
+<li class="chapter" data-level="4.2" data-path="s1.html"><a href="s1.html#variables-to-adjust"><i class="fa fa-check"></i><b>4.2</b> Variables to adjust</a></li>
+<li class="chapter" data-level="4.3" data-path="s1.html"><a href="s1.html#model-selection"><i class="fa fa-check"></i><b>4.3</b> Model selection</a></li>
+<li class="chapter" data-level="4.4" data-path="s1.html"><a href="s1.html#alternative-modelling-strategies"><i class="fa fa-check"></i><b>4.4</b> Alternative modelling strategies</a></li>
+<li class="chapter" data-level="4.5" data-path="s1.html"><a href="s1.html#ps-estimation"><i class="fa fa-check"></i><b>4.5</b> PS estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="s2.html"><a href="s2.html"><i class="fa fa-check"></i><b>5</b> Step 2: Propensity score Matching</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="s2.html"><a href="s2.html#matching-method-nn"><i class="fa fa-check"></i><b>5.1</b> Matching method NN</a></li>
+<li class="chapter" data-level="5.2" data-path="s2.html"><a href="s2.html#initial-fit"><i class="fa fa-check"></i><b>5.2</b> Initial fit</a></li>
+<li class="chapter" data-level="5.3" data-path="s2.html"><a href="s2.html#fine-tuning-add-caliper"><i class="fa fa-check"></i><b>5.3</b> Fine tuning: add caliper</a></li>
+<li class="chapter" data-level="5.4" data-path="s2.html"><a href="s2.html#matches"><i class="fa fa-check"></i><b>5.4</b> Matches</a></li>
+<li class="chapter" data-level="5.5" data-path="s2.html"><a href="s2.html#other-matching-algorithms"><i class="fa fa-check"></i><b>5.5</b> Other matching algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="s3.html"><a href="s3.html"><i class="fa fa-check"></i><b>6</b> Step 3: Balance and overlap</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="s3.html"><a href="s3.html#assessment-of-balance-by-smd"><i class="fa fa-check"></i><b>6.1</b> Assessment of Balance by SMD</a></li>
+<li class="chapter" data-level="6.2" data-path="s3.html"><a href="s3.html#vizualization-for-overlap"><i class="fa fa-check"></i><b>6.2</b> Vizualization for Overlap</a></li>
+<li class="chapter" data-level="6.3" data-path="s3.html"><a href="s3.html#smd-vs.-p-values"><i class="fa fa-check"></i><b>6.3</b> SMD vs. P-values</a></li>
+<li class="chapter" data-level="6.4" data-path="s3.html"><a href="s3.html#variance-ratio-1"><i class="fa fa-check"></i><b>6.4</b> Variance ratio</a></li>
+<li class="chapter" data-level="6.5" data-path="s3.html"><a href="s3.html#close-inspection-of-boundaries"><i class="fa fa-check"></i><b>6.5</b> Close inspection of boundaries</a></li>
+<li class="chapter" data-level="6.6" data-path="s3.html"><a href="s3.html#unsatirfactory-balance"><i class="fa fa-check"></i><b>6.6</b> Unsatirfactory balance</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="s4.html"><a href="s4.html"><i class="fa fa-check"></i><b>7</b> Step 4: Outcome modelling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="s4.html"><a href="s4.html#crude-outcome-model"><i class="fa fa-check"></i><b>7.1</b> Crude outcome model</a></li>
+<li class="chapter" data-level="7.2" data-path="s4.html"><a href="s4.html#double-adjustment"><i class="fa fa-check"></i><b>7.2</b> Double-adjustment</a></li>
+<li class="chapter" data-level="7.3" data-path="s4.html"><a href="s4.html#adjusted-outcome-model"><i class="fa fa-check"></i><b>7.3</b> Adjusted outcome model</a></li>
+<li class="chapter" data-level="7.4" data-path="s4.html"><a href="s4.html#other-cosiderations-for-outcome-model"><i class="fa fa-check"></i><b>7.4</b> Other cosiderations for outcome model</a></li>
+<li class="chapter" data-level="7.5" data-path="s4.html"><a href="s4.html#estimate-obtained"><i class="fa fa-check"></i><b>7.5</b> Estimate obtained</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>8</b> PS vs. Regression</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="compare.html"><a href="compare.html#data-simulation"><i class="fa fa-check"></i><b>8.1</b> Data Simulation</a></li>
+<li class="chapter" data-level="8.2" data-path="compare.html"><a href="compare.html#treatment-effect-from-counterfactuals"><i class="fa fa-check"></i><b>8.2</b> Treatment effect from counterfactuals</a></li>
+<li class="chapter" data-level="8.3" data-path="compare.html"><a href="compare.html#treatment-effect-from-regression"><i class="fa fa-check"></i><b>8.3</b> Treatment effect from Regression</a></li>
+<li class="chapter" data-level="8.4" data-path="compare.html"><a href="compare.html#treatment-effect-from-ps"><i class="fa fa-check"></i><b>8.4</b> Treatment effect from PS</a></li>
+<li class="chapter" data-level="8.5" data-path="compare.html"><a href="compare.html#non-linear-model"><i class="fa fa-check"></i><b>8.5</b> Non-linear Model</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="compare.html"><a href="compare.html#data-generation"><i class="fa fa-check"></i><b>8.5.1</b> Data generation</a></li>
+<li class="chapter" data-level="8.5.2" data-path="compare.html"><a href="compare.html#regression"><i class="fa fa-check"></i><b>8.5.2</b> Regression</a></li>
+<li class="chapter" data-level="8.5.3" data-path="compare.html"><a href="compare.html#ps-1"><i class="fa fa-check"></i><b>8.5.3</b> PS</a></li>
+<li class="chapter" data-level="8.5.4" data-path="compare.html"><a href="compare.html#machine-learning"><i class="fa fa-check"></i><b>8.5.4</b> Machine learning</a></li>
+<li class="chapter" data-level="8.5.5" data-path="compare.html"><a href="compare.html#regression-is-doomed"><i class="fa fa-check"></i><b>8.5.5</b> Regression is doomed?</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="compare.html"><a href="compare.html#common-misconception"><i class="fa fa-check"></i><b>8.6</b> Common misconception</a></li>
+<li class="chapter" data-level="8.7" data-path="compare.html"><a href="compare.html#benifits-of-ps"><i class="fa fa-check"></i><b>8.7</b> Benifits of PS</a></li>
+<li class="chapter" data-level="8.8" data-path="compare.html"><a href="compare.html#limitations-of-ps"><i class="fa fa-check"></i><b>8.8</b> Limitations of PS</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>9</b> Reporting Guidelines</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>9.1</b> Discipline-specific Reviews</a></li>
+<li class="chapter" data-level="9.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>9.2</b> Suggested Guidelines</a></li>
+<li class="chapter" data-level="9.3" data-path="guide.html"><a href="guide.html#software"><i class="fa fa-check"></i><b>9.3</b> Software</a></li>
+<li class="chapter" data-level="9.4" data-path="guide.html"><a href="guide.html#further-resources"><i class="fa fa-check"></i><b>9.4</b> Further Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ref.html"><a href="ref.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://ehsank.com/" target="blank">Ehsan Karim</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Understanding Propensity Score Matching</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ref" class="section level1 unnumbered">
+<h1>References</h1>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-alam2019should" class="csl-entry">
+Alam, Shomoita, Erica EM Moodie, and David A Stephens. 2019. <span>“Should a Propensity Score Model Be Super? The Utility of Ensemble Procedures for Causal Adjustment.”</span> <em>Statistics in Medicine</em> 38 (9): 1690–1702.
+</div>
+<div id="ref-ali2019propensity" class="csl-entry">
+Ali, M Sanni, Daniel Prieto-Alhambra, Luciane Cruz Lopes, Dandara Ramos, Nivea Bispo, Maria Y Ichihara, Julia M Pescarini, et al. 2019. <span>“Propensity Score Methods in Health Technology Assessment: Principles, Extended Applications, and Recent Advances.”</span> <em>Frontiers in Pharmacology</em> 10: 973.
+</div>
+<div id="ref-austin2007propensity" class="csl-entry">
+Austin, Peter C. 2007. <span>“Propensity-Score Matching in the Cardiovascular Surgery Literature from 2004 to 2006: A Systematic Review and Suggestions for Improvement.”</span> <em>The Journal of Thoracic and Cardiovascular Surgery</em> 134 (5): 1128–35.
+</div>
+<div id="ref-austin2009balance" class="csl-entry">
+———. 2009. <span>“Balance Diagnostics for Comparing the Distribution of Baseline Covariates Between Treatment Groups in Propensity-Score Matched Samples.”</span> <em>Statistics in Medicine</em> 28 (25): 3083–3107.
+</div>
+<div id="ref-austin2011tutorial" class="csl-entry">
+———. 2011a. <span>“A Tutorial and Case Study in Propensity Score Analysis: An Application to Estimating the Effect of in-Hospital Smoking Cessation Counseling on Mortality.”</span> <em>Multivariate Behavioral Research</em> 46 (1): 119–51.
+</div>
+<div id="ref-austin2011introduction" class="csl-entry">
+———. 2011b. <span>“An Introduction to Propensity Score Methods for Reducing the Effects of Confounding in Observational Studies.”</span> <em>Multivariate Behavioral Research</em> 46 (3): 399–424.
+</div>
+<div id="ref-austin2014use" class="csl-entry">
+Austin, Peter C, and Dylan S Small. 2014. <span>“The Use of Bootstrapping When Using Propensity-Score Matching Without Replacement: A Simulation Study.”</span> <em>Statistics in Medicine</em> 33 (24): 4306–19.
+</div>
+<div id="ref-brookhart2006variable" class="csl-entry">
+Brookhart, M Alan, Sebastian Schneeweiss, Kenneth J Rothman, Robert J Glynn, Jerry Avorn, and Til Stürmer. 2006. <span>“Variable Selection for Propensity Score Models.”</span> <em>American Journal of Epidemiology</em> 163 (12): 1149–56.
+</div>
+<div id="ref-d1998propensity" class="csl-entry">
+D’Agostino Jr, Ralph B. 1998. <span>“Propensity Score Methods for Bias Reduction in the Comparison of a Treatment to a Non-Randomized Control Group.”</span> <em>Statistics in Medicine</em> 17 (19): 2265–81.
+</div>
+<div id="ref-gautret2020hydroxychloroquine" class="csl-entry">
+Gautret, Philippe, Jean-Christophe Lagier, Philippe Parola, Line Meddeb, Morgane Mailhe, Barbara Doudier, Johan Courjon, et al. 2020. <span>“Hydroxychloroquine and Azithromycin as a Treatment of COVID-19: Results of an Open-Label Non-Randomized Clinical Trial.”</span> <em>International Journal of Antimicrobial Agents</em> 56 (1): 105949.
+</div>
+<div id="ref-karim2018can" class="csl-entry">
+Karim, Mohammad Ehsanul, Menglan Pang, and Robert W Platt. 2018. <span>“Can We Train Machine Learning Methods to Outperform the High-Dimensional Propensity Score Algorithm?”</span> <em>Epidemiology</em> 29 (2): 191–98.
+</div>
+<div id="ref-karim2020use" class="csl-entry">
+Karim, Mohammad Ehsanul, Fabio Pellegrini, Robert W Platt, Gabrielle Simoneau, Julie Rouette, and Carl de Moor. 2020. <span>“The Use and Quality of Reporting of Propensity Score Methods in Multiple Sclerosis Literature: A Review.”</span> <em>Multiple Sclerosis Journal</em>, 1352458520972557.
+</div>
+<div id="ref-king2019propensity" class="csl-entry">
+King, Gary, and Richard Alexander Nielsen. 2019. <span>“Why Propensity Scores Should Not Be Used for Matching.”</span>
+</div>
+<div id="ref-lee2010improving" class="csl-entry">
+Lee, Brian K, Justin Lessler, and Elizabeth A Stuart. 2010. <span>“Improving Propensity Score Weighting Using Machine Learning.”</span> <em>Statistics in Medicine</em> 29 (3): 337–46.
+</div>
+<div id="ref-nguyen2017double" class="csl-entry">
+Nguyen, Tri-Long, Gary S Collins, Jessica Spence, Jean-Pierre Daurès, PJ Devereaux, Paul Landais, and Yannick Le Manach. 2017. <span>“Double-Adjustment in Propensity Score Matching Analysis: Choosing a Threshold for Considering Residual Imbalance.”</span> <em>BMC Medical Research Methodology</em> 17 (1): 1–8.
+</div>
+<div id="ref-pirracchio2015improving" class="csl-entry">
+Pirracchio, Romain, Maya L Petersen, and Mark Van Der Laan. 2015. <span>“Improving Propensity Score Estimators’ Robustness to Model Misspecification Using Super Learner.”</span> <em>American Journal of Epidemiology</em> 181 (2): 108–19.
+</div>
+<div id="ref-rosenbaum1983central" class="csl-entry">
+Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of the Propensity Score in Observational Studies for Causal Effects.”</span> <em>Biometrika</em> 70 (1): 41–55.
+</div>
+<div id="ref-stuart2010matching" class="csl-entry">
+Stuart, Elizabeth A. 2010. <span>“Matching Methods for Causal Inference: A Review and a Look Forward.”</span> <em>Statistical Science: A Review Journal of the Institute of Mathematical Statistics</em> 25 (1): 1.
+</div>
+<div id="ref-yao2017reporting" class="csl-entry">
+Yao, Xiaoxin I, Xiaofei Wang, Paul J Speicher, E Shelley Hwang, Perry Cheng, David H Harpole, Mark F Berry, Deborah Schrag, and Herbert H Pang. 2017. <span>“Reporting and Guidelines in Propensity Score Analysis: A Systematic Review of Cancer and Cancer Surgical Studies.”</span> <em>JNCI: Journal of the National Cancer Institute</em> 109 (8): djw323.
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="guide.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ehsanx/UnderstandingPropensityScore/edit/master/09-references.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["UnderstandingPropensityScore.pdf", "UnderstandingPropensityScore.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
