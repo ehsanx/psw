@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Understanding Propensity Score Matching</title>
-  <meta name="description" content="References | Understanding Propensity Score Matching." />
+  <title>Chapter 3 Balance and Overlap | Understanding Propensity Score Matching</title>
+  <meta name="description" content="Chapter 3 Balance and Overlap | Understanding Propensity Score Matching." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Understanding Propensity Score Matching" />
+  <meta property="og:title" content="Chapter 3 Balance and Overlap | Understanding Propensity Score Matching" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="References | Understanding Propensity Score Matching." />
+  <meta property="og:description" content="Chapter 3 Balance and Overlap | Understanding Propensity Score Matching." />
   <meta name="github-repo" content="ehsanx/UnderstandingPropensityScore" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Understanding Propensity Score Matching" />
+  <meta name="twitter:title" content="Chapter 3 Balance and Overlap | Understanding Propensity Score Matching" />
   
-  <meta name="twitter:description" content="References | Understanding Propensity Score Matching." />
+  <meta name="twitter:description" content="Chapter 3 Balance and Overlap | Understanding Propensity Score Matching." />
   
 
 <meta name="author" content="Ehsan Karim" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final.html"/>
-
+<link rel="prev" href="terms.html"/>
+<link rel="next" href="ps.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -290,67 +290,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="balance" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Balance and Overlap</h1>
+<div id="balance-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Balance</h2>
+<p><strong>Balance in RCT</strong>:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><img src="images/RCT.png" /></td>
+<td><img src="images/balance.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>In absence of randomization</strong>:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><img src="images/condRCT.png" /></td>
+<td><img src="images/imbalance.png" /></td>
+</tr>
+</tbody>
+</table>
+<div id="measures-of-balance" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Measures of Balance</h3>
+<div id="smd" class="section level4" number="3.1.1.1">
+<h4><span class="header-section-number">3.1.1.1</span> SMD</h4>
+<p><span class="citation"><a href="references.html#ref-austin2011introduction" role="doc-biblioref">Austin</a> (<a href="references.html#ref-austin2011introduction" role="doc-biblioref">2011b</a>)</span></p>
+<ul>
+<li>For continuous confounders:
+<ul>
+<li><span class="math inline">\(SDM_{continuous} = \frac{\bar{L}_{Rosuvastatin} - \bar{L}_{No Rosuvastatin}}{\sqrt{\frac{s^2_{Rosuvastatin} + s^2_{No Rosuvastatin}}{2}}}\)</span></li>
+</ul></li>
+<li>For binary confounders:
+<ul>
+<li><span class="math inline">\(SDM_{binary} = \frac{\hat{p}_{Rosuvastatin} - \hat{p}_{No Rosuvastatin}}{\sqrt{\frac{ \hat{p}_{Rosuvastatin} \times (1 - \hat{p}_{Rosuvastatin}) + \hat{p}_{No Rosuvastatin} \times (1 - \hat{p}_{No Rosuvastatin}) }{2}}}\)</span></li>
+</ul></li>
+</ul>
+<p><img src="images/SMD.png" /></p>
+<p>Generally, <span class="math inline">\(0.1\)</span> is used as a cut-point. But some suggest more liberal cut-points. More on that later.</p>
+</div>
+<div id="variance-ratio" class="section level4" number="3.1.1.2">
+<h4><span class="header-section-number">3.1.1.2</span> Variance ratio</h4>
+<p>Variances of baseline characteristics between comparator groups under consideration. Suggested cut-point rages are (0.5 to 2). More liberal cut-points are also used in the literature. More on this later.</p>
+</div>
+</div>
+</div>
+<div id="adjustment" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Adjustment</h2>
+<div id="why-adjust" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Why adjust?</h3>
+<p>In absence of randomization, treatment effect estimate ATE = <span class="math inline">\(E[Y|A=1] - E[Y|A=0]\)</span> includes</p>
+<ul>
+<li>Treatment effect</li>
+<li>Systematic differences in 2 groups (‘confounding’)
+<ul>
+<li>Doctors may prescribe tx more to frail and older age patients.</li>
+<li>In here, <span class="math inline">\(L\)</span> = age is a confounder.</li>
+</ul></li>
+</ul>
+<p>In absence of randomization, if age is a known confounder, conditioning can solve the problem:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Causal effect for young (<span class="math inline">\(&lt;50\)</span>)</td>
+<td><span class="math inline">\(E[Y|A=1, L =\)</span> <code>younger age</code><span class="math inline">\(]\)</span> - <span class="math inline">\(E[Y|A=0, L =\)</span> <code>younger age</code><span class="math inline">\(]\)</span></td>
+</tr>
+<tr class="even">
+<td>Causal effect for old (<span class="math inline">\(\ge 50\)</span>)</td>
+<td><span class="math inline">\(E[Y|A=1, L =\)</span> <code>older age</code><span class="math inline">\(]\)</span> - <span class="math inline">\(E[Y|A=0, L =\)</span> <code>older age</code><span class="math inline">\(]\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Conditional exchangeability; only works if <span class="math inline">\(L\)</span> is measured.</p>
+</div>
+<div id="adjustment-methods" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Adjustment Methods</h3>
+<p>Adjustment of imbalance could mean</p>
+<ul>
+<li>exact matching</li>
+<li>stratification</li>
+</ul>
+<table>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<img src="images/info.png" />
+</td>
+<td style="text-align:left;color: white !important;background-color: #3A3B3C !important;">
+When L includes a large number of covariates, matching method would result in a small sample size.
+</td>
+</tr>
+</tbody>
+</table>
+<p>Regression is also a popular adjustment method.</p>
+</div>
+</div>
+<div id="lack-of-overlap" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Lack of overlap</h2>
+<ul>
+<li>“Lack of complete overlap” happens if there is a baseline covariate space where there are exposed patients, but no control or vice versa.
+<ul>
+<li>Region of ‘no overlap’ is an inherent limitation of the data.</li>
+</ul></li>
+</ul>
+<p><img src="images/overlap.png" width="305" /></p>
+<ul>
+<li><strong>Regression adjustment</strong> usually do not offer any solution to this.
+<ul>
+<li>Consequently, inference is not generalizable beyond the region of overlap.</li>
+</ul></li>
+</ul>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-alam2019should" class="csl-entry">
-Alam, Shomoita, Erica EM Moodie, and David A Stephens. 2019. <span>“Should a Propensity Score Model Be Super? The Utility of Ensemble Procedures for Causal Adjustment.”</span> <em>Statistics in Medicine</em> 38 (9): 1690–1702.
-</div>
-<div id="ref-ali2019propensity" class="csl-entry">
-Ali, M Sanni, Daniel Prieto-Alhambra, Luciane Cruz Lopes, Dandara Ramos, Nivea Bispo, Maria Y Ichihara, Julia M Pescarini, et al. 2019. <span>“Propensity Score Methods in Health Technology Assessment: Principles, Extended Applications, and Recent Advances.”</span> <em>Frontiers in Pharmacology</em> 10: 973.
-</div>
-<div id="ref-austin2007propensity" class="csl-entry">
-Austin, Peter C. 2007. <span>“Propensity-Score Matching in the Cardiovascular Surgery Literature from 2004 to 2006: A Systematic Review and Suggestions for Improvement.”</span> <em>The Journal of Thoracic and Cardiovascular Surgery</em> 134 (5): 1128–35.
-</div>
-<div id="ref-austin2009balance" class="csl-entry">
-———. 2009. <span>“Balance Diagnostics for Comparing the Distribution of Baseline Covariates Between Treatment Groups in Propensity-Score Matched Samples.”</span> <em>Statistics in Medicine</em> 28 (25): 3083–3107.
-</div>
-<div id="ref-austin2011tutorial" class="csl-entry">
-———. 2011a. <span>“A Tutorial and Case Study in Propensity Score Analysis: An Application to Estimating the Effect of in-Hospital Smoking Cessation Counseling on Mortality.”</span> <em>Multivariate Behavioral Research</em> 46 (1): 119–51.
-</div>
-<div id="ref-austin2011introduction" class="csl-entry">
-———. 2011b. <span>“An Introduction to Propensity Score Methods for Reducing the Effects of Confounding in Observational Studies.”</span> <em>Multivariate Behavioral Research</em> 46 (3): 399–424.
-</div>
-<div id="ref-austin2014use" class="csl-entry">
-Austin, Peter C, and Dylan S Small. 2014. <span>“The Use of Bootstrapping When Using Propensity-Score Matching Without Replacement: A Simulation Study.”</span> <em>Statistics in Medicine</em> 33 (24): 4306–19.
-</div>
-<div id="ref-brookhart2006variable" class="csl-entry">
-Brookhart, M Alan, Sebastian Schneeweiss, Kenneth J Rothman, Robert J Glynn, Jerry Avorn, and Til Stürmer. 2006. <span>“Variable Selection for Propensity Score Models.”</span> <em>American Journal of Epidemiology</em> 163 (12): 1149–56.
-</div>
-<div id="ref-d1998propensity" class="csl-entry">
-D’Agostino Jr, Ralph B. 1998. <span>“Propensity Score Methods for Bias Reduction in the Comparison of a Treatment to a Non-Randomized Control Group.”</span> <em>Statistics in Medicine</em> 17 (19): 2265–81.
-</div>
-<div id="ref-gautret2020hydroxychloroquine" class="csl-entry">
-Gautret, Philippe, Jean-Christophe Lagier, Philippe Parola, Line Meddeb, Morgane Mailhe, Barbara Doudier, Johan Courjon, et al. 2020. <span>“Hydroxychloroquine and Azithromycin as a Treatment of COVID-19: Results of an Open-Label Non-Randomized Clinical Trial.”</span> <em>International Journal of Antimicrobial Agents</em> 56 (1): 105949.
-</div>
-<div id="ref-karim2018can" class="csl-entry">
-Karim, Mohammad Ehsanul, Menglan Pang, and Robert W Platt. 2018. <span>“Can We Train Machine Learning Methods to Outperform the High-Dimensional Propensity Score Algorithm?”</span> <em>Epidemiology</em> 29 (2): 191–98.
-</div>
-<div id="ref-karim2020use" class="csl-entry">
-Karim, Mohammad Ehsanul, Fabio Pellegrini, Robert W Platt, Gabrielle Simoneau, Julie Rouette, and Carl de Moor. 2020. <span>“The Use and Quality of Reporting of Propensity Score Methods in Multiple Sclerosis Literature: A Review.”</span> <em>Multiple Sclerosis Journal</em>, 1352458520972557.
-</div>
-<div id="ref-king2019propensity" class="csl-entry">
-King, Gary, and Richard Alexander Nielsen. 2019. <span>“Why Propensity Scores Should Not Be Used for Matching.”</span>
-</div>
-<div id="ref-lee2010improving" class="csl-entry">
-Lee, Brian K, Justin Lessler, and Elizabeth A Stuart. 2010. <span>“Improving Propensity Score Weighting Using Machine Learning.”</span> <em>Statistics in Medicine</em> 29 (3): 337–46.
-</div>
-<div id="ref-nguyen2017double" class="csl-entry">
-Nguyen, Tri-Long, Gary S Collins, Jessica Spence, Jean-Pierre Daurès, PJ Devereaux, Paul Landais, and Yannick Le Manach. 2017. <span>“Double-Adjustment in Propensity Score Matching Analysis: Choosing a Threshold for Considering Residual Imbalance.”</span> <em>BMC Medical Research Methodology</em> 17 (1): 1–8.
-</div>
-<div id="ref-pirracchio2015improving" class="csl-entry">
-Pirracchio, Romain, Maya L Petersen, and Mark Van Der Laan. 2015. <span>“Improving Propensity Score Estimators’ Robustness to Model Misspecification Using Super Learner.”</span> <em>American Journal of Epidemiology</em> 181 (2): 108–19.
-</div>
-<div id="ref-rosenbaum1983central" class="csl-entry">
-Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of the Propensity Score in Observational Studies for Causal Effects.”</span> <em>Biometrika</em> 70 (1): 41–55.
-</div>
-<div id="ref-stuart2010matching" class="csl-entry">
-Stuart, Elizabeth A. 2010. <span>“Matching Methods for Causal Inference: A Review and a Look Forward.”</span> <em>Statistical Science: A Review Journal of the Institute of Mathematical Statistics</em> 25 (1): 1.
-</div>
-<div id="ref-yao2017reporting" class="csl-entry">
-Yao, Xiaoxin I, Xiaofei Wang, Paul J Speicher, E Shelley Hwang, Perry Cheng, David H Harpole, Mark F Berry, Deborah Schrag, and Herbert H Pang. 2017. <span>“Reporting and Guidelines in Propensity Score Analysis: A Systematic Review of Cancer and Cancer Surgical Studies.”</span> <em>JNCI: Journal of the National Cancer Institute</em> 109 (8): djw323.
-</div>
 </div>
 </div>
             </section>
@@ -358,8 +413,8 @@ Yao, Xiaoxin I, Xiaofei Wang, Paul J Speicher, E Shelley Hwang, Perry Cheng, Dav
           </div>
         </div>
       </div>
-<a href="final.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="terms.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -390,7 +445,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ehsanx/UnderstandingPropensityScore/edit/master/11-references.Rmd",
+"link": "https://github.com/ehsanx/UnderstandingPropensityScore/edit/master/02-measure.Rmd",
 "text": "Edit"
 },
 "history": {
