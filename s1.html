@@ -24,7 +24,7 @@
 <meta name="author" content="Ehsan Karim" />
 
 
-<meta name="date" content="2022-03-16" />
+<meta name="date" content="2022-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -343,14 +343,14 @@ div.csl-indent {
 <h2><span class="header-section-number">4.1</span> Model specification</h2>
 <p>Specify the propensity score model to estimate propensity scores, and fit the model:</p>
 <p><span class="math inline">\(A \sim L\)</span></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="s1.html#cb11-1" aria-hidden="true" tabindex="-1"></a>baselinevars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;married&quot;</span>, <span class="st">&quot;bmi&quot;</span>)</span>
-<span id="cb11-2"><a href="s1.html#cb11-2" aria-hidden="true" tabindex="-1"></a>ps.formula <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>)))</span>
-<span id="cb11-3"><a href="s1.html#cb11-3" aria-hidden="true" tabindex="-1"></a>ps.formula</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="s1.html#cb13-1" aria-hidden="true" tabindex="-1"></a>baselinevars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;married&quot;</span>, <span class="st">&quot;bmi&quot;</span>)</span>
+<span id="cb13-2"><a href="s1.html#cb13-2" aria-hidden="true" tabindex="-1"></a>ps.formula <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>)))</span>
+<span id="cb13-3"><a href="s1.html#cb13-3" aria-hidden="true" tabindex="-1"></a>ps.formula</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + education + married + bmi</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="s1.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit logistic regression to estimate propensity scores</span></span>
-<span id="cb13-2"><a href="s1.html#cb13-2" aria-hidden="true" tabindex="-1"></a>PS.fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(ps.formula,<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="at">data=</span>analytic)</span>
-<span id="cb13-3"><a href="s1.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(jtools)</span>
-<span id="cb13-4"><a href="s1.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(PS.fit)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="s1.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit logistic regression to estimate propensity scores</span></span>
+<span id="cb15-2"><a href="s1.html#cb15-2" aria-hidden="true" tabindex="-1"></a>PS.fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(ps.formula,<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>, <span class="at">data=</span>analytic)</span>
+<span id="cb15-3"><a href="s1.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(jtools)</span>
+<span id="cb15-4"><a href="s1.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(PS.fit)</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
 <tr>
@@ -671,19 +671,19 @@ bmi
 <li>Common terms to add (indeed based on biological plausibility; requiring subject area knowledge)</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="s1.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactions</span></span>
-<span id="cb14-2"><a href="s1.html#cb14-2" aria-hidden="true" tabindex="-1"></a>ps.formula2 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ education:bmi + gender:age&quot;</span>))</span>
-<span id="cb14-3"><a href="s1.html#cb14-3" aria-hidden="true" tabindex="-1"></a>ps.formula2</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="s1.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactions</span></span>
+<span id="cb16-2"><a href="s1.html#cb16-2" aria-hidden="true" tabindex="-1"></a>ps.formula2 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ education:bmi + gender:age&quot;</span>))</span>
+<span id="cb16-3"><a href="s1.html#cb16-3" aria-hidden="true" tabindex="-1"></a>ps.formula2</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + education + married + bmi + 
 ##     education:bmi + gender:age</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="s1.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># polynomials or splines</span></span>
-<span id="cb16-2"><a href="s1.html#cb16-2" aria-hidden="true" tabindex="-1"></a>ps.formula3 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ age^2 + age^3&quot;</span>))</span>
-<span id="cb16-3"><a href="s1.html#cb16-3" aria-hidden="true" tabindex="-1"></a>ps.formula3</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="s1.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># polynomials or splines</span></span>
+<span id="cb18-2"><a href="s1.html#cb18-2" aria-hidden="true" tabindex="-1"></a>ps.formula3 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ age^2 + age^3&quot;</span>))</span>
+<span id="cb18-3"><a href="s1.html#cb18-3" aria-hidden="true" tabindex="-1"></a>ps.formula3</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + education + married + bmi + 
 ##     age^2 + age^3</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="s1.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformations</span></span>
-<span id="cb18-2"><a href="s1.html#cb18-2" aria-hidden="true" tabindex="-1"></a>ps.formula4 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ log(age)&quot;</span>))</span>
-<span id="cb18-3"><a href="s1.html#cb18-3" aria-hidden="true" tabindex="-1"></a>ps.formula4</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="s1.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformations</span></span>
+<span id="cb20-2"><a href="s1.html#cb20-2" aria-hidden="true" tabindex="-1"></a>ps.formula4 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ log(age)&quot;</span>))</span>
+<span id="cb20-3"><a href="s1.html#cb20-3" aria-hidden="true" tabindex="-1"></a>ps.formula4</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + education + married + bmi + 
 ##     log(age)</code></pre>
 </div>
@@ -788,31 +788,31 @@ bmi
 <li>use <em>variable selection</em> only on the variables about which we are unsure</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="s1.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming that you are not sure if education and married </span></span>
-<span id="cb20-2"><a href="s1.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># variables should be included in the PS analysis</span></span>
-<span id="cb20-3"><a href="s1.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Try outcome modelling as follows:</span></span>
-<span id="cb20-4"><a href="s1.html#cb20-4" aria-hidden="true" tabindex="-1"></a>formula.full <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;cholesterol&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="st">&quot;gender + </span></span>
-<span id="cb20-5"><a href="s1.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                 age + race + education+ married + bmi&quot;</span>))</span>
-<span id="cb20-6"><a href="s1.html#cb20-6" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(formula.full,</span>
-<span id="cb20-7"><a href="s1.html#cb20-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span>binomial, <span class="at">data =</span> analytic)</span>
-<span id="cb20-8"><a href="s1.html#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="s1.html#cb20-9" aria-hidden="true" tabindex="-1"></a>scope <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">upper =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> education<span class="sc">+</span> married <span class="sc">+</span> bmi,</span>
-<span id="cb20-10"><a href="s1.html#cb20-10" aria-hidden="true" tabindex="-1"></a>              <span class="co"># upper included all variables (known + unsure)</span></span>
-<span id="cb20-11"><a href="s1.html#cb20-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> bmi)</span>
-<span id="cb20-12"><a href="s1.html#cb20-12" aria-hidden="true" tabindex="-1"></a>              <span class="co"># lower included only known confounders + risk factors of outcome</span></span>
-<span id="cb20-13"><a href="s1.html#cb20-13" aria-hidden="true" tabindex="-1"></a>fitstep <span class="ot">&lt;-</span> <span class="fu">step</span>(fit<span class="fl">.0</span>, <span class="at">scope =</span> scope, <span class="at">trace =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb20-14"><a href="s1.html#cb20-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">k =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>)</span>
-<span id="cb20-15"><a href="s1.html#cb20-15" aria-hidden="true" tabindex="-1"></a>              <span class="co"># k = 2 is equivalant to AIC</span></span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="s1.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">formula</span>(fitstep)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="s1.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming that you are not sure if education and married </span></span>
+<span id="cb22-2"><a href="s1.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># variables should be included in the PS analysis</span></span>
+<span id="cb22-3"><a href="s1.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Try outcome modelling as follows:</span></span>
+<span id="cb22-4"><a href="s1.html#cb22-4" aria-hidden="true" tabindex="-1"></a>formula.full <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;cholesterol&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="st">&quot;gender + </span></span>
+<span id="cb22-5"><a href="s1.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                 age + race + education+ married + bmi&quot;</span>))</span>
+<span id="cb22-6"><a href="s1.html#cb22-6" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(formula.full,</span>
+<span id="cb22-7"><a href="s1.html#cb22-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span>binomial, <span class="at">data =</span> analytic)</span>
+<span id="cb22-8"><a href="s1.html#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="s1.html#cb22-9" aria-hidden="true" tabindex="-1"></a>scope <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">upper =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> education<span class="sc">+</span> married <span class="sc">+</span> bmi,</span>
+<span id="cb22-10"><a href="s1.html#cb22-10" aria-hidden="true" tabindex="-1"></a>              <span class="co"># upper included all variables (known + unsure)</span></span>
+<span id="cb22-11"><a href="s1.html#cb22-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> bmi)</span>
+<span id="cb22-12"><a href="s1.html#cb22-12" aria-hidden="true" tabindex="-1"></a>              <span class="co"># lower included only known confounders + risk factors of outcome</span></span>
+<span id="cb22-13"><a href="s1.html#cb22-13" aria-hidden="true" tabindex="-1"></a>fitstep <span class="ot">&lt;-</span> <span class="fu">step</span>(fit<span class="fl">.0</span>, <span class="at">scope =</span> scope, <span class="at">trace =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-14"><a href="s1.html#cb22-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">k =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>)</span>
+<span id="cb22-15"><a href="s1.html#cb22-15" aria-hidden="true" tabindex="-1"></a>              <span class="co"># k = 2 is equivalant to AIC</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="s1.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">formula</span>(fitstep)</span></code></pre></div>
 <pre><code>## cholesterol ~ gender + age + race + bmi</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="s1.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if education, married (one or both) survives this </span></span>
-<span id="cb23-2"><a href="s1.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># stepwise, then consider adding that/those in the PS model</span></span>
-<span id="cb23-3"><a href="s1.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If not, discard from the PS model.</span></span>
-<span id="cb23-4"><a href="s1.html#cb23-4" aria-hidden="true" tabindex="-1"></a>formula.chosen <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="st">&quot;gender + </span></span>
-<span id="cb23-5"><a href="s1.html#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                 age + race + bmi&quot;</span>))</span>
-<span id="cb23-6"><a href="s1.html#cb23-6" aria-hidden="true" tabindex="-1"></a>formula.chosen</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="s1.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if education, married (one or both) survives this </span></span>
+<span id="cb25-2"><a href="s1.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># stepwise, then consider adding that/those in the PS model</span></span>
+<span id="cb25-3"><a href="s1.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># If not, discard from the PS model.</span></span>
+<span id="cb25-4"><a href="s1.html#cb25-4" aria-hidden="true" tabindex="-1"></a>formula.chosen <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="st">&quot;gender + </span></span>
+<span id="cb25-5"><a href="s1.html#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                 age + race + bmi&quot;</span>))</span>
+<span id="cb25-6"><a href="s1.html#cb25-6" aria-hidden="true" tabindex="-1"></a>formula.chosen</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + bmi</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="s1.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We, however, did not use this approach below.</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="s1.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We, however, did not use this approach below.</span></span></code></pre></div>
 <ul>
 <li>Stepwise (p-value or criterion based) not recommended
 <ul>
@@ -830,22 +830,22 @@ bmi
 <li>Below is an example of what NOT to do.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="s1.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume again that you are not sure if education and married </span></span>
-<span id="cb26-2"><a href="s1.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># variables should be included in the PS analysis</span></span>
-<span id="cb26-3"><a href="s1.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Try exposure modelling as follows:</span></span>
-<span id="cb26-4"><a href="s1.html#cb26-4" aria-hidden="true" tabindex="-1"></a>formula.full.e <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="st">&quot;gender + </span></span>
-<span id="cb26-5"><a href="s1.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                 age + race + education+ married + bmi&quot;</span>))</span>
-<span id="cb26-6"><a href="s1.html#cb26-6" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(formula.full.e,</span>
-<span id="cb26-7"><a href="s1.html#cb26-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span>binomial, <span class="at">data =</span> analytic)</span>
-<span id="cb26-8"><a href="s1.html#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="s1.html#cb26-9" aria-hidden="true" tabindex="-1"></a>scope <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">upper =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> education<span class="sc">+</span> married <span class="sc">+</span> bmi,</span>
-<span id="cb26-10"><a href="s1.html#cb26-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> bmi)</span>
-<span id="cb26-11"><a href="s1.html#cb26-11" aria-hidden="true" tabindex="-1"></a>fitstep.e <span class="ot">&lt;-</span> <span class="fu">step</span>(fit<span class="fl">.1</span>, <span class="at">scope =</span> scope, <span class="at">trace =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb26-12"><a href="s1.html#cb26-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">k =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="s1.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">formula</span>(fitstep.e)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="s1.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume again that you are not sure if education and married </span></span>
+<span id="cb28-2"><a href="s1.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># variables should be included in the PS analysis</span></span>
+<span id="cb28-3"><a href="s1.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Try exposure modelling as follows:</span></span>
+<span id="cb28-4"><a href="s1.html#cb28-4" aria-hidden="true" tabindex="-1"></a>formula.full.e <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="st">&quot;gender + </span></span>
+<span id="cb28-5"><a href="s1.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">                                 age + race + education+ married + bmi&quot;</span>))</span>
+<span id="cb28-6"><a href="s1.html#cb28-6" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(formula.full.e,</span>
+<span id="cb28-7"><a href="s1.html#cb28-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span>binomial, <span class="at">data =</span> analytic)</span>
+<span id="cb28-8"><a href="s1.html#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="s1.html#cb28-9" aria-hidden="true" tabindex="-1"></a>scope <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">upper =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> education<span class="sc">+</span> married <span class="sc">+</span> bmi,</span>
+<span id="cb28-10"><a href="s1.html#cb28-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower =</span> <span class="sc">~</span> gender <span class="sc">+</span> age <span class="sc">+</span> race <span class="sc">+</span> bmi)</span>
+<span id="cb28-11"><a href="s1.html#cb28-11" aria-hidden="true" tabindex="-1"></a>fitstep.e <span class="ot">&lt;-</span> <span class="fu">step</span>(fit<span class="fl">.1</span>, <span class="at">scope =</span> scope, <span class="at">trace =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb28-12"><a href="s1.html#cb28-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">k =</span> <span class="dv">2</span>, <span class="at">direction =</span> <span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="s1.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">formula</span>(fitstep.e)</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + bmi</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="s1.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is the chosen PS model by this approach.</span></span>
-<span id="cb29-2"><a href="s1.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We, however, did not use this approach below.</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="s1.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is the chosen PS model by this approach.</span></span>
+<span id="cb31-2"><a href="s1.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We, however, did not use this approach below.</span></span></code></pre></div>
 </div>
 </div>
 <div id="alternative-modelling-strategies" class="section level2" number="4.4">
@@ -863,13 +863,13 @@ bmi
 <div id="ps-estimation" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> PS estimation</h2>
 <p>PS is unknown, and needs to be estimated from the fitted exposure model:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="s1.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract estimated propensity scores from the fit</span></span>
-<span id="cb30-2"><a href="s1.html#cb30-2" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>PS <span class="ot">&lt;-</span> <span class="fu">predict</span>(PS.fit, <span class="at">newdata =</span> analytic, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="s1.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(cobalt)</span>
-<span id="cb31-2"><a href="s1.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.plot</span>(analytic, <span class="at">var.name =</span> <span class="st">&quot;PS&quot;</span>, </span>
-<span id="cb31-3"><a href="s1.html#cb31-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">treat =</span> <span class="st">&quot;diabetes&quot;</span>, </span>
-<span id="cb31-4"><a href="s1.html#cb31-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">which =</span> <span class="st">&quot;both&quot;</span>, </span>
-<span id="cb31-5"><a href="s1.html#cb31-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> analytic)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="s1.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract estimated propensity scores from the fit</span></span>
+<span id="cb32-2"><a href="s1.html#cb32-2" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>PS <span class="ot">&lt;-</span> <span class="fu">predict</span>(PS.fit, <span class="at">newdata =</span> analytic, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="s1.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(cobalt)</span>
+<span id="cb33-2"><a href="s1.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.plot</span>(analytic, <span class="at">var.name =</span> <span class="st">&quot;PS&quot;</span>, </span>
+<span id="cb33-3"><a href="s1.html#cb33-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">treat =</span> <span class="st">&quot;diabetes&quot;</span>, </span>
+<span id="cb33-4"><a href="s1.html#cb33-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">which =</span> <span class="st">&quot;both&quot;</span>, </span>
+<span id="cb33-5"><a href="s1.html#cb33-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> analytic)</span></code></pre></div>
 <p><img src="UnderstandingPropensityScore_files/figure-html/ps2cc-1.png" width="672" /></p>
 <table>
 <tbody>

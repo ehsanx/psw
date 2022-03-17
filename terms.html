@@ -24,7 +24,7 @@
 <meta name="author" content="Ehsan Karim" />
 
 
-<meta name="date" content="2022-03-16" />
+<meta name="date" content="2022-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -355,6 +355,8 @@ div.csl-indent {
 </ul></li>
 <li><span class="math inline">\(L\)</span>: Risk factor (or later Confounder when randomization not present): Age</li>
 </ul>
+<p>Relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\([Y(A=1), Y(A=0)]\)</span> can be expressed as follows:
+<span class="math inline">\(Y = A \times Y(A=1) + (1-A) \times Y(A=0)\)</span></p>
 <p><img src="images/RCT.png" /></p>
 </div>
 <div id="parameters-of-interest" class="section level2" number="1.2">
@@ -517,7 +519,193 @@ Luke
 </div>
 <div id="identifiability-assumptions" class="section level3" number="1.2.4">
 <h3><span class="header-section-number">1.2.4</span> Identifiability Assumptions</h3>
-<p>If we can compute a causal quantity, such as <span class="math inline">\(ATE = E[Y(A=1)-Y(A=0)]\)</span> using a statistical quantity, such as <code>mean(PotentialOutcomes$Y1 - PotentialOutcomes$Y0)</code>, we say that the causal quantity is identifiable.</p>
+<p>Real-world scenario (both outcomes under different treatments can not be observed):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="terms.html#cb4-1" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Jim&quot;</span>,<span class="st">&quot;Jake&quot;</span>,<span class="st">&quot;Cody&quot;</span>,<span class="st">&quot;Luke&quot;</span>)</span>
+<span id="cb4-2"><a href="terms.html#cb4-2" aria-hidden="true" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="cn">NA</span>, <span class="dv">100</span>, <span class="cn">NA</span>, <span class="dv">155</span>, <span class="cn">NA</span>)</span>
+<span id="cb4-3"><a href="terms.html#cb4-3" aria-hidden="true" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">245</span>, <span class="cn">NA</span>, <span class="dv">270</span>, <span class="cn">NA</span>, <span class="dv">230</span>)</span>
+<span id="cb4-4"><a href="terms.html#cb4-4" aria-hidden="true" tabindex="-1"></a>PotentialOutcomes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, Y1, Y0, <span class="at">TE =</span> Y1<span class="sc">-</span>Y0)</span>
+<span id="cb4-5"><a href="terms.html#cb4-5" aria-hidden="true" tabindex="-1"></a>mean.values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">mean</span>(PotentialOutcomes<span class="sc">$</span>Y1, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-6"><a href="terms.html#cb4-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">mean</span>(PotentialOutcomes<span class="sc">$</span>Y0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-7"><a href="terms.html#cb4-7" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">mean</span>(PotentialOutcomes<span class="sc">$</span>TE))</span>
+<span id="cb4-8"><a href="terms.html#cb4-8" aria-hidden="true" tabindex="-1"></a>PotentialOutcomes <span class="ot">&lt;-</span> <span class="fu">rbind</span>(PotentialOutcomes, <span class="fu">round</span>(mean.values,<span class="dv">1</span>))</span>
+<span id="cb4-9"><a href="terms.html#cb4-9" aria-hidden="true" tabindex="-1"></a>PotentialOutcomes[<span class="dv">6</span>,<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(PotentialOutcomes<span class="sc">$</span>Y1, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">-</span> </span>
+<span id="cb4-10"><a href="terms.html#cb4-10" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">mean</span>(PotentialOutcomes<span class="sc">$</span>Y0, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">1</span>)</span>
+<span id="cb4-11"><a href="terms.html#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(PotentialOutcomes, <span class="at">booktabs =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb4-12"><a href="terms.html#cb4-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Person&quot;</span>, <span class="st">&quot;Y(1)&quot;</span>, <span class="st">&quot;Y(0)&quot;</span>, <span class="st">&quot;TE&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="terms.html#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">6</span>, <span class="at">bold =</span> T, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">background =</span> <span class="st">&quot;#D7261E&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Person
+</th>
+<th style="text-align:right;">
+Y(1)
+</th>
+<th style="text-align:right;">
+Y(0)
+</th>
+<th style="text-align:right;">
+TE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+John
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+245.0
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jim
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jake
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+270.0
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cody
+</td>
+<td style="text-align:right;">
+155.0
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Luke
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+230.0
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: #D7261E !important;">
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: #D7261E !important;">
+127.5
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: #D7261E !important;">
+248.3
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: #D7261E !important;">
+-120.8
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can rearrange it as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="terms.html#cb5-1" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Jim&quot;</span>,<span class="st">&quot;Jake&quot;</span>,<span class="st">&quot;Cody&quot;</span>,<span class="st">&quot;Luke&quot;</span>)</span>
+<span id="cb5-2"><a href="terms.html#cb5-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb5-3"><a href="terms.html#cb5-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">245</span>, <span class="dv">100</span>, <span class="dv">270</span>, <span class="dv">155</span>, <span class="dv">230</span>)</span>
+<span id="cb5-4"><a href="terms.html#cb5-4" aria-hidden="true" tabindex="-1"></a>RealOutcomes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, A, Y)</span>
+<span id="cb5-5"><a href="terms.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(RealOutcomes, <span class="at">booktabs =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb5-6"><a href="terms.html#cb5-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Person&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;Y&quot;</span>)) </span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Person
+</th>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+Y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+John
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+245
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jim
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jake
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+270
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cody
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+155
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Luke
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+230
+</td>
+</tr>
+</tbody>
+</table>
+<p>If we can compute a causal quantity, such as <span class="math inline">\(ATE = E[Y(A=1)-Y(A=0)]\)</span> or <code>mean(PotentialOutcomes$Y1 - PotentialOutcomes$Y0)</code> using a statistical quantity, such as <span class="math inline">\(E[Y|A=1]-E[Y|A=0]\)</span> or <code>mean(Y[A=1]) - mean(Y[A=0])</code>, we say that the causal quantity is identifiable. For such identifiability, we need to meet the following assumptions:</p>
 <table>
 <colgroup>
 <col width="33%" />
@@ -547,6 +735,8 @@ Luke
 </tr>
 </tbody>
 </table>
+<p>Note here, from data we get the estimate of average TE is <code>(100+155)/2 - (245+270+230)/3 = -120.8</code> which is different than <code>-58</code> using the potential outcome data. Part of it is because of finite sample bias (having only 5 data points) instead of infinite population. If we had a large enough sample, we would expect the estimate to be close to the true average TE.</p>
+<p>You can find more detailed exploration of estimation in a <a href="https://ehsanx.github.io/TMLEworkshop/g-computation.html">different tutorial</a> using a real data.</p>
 <p><img src="images/condRCT.png" /></p>
 <p>Extending these assumptions when confounders exist:</p>
 <table>
@@ -587,14 +777,14 @@ Luke
 <li>We recruited additional 5 subjects (same characteristics) to non-rosuvastatin group.</li>
 </ul>
 <p><strong>Treated group</strong>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="terms.html#cb4-1" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Jim&quot;</span>,<span class="st">&quot;Jake&quot;</span>,<span class="st">&quot;Cody&quot;</span>,<span class="st">&quot;Luke&quot;</span>)</span>
-<span id="cb4-2"><a href="terms.html#cb4-2" aria-hidden="true" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">195</span>, <span class="dv">100</span>, <span class="dv">210</span>, <span class="dv">155</span>, <span class="dv">165</span>)</span>
-<span id="cb4-3"><a href="terms.html#cb4-3" aria-hidden="true" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(Y1))</span>
-<span id="cb4-4"><a href="terms.html#cb4-4" aria-hidden="true" tabindex="-1"></a>Treated <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, Y1, Y0, <span class="at">TE =</span> Y1<span class="sc">-</span>Y0)</span>
-<span id="cb4-5"><a href="terms.html#cb4-5" aria-hidden="true" tabindex="-1"></a>Treated[<span class="dv">6</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Treated<span class="sc">$</span>Y1)</span>
-<span id="cb4-6"><a href="terms.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Treated, <span class="at">booktabs =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb4-7"><a href="terms.html#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Person&quot;</span>, <span class="st">&quot;Y(1)&quot;</span>, <span class="st">&quot;Y(0)&quot;</span>, <span class="st">&quot;TE&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="terms.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">6</span>, <span class="at">bold =</span> T, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">background =</span> <span class="st">&quot;#D7261E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="terms.html#cb6-1" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Jim&quot;</span>,<span class="st">&quot;Jake&quot;</span>,<span class="st">&quot;Cody&quot;</span>,<span class="st">&quot;Luke&quot;</span>)</span>
+<span id="cb6-2"><a href="terms.html#cb6-2" aria-hidden="true" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">195</span>, <span class="dv">100</span>, <span class="dv">210</span>, <span class="dv">155</span>, <span class="dv">165</span>)</span>
+<span id="cb6-3"><a href="terms.html#cb6-3" aria-hidden="true" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(Y1))</span>
+<span id="cb6-4"><a href="terms.html#cb6-4" aria-hidden="true" tabindex="-1"></a>Treated <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, Y1, Y0, <span class="at">TE =</span> Y1<span class="sc">-</span>Y0)</span>
+<span id="cb6-5"><a href="terms.html#cb6-5" aria-hidden="true" tabindex="-1"></a>Treated[<span class="dv">6</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Treated<span class="sc">$</span>Y1)</span>
+<span id="cb6-6"><a href="terms.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Treated, <span class="at">booktabs =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-7"><a href="terms.html#cb6-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Person&quot;</span>, <span class="st">&quot;Y(1)&quot;</span>, <span class="st">&quot;Y(0)&quot;</span>, <span class="st">&quot;TE&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="terms.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">6</span>, <span class="at">bold =</span> T, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">background =</span> <span class="st">&quot;#D7261E&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -687,14 +877,14 @@ Luke
 </tbody>
 </table>
 <p><strong>Untreated group</strong>: New folks with characteristics similar to the treated group.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="terms.html#cb5-1" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="st">&quot;Jack&quot;</span>, <span class="st">&quot;Dustin&quot;</span>, <span class="st">&quot;Cole&quot;</span>, <span class="st">&quot;Lucas&quot;</span>, <span class="st">&quot;Dylan&quot;</span>)</span>
-<span id="cb5-2"><a href="terms.html#cb5-2" aria-hidden="true" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">245</span>, <span class="dv">160</span>, <span class="dv">270</span>, <span class="dv">210</span>, <span class="dv">165</span>)</span>
-<span id="cb5-3"><a href="terms.html#cb5-3" aria-hidden="true" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(Y0))</span>
-<span id="cb5-4"><a href="terms.html#cb5-4" aria-hidden="true" tabindex="-1"></a>Untreated <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, Y1, Y0, <span class="at">TE =</span> Y1<span class="sc">-</span>Y0)</span>
-<span id="cb5-5"><a href="terms.html#cb5-5" aria-hidden="true" tabindex="-1"></a>Untreated[<span class="dv">6</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Untreated<span class="sc">$</span>Y0)</span>
-<span id="cb5-6"><a href="terms.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Untreated, <span class="at">booktabs =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb5-7"><a href="terms.html#cb5-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Person&quot;</span>, <span class="st">&quot;Y(1)&quot;</span>, <span class="st">&quot;Y(0)&quot;</span>, <span class="st">&quot;TE&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb5-8"><a href="terms.html#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">6</span>, <span class="at">bold =</span> T, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">background =</span> <span class="st">&quot;#D7261E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="terms.html#cb7-1" aria-hidden="true" tabindex="-1"></a>Person <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="st">&quot;Jack&quot;</span>, <span class="st">&quot;Dustin&quot;</span>, <span class="st">&quot;Cole&quot;</span>, <span class="st">&quot;Lucas&quot;</span>, <span class="st">&quot;Dylan&quot;</span>)</span>
+<span id="cb7-2"><a href="terms.html#cb7-2" aria-hidden="true" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">245</span>, <span class="dv">160</span>, <span class="dv">270</span>, <span class="dv">210</span>, <span class="dv">165</span>)</span>
+<span id="cb7-3"><a href="terms.html#cb7-3" aria-hidden="true" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(Y0))</span>
+<span id="cb7-4"><a href="terms.html#cb7-4" aria-hidden="true" tabindex="-1"></a>Untreated <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Person, Y1, Y0, <span class="at">TE =</span> Y1<span class="sc">-</span>Y0)</span>
+<span id="cb7-5"><a href="terms.html#cb7-5" aria-hidden="true" tabindex="-1"></a>Untreated[<span class="dv">6</span>,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(Untreated<span class="sc">$</span>Y0)</span>
+<span id="cb7-6"><a href="terms.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Untreated, <span class="at">booktabs =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb7-7"><a href="terms.html#cb7-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Person&quot;</span>, <span class="st">&quot;Y(1)&quot;</span>, <span class="st">&quot;Y(0)&quot;</span>, <span class="st">&quot;TE&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="terms.html#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">6</span>, <span class="at">bold =</span> T, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">background =</span> <span class="st">&quot;#D7261E&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -787,7 +977,7 @@ Dylan
 </tbody>
 </table>
 <p><span class="math inline">\(ATT = E[Y(A=1)-Y(A=0) | A = 1]\)</span></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="terms.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Treated<span class="sc">$</span>Y1) <span class="sc">-</span> <span class="fu">mean</span>(Untreated<span class="sc">$</span>Y0)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="terms.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Treated<span class="sc">$</span>Y1) <span class="sc">-</span> <span class="fu">mean</span>(Untreated<span class="sc">$</span>Y0)</span></code></pre></div>
 <pre><code>## [1] -45</code></pre>
 </div>
 <div id="interpretation-of-att" class="section level3" number="1.2.6">

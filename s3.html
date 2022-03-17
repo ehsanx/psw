@@ -24,7 +24,7 @@
 <meta name="author" content="Ehsan Karim" />
 
 
-<meta name="date" content="2022-03-16" />
+<meta name="date" content="2022-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -354,12 +354,12 @@ div.csl-indent {
 <li>balance = similarity of the covariate distributions</li>
 </ul>
 <p><strong>Full data</strong>:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="s3.html#cb50-1" aria-hidden="true" tabindex="-1"></a>tab1e <span class="ot">&lt;-</span> <span class="fu">CreateTableOne</span>(<span class="at">vars =</span> baselinevars,</span>
-<span id="cb50-2"><a href="s3.html#cb50-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> analytic, </span>
-<span id="cb50-3"><a href="s3.html#cb50-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">strata =</span> <span class="st">&quot;diabetes&quot;</span>,</span>
-<span id="cb50-4"><a href="s3.html#cb50-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">includeNA =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb50-5"><a href="s3.html#cb50-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">test =</span> <span class="cn">TRUE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb50-6"><a href="s3.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab1e, <span class="at">showAllLevels =</span> <span class="cn">FALSE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>, <span class="at">test =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="s3.html#cb52-1" aria-hidden="true" tabindex="-1"></a>tab1e <span class="ot">&lt;-</span> <span class="fu">CreateTableOne</span>(<span class="at">vars =</span> baselinevars,</span>
+<span id="cb52-2"><a href="s3.html#cb52-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> analytic, </span>
+<span id="cb52-3"><a href="s3.html#cb52-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">strata =</span> <span class="st">&quot;diabetes&quot;</span>,</span>
+<span id="cb52-4"><a href="s3.html#cb52-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">includeNA =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb52-5"><a href="s3.html#cb52-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">test =</span> <span class="cn">TRUE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-6"><a href="s3.html#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab1e, <span class="at">showAllLevels =</span> <span class="cn">FALSE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>, <span class="at">test =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##                        Stratified by diabetes
 ##                         0             1             p      test SMD   
 ##   n                      1232           330                           
@@ -380,18 +380,18 @@ div.csl-indent {
 ##      Previously.married   304 (24.7)    109 (33.0)                    
 ##   bmi (mean (SD))       29.14 (7.03)  33.01 (7.65)  &lt;0.001       0.526</code></pre>
 <p><strong>Matched data</strong>:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="s3.html#cb52-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span>
-<span id="cb52-2"><a href="s3.html#cb52-2" aria-hidden="true" tabindex="-1"></a>tab1m <span class="ot">&lt;-</span> <span class="fu">CreateTableOne</span>(<span class="at">vars =</span> baselinevars, </span>
-<span id="cb52-3"><a href="s3.html#cb52-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">strata =</span> <span class="st">&quot;diabetes&quot;</span>, </span>
-<span id="cb52-4"><a href="s3.html#cb52-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> matched.data, </span>
-<span id="cb52-5"><a href="s3.html#cb52-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">includeNA =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb52-6"><a href="s3.html#cb52-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">test =</span> <span class="cn">TRUE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="s3.html#cb54-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span>
+<span id="cb54-2"><a href="s3.html#cb54-2" aria-hidden="true" tabindex="-1"></a>tab1m <span class="ot">&lt;-</span> <span class="fu">CreateTableOne</span>(<span class="at">vars =</span> baselinevars, </span>
+<span id="cb54-3"><a href="s3.html#cb54-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">strata =</span> <span class="st">&quot;diabetes&quot;</span>, </span>
+<span id="cb54-4"><a href="s3.html#cb54-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> matched.data, </span>
+<span id="cb54-5"><a href="s3.html#cb54-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">includeNA =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb54-6"><a href="s3.html#cb54-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">test =</span> <span class="cn">TRUE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Compare the similarity of baseline characteristics between treated and untreated subjects in a the propensity score-matched sample.</p>
 <ul>
 <li>In this case, we will compare SMD &lt; 0.1 or not.</li>
 <li>In some literature, other generous values (0.25) are proposed. <span class="citation">(<a href="#ref-austin2011introduction" role="doc-biblioref">Austin 2011b</a>)</span></li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="s3.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab1m, <span class="at">showAllLevels =</span> <span class="cn">FALSE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>, <span class="at">test =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="s3.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab1m, <span class="at">showAllLevels =</span> <span class="cn">FALSE</span>, <span class="at">smd =</span> <span class="cn">TRUE</span>, <span class="at">test =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
 <pre><code>##                        Stratified by diabetes
 ##                         0             1             SMD   
 ##   n                       316           316               
@@ -418,7 +418,7 @@ div.csl-indent {
 <ul>
 <li>P-value based balance assessment can be influenced by sample size</li>
 </ul>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="s3.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab1m, <span class="at">showAllLevels =</span> <span class="cn">FALSE</span>, <span class="at">smd =</span> <span class="cn">FALSE</span>, <span class="at">test =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="s3.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab1m, <span class="at">showAllLevels =</span> <span class="cn">FALSE</span>, <span class="at">smd =</span> <span class="cn">FALSE</span>, <span class="at">test =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <pre><code>##                        Stratified by diabetes
 ##                         0             1             p      test
 ##   n                       316           316                    
@@ -439,8 +439,8 @@ div.csl-indent {
 ##      Previously.married   113 (35.8)    103 (32.6)             
 ##   bmi (mean (SD))       32.38 (7.62)  32.63 (7.20)   0.662</code></pre>
 <p>Assessment of balance in the matched data</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="s3.html#cb57-1" aria-hidden="true" tabindex="-1"></a>smd.res <span class="ot">&lt;-</span> <span class="fu">ExtractSmd</span>(tab1m)</span>
-<span id="cb57-2"><a href="s3.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">round</span>(smd.res,<span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="s3.html#cb59-1" aria-hidden="true" tabindex="-1"></a>smd.res <span class="ot">&lt;-</span> <span class="fu">ExtractSmd</span>(tab1m)</span>
+<span id="cb59-2"><a href="s3.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">round</span>(smd.res,<span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##        gender  age race education married  bmi
 ## 1 vs 2   0.04 0.03 0.11      0.01     0.1 0.03</code></pre>
 <p><strong>COVID example</strong> from <span class="citation"><a href="#ref-gautret2020hydroxychloroquine" role="doc-biblioref">Gautret et al.</a> (<a href="#ref-gautret2020hydroxychloroquine" role="doc-biblioref">2020</a>)</span></p>
@@ -462,18 +462,18 @@ div.csl-indent {
 </div>
 <div id="vizualization-for-overlap" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Vizualization for Overlap</h2>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="s3.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(PS <span class="sc">~</span> diabetes, <span class="at">data =</span> analytic, </span>
-<span id="cb59-2"><a href="s3.html#cb59-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">&#39;PS&#39;</span>)</span>
-<span id="cb59-3"><a href="s3.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(PS <span class="sc">~</span> diabetes, <span class="at">vertical =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb59-4"><a href="s3.html#cb59-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> analytic, <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, </span>
-<span id="cb59-5"><a href="s3.html#cb59-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="s3.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(PS <span class="sc">~</span> diabetes, <span class="at">data =</span> analytic, </span>
+<span id="cb61-2"><a href="s3.html#cb61-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">&#39;PS&#39;</span>)</span>
+<span id="cb61-3"><a href="s3.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(PS <span class="sc">~</span> diabetes, <span class="at">vertical =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb61-4"><a href="s3.html#cb61-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> analytic, <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, </span>
+<span id="cb61-5"><a href="s3.html#cb61-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
 <p><img src="UnderstandingPropensityScore_files/figure-html/ps3vv-1.png" width="30%" /></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="s3.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(match.obj, <span class="at">type =</span> <span class="st">&quot;jitter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="s3.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(match.obj, <span class="at">type =</span> <span class="st">&quot;jitter&quot;</span>)</span></code></pre></div>
 <p><img src="UnderstandingPropensityScore_files/figure-html/ps8vv-1.png" width="50%" /></p>
 <pre><code>## [1] &quot;To identify the units, use first mouse button; to stop, use second.&quot;</code></pre>
 <pre><code>## integer(0)</code></pre>
 <p>Vizualization for assessing overlap issues</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="s3.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(match.obj, <span class="at">type =</span> <span class="st">&quot;hist&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="s3.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(match.obj, <span class="at">type =</span> <span class="st">&quot;hist&quot;</span>)</span></code></pre></div>
 <p><img src="UnderstandingPropensityScore_files/figure-html/ps9vv-1.png" width="50%" /></p>
 </div>
 <div id="variance-ratio-1" class="section level2" number="6.4">
@@ -488,11 +488,11 @@ div.csl-indent {
 </ul></li>
 </ul>
 <p>See <span class="citation"><a href="#ref-stuart2010matching" role="doc-biblioref">Stuart</a> (<a href="#ref-stuart2010matching" role="doc-biblioref">2010</a>)</span> and <span class="citation"><a href="#ref-austin2009balance" role="doc-biblioref">Austin</a> (<a href="#ref-austin2009balance" role="doc-biblioref">2009</a>)</span></p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="s3.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(cobalt)</span>
-<span id="cb64-2"><a href="s3.html#cb64-2" aria-hidden="true" tabindex="-1"></a>baltab.res <span class="ot">&lt;-</span> <span class="fu">bal.tab</span>(<span class="at">x =</span> match.obj, <span class="at">data =</span> analytic, </span>
-<span id="cb64-3"><a href="s3.html#cb64-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">treat =</span> analytic<span class="sc">$</span>diabetes, </span>
-<span id="cb64-4"><a href="s3.html#cb64-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">disp.v.ratio =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb64-5"><a href="s3.html#cb64-5" aria-hidden="true" tabindex="-1"></a>baltab.res</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="s3.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(cobalt)</span>
+<span id="cb66-2"><a href="s3.html#cb66-2" aria-hidden="true" tabindex="-1"></a>baltab.res <span class="ot">&lt;-</span> <span class="fu">bal.tab</span>(<span class="at">x =</span> match.obj, <span class="at">data =</span> analytic, </span>
+<span id="cb66-3"><a href="s3.html#cb66-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">treat =</span> analytic<span class="sc">$</span>diabetes, </span>
+<span id="cb66-4"><a href="s3.html#cb66-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">disp.v.ratio =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb66-5"><a href="s3.html#cb66-5" aria-hidden="true" tabindex="-1"></a>baltab.res</span></code></pre></div>
 <pre><code>## Call
 ##  matchit(formula = ps.formula, data = analytic, method = &quot;nearest&quot;, 
 ##     distance = &quot;logit&quot;, replace = FALSE, caliper = 0.2 * sd(logitPS), 
@@ -523,12 +523,12 @@ div.csl-indent {
 </div>
 <div id="close-inspection-of-boundaries" class="section level2" number="6.5">
 <h2><span class="header-section-number">6.5</span> Close inspection of boundaries</h2>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="s3.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(PS <span class="sc">~</span> diabetes, <span class="at">data =</span> matched.data, </span>
-<span id="cb66-2"><a href="s3.html#cb66-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">&#39;PS&#39;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb66-3"><a href="s3.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(PS <span class="sc">~</span> diabetes, <span class="at">vertical =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb66-4"><a href="s3.html#cb66-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> matched.data, <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, </span>
-<span id="cb66-5"><a href="s3.html#cb66-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span>
-<span id="cb66-6"><a href="s3.html#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">c</span>(<span class="dv">0</span><span class="fl">+0.05</span>,<span class="dv">1</span><span class="fl">-0.05</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="s3.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(PS <span class="sc">~</span> diabetes, <span class="at">data =</span> matched.data, </span>
+<span id="cb68-2"><a href="s3.html#cb68-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">&#39;PS&#39;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb68-3"><a href="s3.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(PS <span class="sc">~</span> diabetes, <span class="at">vertical =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb68-4"><a href="s3.html#cb68-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> matched.data, <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, </span>
+<span id="cb68-5"><a href="s3.html#cb68-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span>
+<span id="cb68-6"><a href="s3.html#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">c</span>(<span class="dv">0</span><span class="fl">+0.05</span>,<span class="dv">1</span><span class="fl">-0.05</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="UnderstandingPropensityScore_files/figure-html/ps3cgvv-1.png" width="30%" /></p>
 <ul>
 <li>Sensitivity analysis should be done with trimming.</li>

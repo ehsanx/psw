@@ -24,7 +24,7 @@
 <meta name="author" content="Ehsan Karim" />
 
 
-<meta name="date" content="2022-03-16" />
+<meta name="date" content="2022-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -347,13 +347,13 @@ div.csl-indent {
 <li>We want to find a treated patient (treatment = 1) with PS closest to 0.25.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="s2.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(cobalt)</span>
-<span id="cb32-2"><a href="s2.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb32-3"><a href="s2.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.plot</span>(analytic, <span class="at">var.name =</span> <span class="st">&quot;PS&quot;</span>, </span>
-<span id="cb32-4"><a href="s2.html#cb32-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">treat =</span> <span class="st">&quot;diabetes&quot;</span>, </span>
-<span id="cb32-5"><a href="s2.html#cb32-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">which =</span> <span class="st">&quot;both&quot;</span>, </span>
-<span id="cb32-6"><a href="s2.html#cb32-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> analytic) <span class="sc">+</span> </span>
-<span id="cb32-7"><a href="s2.html#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fl">0.25</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="s2.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(cobalt)</span>
+<span id="cb34-2"><a href="s2.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb34-3"><a href="s2.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bal.plot</span>(analytic, <span class="at">var.name =</span> <span class="st">&quot;PS&quot;</span>, </span>
+<span id="cb34-4"><a href="s2.html#cb34-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">treat =</span> <span class="st">&quot;diabetes&quot;</span>, </span>
+<span id="cb34-5"><a href="s2.html#cb34-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">which =</span> <span class="st">&quot;both&quot;</span>, </span>
+<span id="cb34-6"><a href="s2.html#cb34-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> analytic) <span class="sc">+</span> </span>
+<span id="cb34-7"><a href="s2.html#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fl">0.25</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="UnderstandingPropensityScore_files/figure-html/ps2cc444-1.png" width="672" /></p>
 <div id="matching-method-nn" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Matching method NN</h2>
@@ -381,18 +381,18 @@ div.csl-indent {
 <div id="initial-fit" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Initial fit</h2>
 <p>1:1 NN Match using estimates propensity scores</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="s2.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb33-2"><a href="s2.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span>
-<span id="cb33-3"><a href="s2.html#cb33-3" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(ps.formula, <span class="at">data =</span> analytic,</span>
-<span id="cb33-4"><a href="s2.html#cb33-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
-<span id="cb33-5"><a href="s2.html#cb33-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
-<span id="cb33-6"><a href="s2.html#cb33-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace=</span><span class="cn">FALSE</span>,</span>
-<span id="cb33-7"><a href="s2.html#cb33-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
-<span id="cb33-8"><a href="s2.html#cb33-8" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>PS <span class="ot">&lt;-</span> match.obj<span class="sc">$</span>distance</span>
-<span id="cb33-9"><a href="s2.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match.obj<span class="sc">$</span>distance)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="s2.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb35-2"><a href="s2.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span>
+<span id="cb35-3"><a href="s2.html#cb35-3" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(ps.formula, <span class="at">data =</span> analytic,</span>
+<span id="cb35-4"><a href="s2.html#cb35-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
+<span id="cb35-5"><a href="s2.html#cb35-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
+<span id="cb35-6"><a href="s2.html#cb35-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace=</span><span class="cn">FALSE</span>,</span>
+<span id="cb35-7"><a href="s2.html#cb35-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
+<span id="cb35-8"><a href="s2.html#cb35-8" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>PS <span class="ot">&lt;-</span> match.obj<span class="sc">$</span>distance</span>
+<span id="cb35-9"><a href="s2.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match.obj<span class="sc">$</span>distance)</span></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## 0.003916 0.068128 0.169946 0.211268 0.312987 0.925132</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="s2.html#cb35-1" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="s2.html#cb37-1" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
 <pre><code>## A matchit object
 ##  - method: 1:1 nearest neighbor matching without replacement
 ##  - distance: Propensity score
@@ -404,24 +404,24 @@ div.csl-indent {
 <div id="fine-tuning-add-caliper" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Fine tuning: add caliper</h2>
 <p>2 SD of logit of the propensity score is suggested as a caliper.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="s2.html#cb37-1" aria-hidden="true" tabindex="-1"></a>logitPS <span class="ot">&lt;-</span>  <span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span>analytic<span class="sc">$</span>PS <span class="sc">-</span> <span class="dv">1</span>) </span>
-<span id="cb37-2"><a href="s2.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># logit of the propensity score</span></span>
-<span id="cb37-3"><a href="s2.html#cb37-3" aria-hidden="true" tabindex="-1"></a>.<span class="dv">2</span><span class="sc">*</span><span class="fu">sd</span>(logitPS) <span class="co"># suggested in the literature</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="s2.html#cb39-1" aria-hidden="true" tabindex="-1"></a>logitPS <span class="ot">&lt;-</span>  <span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span>analytic<span class="sc">$</span>PS <span class="sc">-</span> <span class="dv">1</span>) </span>
+<span id="cb39-2"><a href="s2.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># logit of the propensity score</span></span>
+<span id="cb39-3"><a href="s2.html#cb39-3" aria-hidden="true" tabindex="-1"></a>.<span class="dv">2</span><span class="sc">*</span><span class="fu">sd</span>(logitPS) <span class="co"># suggested in the literature</span></span></code></pre></div>
 <pre><code>## [1] 0.2606266</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="s2.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># choosing too strict PS has unintended consequences </span></span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="s2.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb40-2"><a href="s2.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span>
-<span id="cb40-3"><a href="s2.html#cb40-3" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(ps.formula, <span class="at">data =</span> analytic,</span>
-<span id="cb40-4"><a href="s2.html#cb40-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
-<span id="cb40-5"><a href="s2.html#cb40-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
-<span id="cb40-6"><a href="s2.html#cb40-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace=</span><span class="cn">FALSE</span>,</span>
-<span id="cb40-7"><a href="s2.html#cb40-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> .<span class="dv">2</span><span class="sc">*</span><span class="fu">sd</span>(logitPS), </span>
-<span id="cb40-8"><a href="s2.html#cb40-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
-<span id="cb40-9"><a href="s2.html#cb40-9" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>PS <span class="ot">&lt;-</span> match.obj<span class="sc">$</span>distance</span>
-<span id="cb40-10"><a href="s2.html#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match.obj<span class="sc">$</span>distance)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="s2.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># choosing too strict PS has unintended consequences </span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="s2.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb42-2"><a href="s2.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span>
+<span id="cb42-3"><a href="s2.html#cb42-3" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(ps.formula, <span class="at">data =</span> analytic,</span>
+<span id="cb42-4"><a href="s2.html#cb42-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
+<span id="cb42-5"><a href="s2.html#cb42-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
+<span id="cb42-6"><a href="s2.html#cb42-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace=</span><span class="cn">FALSE</span>,</span>
+<span id="cb42-7"><a href="s2.html#cb42-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> .<span class="dv">2</span><span class="sc">*</span><span class="fu">sd</span>(logitPS), </span>
+<span id="cb42-8"><a href="s2.html#cb42-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
+<span id="cb42-9"><a href="s2.html#cb42-9" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>PS <span class="ot">&lt;-</span> match.obj<span class="sc">$</span>distance</span>
+<span id="cb42-10"><a href="s2.html#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match.obj<span class="sc">$</span>distance)</span></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## 0.003916 0.068128 0.169946 0.211268 0.312987 0.925132</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="s2.html#cb42-1" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="s2.html#cb44-1" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
 <pre><code>## A matchit object
 ##  - method: 1:1 nearest neighbor matching without replacement
 ##  - distance: Propensity score [caliper]
@@ -444,14 +444,14 @@ div.csl-indent {
 <div id="matches" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Matches</h2>
 <p>Taking a closer look at the matches</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="s2.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ref: https://lists.gking.harvard.edu/pipermail/matchit/2013-October/000559.html</span></span>
-<span id="cb44-2"><a href="s2.html#cb44-2" aria-hidden="true" tabindex="-1"></a>matches <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(match.obj<span class="sc">$</span>match.matrix)</span>
-<span id="cb44-3"><a href="s2.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matches)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;matched_unit&quot;</span>)</span>
-<span id="cb44-4"><a href="s2.html#cb44-4" aria-hidden="true" tabindex="-1"></a>matches<span class="sc">$</span>matched_unit<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(</span>
-<span id="cb44-5"><a href="s2.html#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>(matches<span class="sc">$</span>matched_unit))</span>
-<span id="cb44-6"><a href="s2.html#cb44-6" aria-hidden="true" tabindex="-1"></a>matches<span class="sc">$</span>treated_unit<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">rownames</span>(matches))</span>
-<span id="cb44-7"><a href="s2.html#cb44-7" aria-hidden="true" tabindex="-1"></a>matches.only<span class="ot">&lt;-</span>matches[<span class="sc">!</span><span class="fu">is.na</span>(matches<span class="sc">$</span>matched_unit),]</span>
-<span id="cb44-8"><a href="s2.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(matches.only)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="s2.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ref: https://lists.gking.harvard.edu/pipermail/matchit/2013-October/000559.html</span></span>
+<span id="cb46-2"><a href="s2.html#cb46-2" aria-hidden="true" tabindex="-1"></a>matches <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(match.obj<span class="sc">$</span>match.matrix)</span>
+<span id="cb46-3"><a href="s2.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matches)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;matched_unit&quot;</span>)</span>
+<span id="cb46-4"><a href="s2.html#cb46-4" aria-hidden="true" tabindex="-1"></a>matches<span class="sc">$</span>matched_unit<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(</span>
+<span id="cb46-5"><a href="s2.html#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>(matches<span class="sc">$</span>matched_unit))</span>
+<span id="cb46-6"><a href="s2.html#cb46-6" aria-hidden="true" tabindex="-1"></a>matches<span class="sc">$</span>treated_unit<span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">rownames</span>(matches))</span>
+<span id="cb46-7"><a href="s2.html#cb46-7" aria-hidden="true" tabindex="-1"></a>matches.only<span class="ot">&lt;-</span>matches[<span class="sc">!</span><span class="fu">is.na</span>(matches<span class="sc">$</span>matched_unit),]</span>
+<span id="cb46-8"><a href="s2.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(matches.only)</span></code></pre></div>
 <pre><code>##     matched_unit treated_unit
 ## 40          8496           40
 ## 56          3139           56
@@ -459,12 +459,12 @@ div.csl-indent {
 ## 66            94           66
 ## 86          2212           86
 ## 110         7154          110</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="s2.html#cb46-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span>
-<span id="cb46-2"><a href="s2.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">table</span>(matched.data<span class="sc">$</span>subclass))</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="s2.html#cb48-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span>
+<span id="cb48-2"><a href="s2.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">table</span>(matched.data<span class="sc">$</span>subclass))</span></code></pre></div>
 <pre><code>## 
 ## 1 2 3 4 5 6 
 ## 2 2 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="s2.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(matched.data<span class="sc">$</span>subclass))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="s2.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(matched.data<span class="sc">$</span>subclass))</span></code></pre></div>
 <pre><code>## [1] 316</code></pre>
 </div>
 <div id="other-matching-algorithms" class="section level2" number="5.6">
