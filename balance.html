@@ -442,7 +442,48 @@ When L includes a large number of covariates, matching method would result in a 
 </tr>
 </tbody>
 </table>
-<p>Regression is also a popular adjustment method.</p>
+<p>Regression is also a popular adjustment method. Below is a list of adjustment methods that uses different combinations of exposure and outcome modelling.</p>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="39%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th align="center">Exposure model <span class="math inline">\((\color{green}{\text{A}} \sim ...)\)</span></th>
+<th align="center">Outcome Model <span class="math inline">\((Y \sim ...)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regression</td>
+<td align="center">No <span class="math inline">\(\color{green}{\text{A}}\)</span> modelling</td>
+<td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+\color{red}{\text{L}})\)</span></td>
+</tr>
+<tr class="even">
+<td>Propensity score matching</td>
+<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
+<td align="center">Crude comparison on matched data <span class="math inline">\((Y \sim \color{green}{\text{A}})\)</span></td>
+</tr>
+<tr class="odd">
+<td>Propensity score Weighting</td>
+<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
+<td align="center">Crude comparison on weighted data <span class="math inline">\((Y \sim \color{green}{\text{A}})\)</span></td>
+</tr>
+<tr class="even">
+<td>Propensity score double adjustment</td>
+<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
+<td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+ \color{red}{\text{L}})\)</span></td>
+</tr>
+<tr class="odd">
+<td>Double robust (augmented weighted, or TMLE), potentially using machine learning</td>
+<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
+<td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+ \color{red}{\text{L}})\)</span></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="lack-of-overlap" class="section level2" number="2.3">
