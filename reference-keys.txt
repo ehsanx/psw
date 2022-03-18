@@ -72,6 +72,14 @@ regression
 ps-1
 machine-learning
 regression-is-doomed
+misspecify
+complex-data-simulation
+understanding-finite-sample-bias
+estimation-using-different-methods
+regression-1
+propensity-score
+double-machine-learning-method
+double-robust-method-tmle
 guide
 discipline-specific-reviews
 suggested-guidelines
@@ -80,5 +88,6 @@ final
 common-misconception
 benifits-of-ps
 limitations-of-ps
+sensitivity-analysis
 software
 further-resources

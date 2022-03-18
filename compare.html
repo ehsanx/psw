@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 PS vs. Regression | Understanding Propensity Score Matching</title>
   <meta name="description" content="Chapter 8 PS vs. Regression | Understanding Propensity Score Matching." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 PS vs. Regression | Understanding Propensity Score Matching" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Chapter 8 PS vs. Regression | Understanding Propensity Score Matching." />
   <meta name="github-repo" content="ehsanx/UnderstandingPropensityScore" />
@@ -32,8 +31,7 @@
   
   
 <link rel="prev" href="s4.html"/>
-<link rel="next" href="guide.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<link rel="next" href="misspecify.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script type="text/javascript">
@@ -185,138 +184,156 @@ div.csl-indent {
 <li><a href="./">Understanding Propensity Score Matching</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preamble</a>
+<li><a href="index.html#preamble">Preamble<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#description"><i class="fa fa-check"></i>Description</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#main-references"><i class="fa fa-check"></i>Main references</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#version-history"><i class="fa fa-check"></i>Version history</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a>
+<li><a href="index.html#description">Description<span></span></a></li>
+<li><a href="index.html#main-references">Main references<span></span></a></li>
+<li><a href="index.html#version-history">Version history<span></span></a></li>
+<li><a href="index.html#prerequisites">Prerequisites<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+<li><a href="index.html#license">License<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#comments"><i class="fa fa-check"></i>Comments</a></li>
+<li><a href="index.html#comments">Comments<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terms.html"><a href="terms.html"><i class="fa fa-check"></i><b>1</b> Defining Parameter</a>
+<li class="chapter" data-level="1" data-path="terms.html"><a href="terms.html"><i class="fa fa-check"></i><b>1</b> Defining Parameter<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="terms.html"><a href="terms.html#potential-outcome"><i class="fa fa-check"></i><b>1.1</b> Potential outcome</a></li>
-<li class="chapter" data-level="1.2" data-path="terms.html"><a href="terms.html#parameters-of-interest"><i class="fa fa-check"></i><b>1.2</b> Parameters of interest</a>
+<li class="chapter" data-level="1.1" data-path="terms.html"><a href="terms.html#potential-outcome"><i class="fa fa-check"></i><b>1.1</b> Potential outcome<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="terms.html"><a href="terms.html#parameters-of-interest"><i class="fa fa-check"></i><b>1.2</b> Parameters of interest<span></span></a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="terms.html"><a href="terms.html#te"><i class="fa fa-check"></i><b>1.2.1</b> TE</a></li>
-<li class="chapter" data-level="1.2.2" data-path="terms.html"><a href="terms.html#ate"><i class="fa fa-check"></i><b>1.2.2</b> ATE</a></li>
-<li class="chapter" data-level="1.2.3" data-path="terms.html"><a href="terms.html#interpretation-of-ate"><i class="fa fa-check"></i><b>1.2.3</b> Interpretation of ATE</a></li>
-<li class="chapter" data-level="1.2.4" data-path="terms.html"><a href="terms.html#identifiability-assumptions"><i class="fa fa-check"></i><b>1.2.4</b> Identifiability Assumptions</a></li>
-<li class="chapter" data-level="1.2.5" data-path="terms.html"><a href="terms.html#att"><i class="fa fa-check"></i><b>1.2.5</b> ATT</a></li>
-<li class="chapter" data-level="1.2.6" data-path="terms.html"><a href="terms.html#interpretation-of-att"><i class="fa fa-check"></i><b>1.2.6</b> Interpretation of ATT</a></li>
-<li class="chapter" data-level="1.2.7" data-path="terms.html"><a href="terms.html#att-vs.-ate"><i class="fa fa-check"></i><b>1.2.7</b> ATT vs. ATE</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="balance.html"><a href="balance.html"><i class="fa fa-check"></i><b>2</b> Balance and Overlap</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="balance.html"><a href="balance.html#balance-1"><i class="fa fa-check"></i><b>2.1</b> Balance</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="balance.html"><a href="balance.html#measures-of-balance"><i class="fa fa-check"></i><b>2.1.1</b> Measures of Balance</a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="balance.html"><a href="balance.html#adjustment"><i class="fa fa-check"></i><b>2.2</b> Adjustment</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="balance.html"><a href="balance.html#why-adjust"><i class="fa fa-check"></i><b>2.2.1</b> Why adjust?</a></li>
-<li class="chapter" data-level="2.2.2" data-path="balance.html"><a href="balance.html#adjustment-methods"><i class="fa fa-check"></i><b>2.2.2</b> Adjustment Methods</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="balance.html"><a href="balance.html#lack-of-overlap"><i class="fa fa-check"></i><b>2.3</b> Lack of overlap</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="ps.html"><a href="ps.html"><i class="fa fa-check"></i><b>3</b> Propensity score</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="ps.html"><a href="ps.html#motivating-problem"><i class="fa fa-check"></i><b>3.1</b> Motivating problem</a></li>
-<li class="chapter" data-level="3.2" data-path="ps.html"><a href="ps.html#defining-propensity-score"><i class="fa fa-check"></i><b>3.2</b> Defining Propensity score</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="ps.html"><a href="ps.html#theoretical-result"><i class="fa fa-check"></i><b>3.2.1</b> Theoretical result</a></li>
-<li class="chapter" data-level="3.2.2" data-path="ps.html"><a href="ps.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
-<li class="chapter" data-level="3.2.3" data-path="ps.html"><a href="ps.html#ways-to-use-ps"><i class="fa fa-check"></i><b>3.2.3</b> Ways to use PS</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="ps.html"><a href="ps.html#ps-matching-steps"><i class="fa fa-check"></i><b>3.3</b> PS Matching Steps</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="s1.html"><a href="s1.html"><i class="fa fa-check"></i><b>4</b> Step 1: Exposure modelling</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="s1.html"><a href="s1.html#model-specification"><i class="fa fa-check"></i><b>4.1</b> Model specification</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="s1.html"><a href="s1.html#updating-model-specification"><i class="fa fa-check"></i><b>4.1.1</b> Updating model specification</a></li>
-<li class="chapter" data-level="4.1.2" data-path="s1.html"><a href="s1.html#stability-of-ps"><i class="fa fa-check"></i><b>4.1.2</b> Stability of PS</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="s1.html"><a href="s1.html#variables-to-adjust"><i class="fa fa-check"></i><b>4.2</b> Variables to adjust</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="s1.html"><a href="s1.html#best-approach"><i class="fa fa-check"></i><b>4.2.1</b> Best approach</a></li>
-<li class="chapter" data-level="4.2.2" data-path="s1.html"><a href="s1.html#general-guideline-of-type-of-variables"><i class="fa fa-check"></i><b>4.2.2</b> General guideline of type of variables</a></li>
-<li class="chapter" data-level="4.2.3" data-path="s1.html"><a href="s1.html#what-not-to-include"><i class="fa fa-check"></i><b>4.2.3</b> What NOT to include</a></li>
-<li class="chapter" data-level="4.2.4" data-path="s1.html"><a href="s1.html#mediators"><i class="fa fa-check"></i><b>4.2.4</b> Mediators</a></li>
-<li class="chapter" data-level="4.2.5" data-path="s1.html"><a href="s1.html#unmeasured-confounding"><i class="fa fa-check"></i><b>4.2.5</b> Unmeasured confounding</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="s1.html"><a href="s1.html#model-selection-not-encouraged"><i class="fa fa-check"></i><b>4.3</b> Model selection (Not encouraged!)</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="s1.html"><a href="s1.html#based-on-association-with-outcome"><i class="fa fa-check"></i><b>4.3.1</b> Based on association with outcome</a></li>
-<li class="chapter" data-level="4.3.2" data-path="s1.html"><a href="s1.html#based-on-association-with-exposure"><i class="fa fa-check"></i><b>4.3.2</b> Based on association with exposure</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="s1.html"><a href="s1.html#alternative-modelling-strategies"><i class="fa fa-check"></i><b>4.4</b> Alternative modelling strategies</a></li>
-<li class="chapter" data-level="4.5" data-path="s1.html"><a href="s1.html#ps-estimation"><i class="fa fa-check"></i><b>4.5</b> PS estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="s2.html"><a href="s2.html"><i class="fa fa-check"></i><b>5</b> Step 2: Propensity score Matching</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="s2.html"><a href="s2.html#matching-method-nn"><i class="fa fa-check"></i><b>5.1</b> Matching method NN</a></li>
-<li class="chapter" data-level="5.2" data-path="s2.html"><a href="s2.html#initial-fit"><i class="fa fa-check"></i><b>5.2</b> Initial fit</a></li>
-<li class="chapter" data-level="5.3" data-path="s2.html"><a href="s2.html#fine-tuning-add-caliper"><i class="fa fa-check"></i><b>5.3</b> Fine tuning: add caliper</a></li>
-<li class="chapter" data-level="5.4" data-path="s2.html"><a href="s2.html#things-to-keep-track-of"><i class="fa fa-check"></i><b>5.4</b> Things to keep track of</a></li>
-<li class="chapter" data-level="5.5" data-path="s2.html"><a href="s2.html#matches"><i class="fa fa-check"></i><b>5.5</b> Matches</a></li>
-<li class="chapter" data-level="5.6" data-path="s2.html"><a href="s2.html#other-matching-algorithms"><i class="fa fa-check"></i><b>5.6</b> Other matching algorithms</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="s3.html"><a href="s3.html"><i class="fa fa-check"></i><b>6</b> Step 3: Balance and overlap</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="s3.html"><a href="s3.html#assessment-of-balance-by-smd"><i class="fa fa-check"></i><b>6.1</b> Assessment of Balance by SMD</a></li>
-<li class="chapter" data-level="6.2" data-path="s3.html"><a href="s3.html#smd-vs.-p-values"><i class="fa fa-check"></i><b>6.2</b> SMD vs. P-values</a></li>
-<li class="chapter" data-level="6.3" data-path="s3.html"><a href="s3.html#vizualization-for-overlap"><i class="fa fa-check"></i><b>6.3</b> Vizualization for Overlap</a></li>
-<li class="chapter" data-level="6.4" data-path="s3.html"><a href="s3.html#variance-ratio-1"><i class="fa fa-check"></i><b>6.4</b> Variance ratio</a></li>
-<li class="chapter" data-level="6.5" data-path="s3.html"><a href="s3.html#close-inspection-of-boundaries"><i class="fa fa-check"></i><b>6.5</b> Close inspection of boundaries</a></li>
-<li class="chapter" data-level="6.6" data-path="s3.html"><a href="s3.html#unsatirfactory-balance"><i class="fa fa-check"></i><b>6.6</b> Unsatirfactory balance</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="s4.html"><a href="s4.html"><i class="fa fa-check"></i><b>7</b> Step 4: Outcome modelling</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="s4.html"><a href="s4.html#crude-outcome-model"><i class="fa fa-check"></i><b>7.1</b> Crude outcome model</a></li>
-<li class="chapter" data-level="7.2" data-path="s4.html"><a href="s4.html#double-adjustment"><i class="fa fa-check"></i><b>7.2</b> Double-adjustment</a></li>
-<li class="chapter" data-level="7.3" data-path="s4.html"><a href="s4.html#adjusted-outcome-model"><i class="fa fa-check"></i><b>7.3</b> Adjusted outcome model</a></li>
-<li class="chapter" data-level="7.4" data-path="s4.html"><a href="s4.html#variance-considerations"><i class="fa fa-check"></i><b>7.4</b> Variance considerations</a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="s4.html"><a href="s4.html#cluster-option"><i class="fa fa-check"></i><b>7.4.1</b> Cluster option</a></li>
-<li class="chapter" data-level="7.4.2" data-path="s4.html"><a href="s4.html#bootstrap"><i class="fa fa-check"></i><b>7.4.2</b> Bootstrap</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="s4.html"><a href="s4.html#estimate-obtained"><i class="fa fa-check"></i><b>7.5</b> Estimate obtained</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>8</b> PS vs. Regression</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="compare.html"><a href="compare.html#data-simulation"><i class="fa fa-check"></i><b>8.1</b> Data Simulation</a></li>
-<li class="chapter" data-level="8.2" data-path="compare.html"><a href="compare.html#treatment-effect-from-counterfactuals"><i class="fa fa-check"></i><b>8.2</b> Treatment effect from counterfactuals</a></li>
-<li class="chapter" data-level="8.3" data-path="compare.html"><a href="compare.html#treatment-effect-from-regression"><i class="fa fa-check"></i><b>8.3</b> Treatment effect from Regression</a></li>
-<li class="chapter" data-level="8.4" data-path="compare.html"><a href="compare.html#treatment-effect-from-ps"><i class="fa fa-check"></i><b>8.4</b> Treatment effect from PS</a></li>
-<li class="chapter" data-level="8.5" data-path="compare.html"><a href="compare.html#non-linear-model"><i class="fa fa-check"></i><b>8.5</b> Non-linear Model</a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="compare.html"><a href="compare.html#data-generation"><i class="fa fa-check"></i><b>8.5.1</b> Data generation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="compare.html"><a href="compare.html#regression"><i class="fa fa-check"></i><b>8.5.2</b> Regression</a></li>
-<li class="chapter" data-level="8.5.3" data-path="compare.html"><a href="compare.html#ps-1"><i class="fa fa-check"></i><b>8.5.3</b> PS</a></li>
-<li class="chapter" data-level="8.5.4" data-path="compare.html"><a href="compare.html#machine-learning"><i class="fa fa-check"></i><b>8.5.4</b> Machine learning</a></li>
-<li class="chapter" data-level="8.5.5" data-path="compare.html"><a href="compare.html#regression-is-doomed"><i class="fa fa-check"></i><b>8.5.5</b> Regression is doomed?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="terms.html"><a href="terms.html#te"><i class="fa fa-check"></i><b>1.2.1</b> TE<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="terms.html"><a href="terms.html#ate"><i class="fa fa-check"></i><b>1.2.2</b> ATE<span></span></a></li>
+<li class="chapter" data-level="1.2.3" data-path="terms.html"><a href="terms.html#interpretation-of-ate"><i class="fa fa-check"></i><b>1.2.3</b> Interpretation of ATE<span></span></a></li>
+<li class="chapter" data-level="1.2.4" data-path="terms.html"><a href="terms.html#identifiability-assumptions"><i class="fa fa-check"></i><b>1.2.4</b> Identifiability Assumptions<span></span></a></li>
+<li class="chapter" data-level="1.2.5" data-path="terms.html"><a href="terms.html#att"><i class="fa fa-check"></i><b>1.2.5</b> ATT<span></span></a></li>
+<li class="chapter" data-level="1.2.6" data-path="terms.html"><a href="terms.html#interpretation-of-att"><i class="fa fa-check"></i><b>1.2.6</b> Interpretation of ATT<span></span></a></li>
+<li class="chapter" data-level="1.2.7" data-path="terms.html"><a href="terms.html#att-vs.-ate"><i class="fa fa-check"></i><b>1.2.7</b> ATT vs. ATE<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>9</b> Reporting Guidelines</a>
+<li class="chapter" data-level="2" data-path="balance.html"><a href="balance.html"><i class="fa fa-check"></i><b>2</b> Balance and Overlap<span></span></a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>9.1</b> Discipline-specific Reviews</a></li>
-<li class="chapter" data-level="9.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>9.2</b> Suggested Guidelines</a></li>
-<li class="chapter" data-level="9.3" data-path="guide.html"><a href="guide.html#additional-topics"><i class="fa fa-check"></i><b>9.3</b> Additional topics</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="final.html"><a href="final.html"><i class="fa fa-check"></i><b>10</b> Final Words</a>
+<li class="chapter" data-level="2.1" data-path="balance.html"><a href="balance.html#balance-1"><i class="fa fa-check"></i><b>2.1</b> Balance<span></span></a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="final.html"><a href="final.html#common-misconception"><i class="fa fa-check"></i><b>10.1</b> Common misconception</a></li>
-<li class="chapter" data-level="10.2" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>10.2</b> Benifits of PS</a></li>
-<li class="chapter" data-level="10.3" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>10.3</b> Limitations of PS</a></li>
-<li class="chapter" data-level="10.4" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>10.4</b> Software</a></li>
-<li class="chapter" data-level="10.5" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>10.5</b> Further Resources</a></li>
+<li class="chapter" data-level="2.1.1" data-path="balance.html"><a href="balance.html#measures-of-balance"><i class="fa fa-check"></i><b>2.1.1</b> Measures of Balance<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="2.2" data-path="balance.html"><a href="balance.html#adjustment"><i class="fa fa-check"></i><b>2.2</b> Adjustment<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="balance.html"><a href="balance.html#why-adjust"><i class="fa fa-check"></i><b>2.2.1</b> Why adjust?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="balance.html"><a href="balance.html#adjustment-methods"><i class="fa fa-check"></i><b>2.2.2</b> Adjustment Methods<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="balance.html"><a href="balance.html#lack-of-overlap"><i class="fa fa-check"></i><b>2.3</b> Lack of overlap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ps.html"><a href="ps.html"><i class="fa fa-check"></i><b>3</b> Propensity score<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ps.html"><a href="ps.html#motivating-problem"><i class="fa fa-check"></i><b>3.1</b> Motivating problem<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="ps.html"><a href="ps.html#defining-propensity-score"><i class="fa fa-check"></i><b>3.2</b> Defining Propensity score<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="ps.html"><a href="ps.html#theoretical-result"><i class="fa fa-check"></i><b>3.2.1</b> Theoretical result<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="ps.html"><a href="ps.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="ps.html"><a href="ps.html#ways-to-use-ps"><i class="fa fa-check"></i><b>3.2.3</b> Ways to use PS<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ps.html"><a href="ps.html#ps-matching-steps"><i class="fa fa-check"></i><b>3.3</b> PS Matching Steps<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="s1.html"><a href="s1.html"><i class="fa fa-check"></i><b>4</b> Step 1: Exposure modelling<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="s1.html"><a href="s1.html#model-specification"><i class="fa fa-check"></i><b>4.1</b> Model specification<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="s1.html"><a href="s1.html#updating-model-specification"><i class="fa fa-check"></i><b>4.1.1</b> Updating model specification<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="s1.html"><a href="s1.html#stability-of-ps"><i class="fa fa-check"></i><b>4.1.2</b> Stability of PS<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="s1.html"><a href="s1.html#variables-to-adjust"><i class="fa fa-check"></i><b>4.2</b> Variables to adjust<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="s1.html"><a href="s1.html#best-approach"><i class="fa fa-check"></i><b>4.2.1</b> Best approach<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="s1.html"><a href="s1.html#general-guideline-of-type-of-variables"><i class="fa fa-check"></i><b>4.2.2</b> General guideline of type of variables<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="s1.html"><a href="s1.html#what-not-to-include"><i class="fa fa-check"></i><b>4.2.3</b> What NOT to include<span></span></a></li>
+<li class="chapter" data-level="4.2.4" data-path="s1.html"><a href="s1.html#mediators"><i class="fa fa-check"></i><b>4.2.4</b> Mediators<span></span></a></li>
+<li class="chapter" data-level="4.2.5" data-path="s1.html"><a href="s1.html#unmeasured-confounding"><i class="fa fa-check"></i><b>4.2.5</b> Unmeasured confounding<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="s1.html"><a href="s1.html#model-selection-not-encouraged"><i class="fa fa-check"></i><b>4.3</b> Model selection (Not encouraged!)<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="s1.html"><a href="s1.html#based-on-association-with-outcome"><i class="fa fa-check"></i><b>4.3.1</b> Based on association with outcome<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="s1.html"><a href="s1.html#based-on-association-with-exposure"><i class="fa fa-check"></i><b>4.3.2</b> Based on association with exposure<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="s1.html"><a href="s1.html#alternative-modelling-strategies"><i class="fa fa-check"></i><b>4.4</b> Alternative modelling strategies<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="s1.html"><a href="s1.html#ps-estimation"><i class="fa fa-check"></i><b>4.5</b> PS estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="s2.html"><a href="s2.html"><i class="fa fa-check"></i><b>5</b> Step 2: Propensity score Matching<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="s2.html"><a href="s2.html#matching-method-nn"><i class="fa fa-check"></i><b>5.1</b> Matching method NN<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="s2.html"><a href="s2.html#initial-fit"><i class="fa fa-check"></i><b>5.2</b> Initial fit<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="s2.html"><a href="s2.html#fine-tuning-add-caliper"><i class="fa fa-check"></i><b>5.3</b> Fine tuning: add caliper<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="s2.html"><a href="s2.html#things-to-keep-track-of"><i class="fa fa-check"></i><b>5.4</b> Things to keep track of<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="s2.html"><a href="s2.html#matches"><i class="fa fa-check"></i><b>5.5</b> Matches<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="s2.html"><a href="s2.html#other-matching-algorithms"><i class="fa fa-check"></i><b>5.6</b> Other matching algorithms<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="s3.html"><a href="s3.html"><i class="fa fa-check"></i><b>6</b> Step 3: Balance and overlap<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="s3.html"><a href="s3.html#assessment-of-balance-by-smd"><i class="fa fa-check"></i><b>6.1</b> Assessment of Balance by SMD<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="s3.html"><a href="s3.html#smd-vs.-p-values"><i class="fa fa-check"></i><b>6.2</b> SMD vs. P-values<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="s3.html"><a href="s3.html#vizualization-for-overlap"><i class="fa fa-check"></i><b>6.3</b> Vizualization for Overlap<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="s3.html"><a href="s3.html#variance-ratio-1"><i class="fa fa-check"></i><b>6.4</b> Variance ratio<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="s3.html"><a href="s3.html#close-inspection-of-boundaries"><i class="fa fa-check"></i><b>6.5</b> Close inspection of boundaries<span></span></a></li>
+<li class="chapter" data-level="6.6" data-path="s3.html"><a href="s3.html#unsatirfactory-balance"><i class="fa fa-check"></i><b>6.6</b> Unsatirfactory balance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="s4.html"><a href="s4.html"><i class="fa fa-check"></i><b>7</b> Step 4: Outcome modelling<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="s4.html"><a href="s4.html#crude-outcome-model"><i class="fa fa-check"></i><b>7.1</b> Crude outcome model<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="s4.html"><a href="s4.html#double-adjustment"><i class="fa fa-check"></i><b>7.2</b> Double-adjustment<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="s4.html"><a href="s4.html#adjusted-outcome-model"><i class="fa fa-check"></i><b>7.3</b> Adjusted outcome model<span></span></a></li>
+<li class="chapter" data-level="7.4" data-path="s4.html"><a href="s4.html#variance-considerations"><i class="fa fa-check"></i><b>7.4</b> Variance considerations<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="s4.html"><a href="s4.html#cluster-option"><i class="fa fa-check"></i><b>7.4.1</b> Cluster option<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="s4.html"><a href="s4.html#bootstrap"><i class="fa fa-check"></i><b>7.4.2</b> Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="s4.html"><a href="s4.html#estimate-obtained"><i class="fa fa-check"></i><b>7.5</b> Estimate obtained<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>8</b> PS vs. Regression<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="compare.html"><a href="compare.html#data-simulation"><i class="fa fa-check"></i><b>8.1</b> Data Simulation<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="compare.html"><a href="compare.html#treatment-effect-from-counterfactuals"><i class="fa fa-check"></i><b>8.2</b> Treatment effect from counterfactuals<span></span></a></li>
+<li class="chapter" data-level="8.3" data-path="compare.html"><a href="compare.html#treatment-effect-from-regression"><i class="fa fa-check"></i><b>8.3</b> Treatment effect from Regression<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="compare.html"><a href="compare.html#treatment-effect-from-ps"><i class="fa fa-check"></i><b>8.4</b> Treatment effect from PS<span></span></a></li>
+<li class="chapter" data-level="8.5" data-path="compare.html"><a href="compare.html#non-linear-model"><i class="fa fa-check"></i><b>8.5</b> Non-linear Model<span></span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="compare.html"><a href="compare.html#data-generation"><i class="fa fa-check"></i><b>8.5.1</b> Data generation<span></span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="compare.html"><a href="compare.html#regression"><i class="fa fa-check"></i><b>8.5.2</b> Regression<span></span></a></li>
+<li class="chapter" data-level="8.5.3" data-path="compare.html"><a href="compare.html#ps-1"><i class="fa fa-check"></i><b>8.5.3</b> PS<span></span></a></li>
+<li class="chapter" data-level="8.5.4" data-path="compare.html"><a href="compare.html#machine-learning"><i class="fa fa-check"></i><b>8.5.4</b> Machine learning<span></span></a></li>
+<li class="chapter" data-level="8.5.5" data-path="compare.html"><a href="compare.html#regression-is-doomed"><i class="fa fa-check"></i><b>8.5.5</b> Regression is doomed?<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="misspecify.html"><a href="misspecify.html"><i class="fa fa-check"></i><b>9</b> Model-misspecification<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="misspecify.html"><a href="misspecify.html#complex-data-simulation"><i class="fa fa-check"></i><b>9.1</b> Complex Data Simulation<span></span></a>
+<ul>
+<li><a href="misspecify.html#true-exposure-model">True Exposure Model<span></span></a></li>
+<li><a href="misspecify.html#true-outcome-model">True Outcome Model<span></span></a></li>
+<li><a href="misspecify.html#outcomes-and-exposures-are-complex-functions-of-measured-covariates">Outcomes and exposures are complex functions of measured covariates<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="misspecify.html"><a href="misspecify.html#understanding-finite-sample-bias"><i class="fa fa-check"></i><b>9.2</b> Understanding finite sample bias<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="misspecify.html"><a href="misspecify.html#estimation-using-different-methods"><i class="fa fa-check"></i><b>9.3</b> Estimation using different methods<span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="misspecify.html"><a href="misspecify.html#regression-1"><i class="fa fa-check"></i><b>9.3.1</b> Regression<span></span></a></li>
+<li class="chapter" data-level="9.3.2" data-path="misspecify.html"><a href="misspecify.html#propensity-score"><i class="fa fa-check"></i><b>9.3.2</b> Propensity score<span></span></a></li>
+<li class="chapter" data-level="9.3.3" data-path="misspecify.html"><a href="misspecify.html#double-machine-learning-method"><i class="fa fa-check"></i><b>9.3.3</b> Double machine learning method<span></span></a></li>
+<li class="chapter" data-level="9.3.4" data-path="misspecify.html"><a href="misspecify.html#double-robust-method-tmle"><i class="fa fa-check"></i><b>9.3.4</b> Double robust method (TMLE)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>10</b> Reporting Guidelines<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>10.1</b> Discipline-specific Reviews<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>10.2</b> Suggested Guidelines<span></span></a></li>
+<li class="chapter" data-level="10.3" data-path="guide.html"><a href="guide.html#additional-topics"><i class="fa fa-check"></i><b>10.3</b> Additional topics<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="final.html"><a href="final.html"><i class="fa fa-check"></i><b>11</b> Final Words<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="final.html"><a href="final.html#common-misconception"><i class="fa fa-check"></i><b>11.1</b> Common misconception<span></span></a></li>
+<li class="chapter" data-level="11.2" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>11.2</b> Benifits of PS<span></span></a></li>
+<li class="chapter" data-level="11.3" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>11.3</b> Limitations of PS<span></span></a></li>
+<li class="chapter" data-level="11.4" data-path="final.html"><a href="final.html#sensitivity-analysis"><i class="fa fa-check"></i><b>11.4</b> Sensitivity analysis<span></span></a></li>
+<li class="chapter" data-level="11.5" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>11.5</b> Software<span></span></a></li>
+<li class="chapter" data-level="11.6" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>11.6</b> Further Resources<span></span></a></li>
+</ul></li>
+<li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://ehsank.com/" target="blank">Ehsan Karim</a></li>
 
@@ -337,10 +354,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="compare" class="section level1" number="8">
-<h1><span class="header-section-number">Chapter 8</span> PS vs. Regression</h1>
-<div id="data-simulation" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Data Simulation</h2>
+<div id="compare" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> PS vs. Regression<a href="compare.html#compare" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="data-simulation" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Data Simulation<a href="compare.html#data-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Simplified simulation example, so that we know the true parameter <span class="math inline">\(\theta\)</span>.</p>
 <table>
 <tbody>
@@ -381,143 +398,145 @@ div.csl-indent {
 </ul></li>
 </ul>
 <p>Note that, given the data generating mechanism, <span class="math inline">\(L\)</span> is a <strong>confounders</strong>, and should be <strong>adjusted</strong>.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="compare.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(simcausal)</span>
-<span id="cb82-2"><a href="compare.html#cb82-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">DAG.empty</span>()</span>
-<span id="cb82-3"><a href="compare.html#cb82-3" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> D <span class="sc">+</span></span>
-<span id="cb82-4"><a href="compare.html#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node</span>(<span class="st">&quot;L&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb82-5"><a href="compare.html#cb82-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(<span class="fl">0.4</span><span class="sc">*</span>L)) <span class="sc">+</span></span>
-<span id="cb82-6"><a href="compare.html#cb82-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node</span>(<span class="st">&quot;Y&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">3</span> <span class="sc">*</span> L <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> A, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb82-7"><a href="compare.html#cb82-7" aria-hidden="true" tabindex="-1"></a>Dset <span class="ot">&lt;-</span> <span class="fu">set.DAG</span>(D)</span></code></pre></div>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="compare.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotDAG</span>(Dset, <span class="at">xjitter =</span> <span class="fl">0.1</span>, <span class="at">yjitter =</span> .<span class="dv">9</span>,</span>
-<span id="cb83-2"><a href="compare.html#cb83-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">edge_attrs =</span> <span class="fu">list</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">arrow.width =</span> <span class="fl">0.4</span>, <span class="at">arrow.size =</span> <span class="fl">1.7</span>),</span>
-<span id="cb83-3"><a href="compare.html#cb83-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vertex_attrs =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">label.cex =</span> <span class="fl">1.8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="compare.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(simcausal)</span>
+<span id="cb83-2"><a href="compare.html#cb83-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">DAG.empty</span>()</span>
+<span id="cb83-3"><a href="compare.html#cb83-3" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> D <span class="sc">+</span></span>
+<span id="cb83-4"><a href="compare.html#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node</span>(<span class="st">&quot;L&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb83-5"><a href="compare.html#cb83-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(<span class="fl">0.4</span><span class="sc">*</span>L)) <span class="sc">+</span></span>
+<span id="cb83-6"><a href="compare.html#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node</span>(<span class="st">&quot;Y&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">3</span> <span class="sc">*</span> L <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> A, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb83-7"><a href="compare.html#cb83-7" aria-hidden="true" tabindex="-1"></a>Dset <span class="ot">&lt;-</span> <span class="fu">set.DAG</span>(D)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="compare.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotDAG</span>(Dset, <span class="at">xjitter =</span> <span class="fl">0.1</span>, <span class="at">yjitter =</span> .<span class="dv">9</span>,</span>
+<span id="cb84-2"><a href="compare.html#cb84-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">edge_attrs =</span> <span class="fu">list</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">arrow.width =</span> <span class="fl">0.4</span>, <span class="at">arrow.size =</span> <span class="fl">1.7</span>),</span>
+<span id="cb84-3"><a href="compare.html#cb84-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">vertex_attrs =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">label.cex =</span> <span class="fl">1.8</span>))</span></code></pre></div>
 <pre><code>## using the following vertex attributes:</code></pre>
 <pre><code>## 181.8NAdarkbluenone0</code></pre>
 <pre><code>## using the following edge attributes:</code></pre>
 <pre><code>## 0.50.41.7black1</code></pre>
-<p><img src="UnderstandingPropensityScore_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="compare.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data generating function</span></span>
-<span id="cb88-2"><a href="compare.html#cb88-2" aria-hidden="true" tabindex="-1"></a>fnc <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">seedx =</span> <span class="dv">123</span>){</span>
-<span id="cb88-3"><a href="compare.html#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(simcausal)</span>
-<span id="cb88-4"><a href="compare.html#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seedx)</span>
-<span id="cb88-5"><a href="compare.html#cb88-5" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">DAG.empty</span>()</span>
-<span id="cb88-6"><a href="compare.html#cb88-6" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> D <span class="sc">+</span></span>
-<span id="cb88-7"><a href="compare.html#cb88-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;L&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb88-8"><a href="compare.html#cb88-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(<span class="fl">0.4</span><span class="sc">*</span>L)) <span class="sc">+</span></span>
-<span id="cb88-9"><a href="compare.html#cb88-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;Y&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">3</span> <span class="sc">*</span> L <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> A, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb88-10"><a href="compare.html#cb88-10" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> <span class="fu">set.DAG</span>(D)</span>
-<span id="cb88-11"><a href="compare.html#cb88-11" aria-hidden="true" tabindex="-1"></a>  A1 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">1</span>)</span>
-<span id="cb88-12"><a href="compare.html#cb88-12" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A1&quot;</span>, <span class="at">nodes =</span> A1)</span>
-<span id="cb88-13"><a href="compare.html#cb88-13" aria-hidden="true" tabindex="-1"></a>  A0 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">0</span>)</span>
-<span id="cb88-14"><a href="compare.html#cb88-14" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A0&quot;</span>, <span class="at">nodes =</span> A0)</span>
-<span id="cb88-15"><a href="compare.html#cb88-15" aria-hidden="true" tabindex="-1"></a>  Cdat <span class="ot">&lt;-</span> <span class="fu">sim</span>(<span class="at">DAG =</span> Dset, <span class="at">actions =</span> <span class="fu">c</span>(<span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A0&quot;</span>), <span class="at">n =</span> n, <span class="at">rndseed =</span> <span class="dv">123</span>)</span>
-<span id="cb88-16"><a href="compare.html#cb88-16" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cbind</span>(Cdat<span class="sc">$</span>A1[<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y&quot;</span>)],Cdat<span class="sc">$</span>A0[<span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>)]),<span class="dv">2</span>)</span>
-<span id="cb88-17"><a href="compare.html#cb88-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(generated.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y0&quot;</span>)</span>
-<span id="cb88-18"><a href="compare.html#cb88-18" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>L, generated.data<span class="sc">$</span>ID),]</span>
-<span id="cb88-19"><a href="compare.html#cb88-19" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb88-20"><a href="compare.html#cb88-20" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(generated.data<span class="sc">$</span>A<span class="sc">==</span><span class="dv">0</span>, generated.data<span class="sc">$</span>Y0, generated.data<span class="sc">$</span>Y1)</span>
-<span id="cb88-21"><a href="compare.html#cb88-21" aria-hidden="true" tabindex="-1"></a>  counterfactual.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;Y0&quot;</span>)]</span>
-<span id="cb88-22"><a href="compare.html#cb88-22" aria-hidden="true" tabindex="-1"></a>  observed.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y&quot;</span>)]</span>
-<span id="cb88-23"><a href="compare.html#cb88-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">counterfactual=</span>counterfactual.dataset,</span>
-<span id="cb88-24"><a href="compare.html#cb88-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">observed=</span>observed.dataset))</span>
-<span id="cb88-25"><a href="compare.html#cb88-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="UnderstandingPropensityScore_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="compare.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data generating function</span></span>
+<span id="cb89-2"><a href="compare.html#cb89-2" aria-hidden="true" tabindex="-1"></a>fnc <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">seedx =</span> <span class="dv">123</span>){</span>
+<span id="cb89-3"><a href="compare.html#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(simcausal)</span>
+<span id="cb89-4"><a href="compare.html#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seedx)</span>
+<span id="cb89-5"><a href="compare.html#cb89-5" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">DAG.empty</span>()</span>
+<span id="cb89-6"><a href="compare.html#cb89-6" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> D <span class="sc">+</span></span>
+<span id="cb89-7"><a href="compare.html#cb89-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;L&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb89-8"><a href="compare.html#cb89-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(<span class="fl">0.4</span><span class="sc">*</span>L)) <span class="sc">+</span></span>
+<span id="cb89-9"><a href="compare.html#cb89-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;Y&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">3</span> <span class="sc">*</span> L <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> A, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb89-10"><a href="compare.html#cb89-10" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> <span class="fu">set.DAG</span>(D)</span>
+<span id="cb89-11"><a href="compare.html#cb89-11" aria-hidden="true" tabindex="-1"></a>  A1 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">1</span>)</span>
+<span id="cb89-12"><a href="compare.html#cb89-12" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A1&quot;</span>, <span class="at">nodes =</span> A1)</span>
+<span id="cb89-13"><a href="compare.html#cb89-13" aria-hidden="true" tabindex="-1"></a>  A0 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">0</span>)</span>
+<span id="cb89-14"><a href="compare.html#cb89-14" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A0&quot;</span>, <span class="at">nodes =</span> A0)</span>
+<span id="cb89-15"><a href="compare.html#cb89-15" aria-hidden="true" tabindex="-1"></a>  Cdat <span class="ot">&lt;-</span> <span class="fu">sim</span>(<span class="at">DAG =</span> Dset, <span class="at">actions =</span> <span class="fu">c</span>(<span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A0&quot;</span>), <span class="at">n =</span> n, <span class="at">rndseed =</span> <span class="dv">123</span>)</span>
+<span id="cb89-16"><a href="compare.html#cb89-16" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cbind</span>(Cdat<span class="sc">$</span>A1[<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y&quot;</span>)],Cdat<span class="sc">$</span>A0[<span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>)]),<span class="dv">2</span>)</span>
+<span id="cb89-17"><a href="compare.html#cb89-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(generated.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y0&quot;</span>)</span>
+<span id="cb89-18"><a href="compare.html#cb89-18" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>L, generated.data<span class="sc">$</span>ID),]</span>
+<span id="cb89-19"><a href="compare.html#cb89-19" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb89-20"><a href="compare.html#cb89-20" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(generated.data<span class="sc">$</span>A<span class="sc">==</span><span class="dv">0</span>, generated.data<span class="sc">$</span>Y0, generated.data<span class="sc">$</span>Y1)</span>
+<span id="cb89-21"><a href="compare.html#cb89-21" aria-hidden="true" tabindex="-1"></a>  counterfactual.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;Y0&quot;</span>)]</span>
+<span id="cb89-22"><a href="compare.html#cb89-22" aria-hidden="true" tabindex="-1"></a>  observed.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y&quot;</span>)]</span>
+<span id="cb89-23"><a href="compare.html#cb89-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">counterfactual=</span>counterfactual.dataset,</span>
+<span id="cb89-24"><a href="compare.html#cb89-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">observed=</span>observed.dataset))</span>
+<span id="cb89-25"><a href="compare.html#cb89-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>10 observations from the data generation:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="compare.html#cb89-1" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">fnc</span>(<span class="at">n=</span><span class="dv">10</span>)  </span></code></pre></div>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="compare.html#cb90-1" aria-hidden="true" tabindex="-1"></a>result.data</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="compare.html#cb90-1" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">fnc</span>(<span class="at">n=</span><span class="dv">10</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="compare.html#cb91-1" aria-hidden="true" tabindex="-1"></a>result.data</span></code></pre></div>
 <pre><code>## $counterfactual
 ##    ID     L A    Y1    Y0
-## 1   1  9.44 0 30.24 29.54
-## 2   2  9.77 0 30.37 29.67
-## 3   3 11.56 1 35.78 35.08
+## 1   1  9.44 1 30.24 29.54
+## 2   2  9.77 1 30.37 29.67
+## 3   3 11.56 0 35.78 35.08
 ## 4   4 10.07 1 31.02 30.32
-## 5   5 10.13 0 30.53 29.83
+## 5   5 10.13 1 30.53 29.83
 ## 6   6 11.72 1 37.63 36.93
 ## 7   7 10.46 1 32.58 31.88
-## 8   8  8.73 1 24.94 24.24
-## 9   9  9.31 0 29.34 28.64
+## 8   8  8.73 0 24.94 24.24
+## 9   9  9.31 1 29.34 28.64
 ## 10 10  9.55 1 28.89 28.19
 ## 
 ## $observed
 ##    ID     L A     Y
-## 1   1  9.44 0 29.54
-## 2   2  9.77 0 29.67
-## 3   3 11.56 1 35.78
+## 1   1  9.44 1 30.24
+## 2   2  9.77 1 30.37
+## 3   3 11.56 0 35.08
 ## 4   4 10.07 1 31.02
-## 5   5 10.13 0 29.83
+## 5   5 10.13 1 30.53
 ## 6   6 11.72 1 37.63
 ## 7   7 10.46 1 32.58
-## 8   8  8.73 1 24.94
-## 9   9  9.31 0 28.64
+## 8   8  8.73 0 24.24
+## 9   9  9.31 1 29.34
 ## 10 10  9.55 1 28.89</code></pre>
 </div>
-<div id="treatment-effect-from-counterfactuals" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Treatment effect from counterfactuals</h2>
+<div id="treatment-effect-from-counterfactuals" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Treatment effect from counterfactuals<a href="compare.html#treatment-effect-from-counterfactuals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>True <span class="math inline">\(\theta\)</span> can be obtained from counterfactual data:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="compare.html#cb92-1" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>counterfactual<span class="sc">$</span>TE <span class="ot">&lt;-</span> result.data<span class="sc">$</span>counterfactual<span class="sc">$</span>Y1<span class="sc">-</span> result.data<span class="sc">$</span>counterfactual<span class="sc">$</span>Y0</span>
-<span id="cb92-2"><a href="compare.html#cb92-2" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>counterfactual</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="compare.html#cb93-1" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>counterfactual<span class="sc">$</span>TE <span class="ot">&lt;-</span> result.data<span class="sc">$</span>counterfactual<span class="sc">$</span>Y1<span class="sc">-</span> result.data<span class="sc">$</span>counterfactual<span class="sc">$</span>Y0</span>
+<span id="cb93-2"><a href="compare.html#cb93-2" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>counterfactual</span></code></pre></div>
 <pre><code>##    ID     L A    Y1    Y0  TE
-## 1   1  9.44 0 30.24 29.54 0.7
-## 2   2  9.77 0 30.37 29.67 0.7
-## 3   3 11.56 1 35.78 35.08 0.7
+## 1   1  9.44 1 30.24 29.54 0.7
+## 2   2  9.77 1 30.37 29.67 0.7
+## 3   3 11.56 0 35.78 35.08 0.7
 ## 4   4 10.07 1 31.02 30.32 0.7
-## 5   5 10.13 0 30.53 29.83 0.7
+## 5   5 10.13 1 30.53 29.83 0.7
 ## 6   6 11.72 1 37.63 36.93 0.7
 ## 7   7 10.46 1 32.58 31.88 0.7
-## 8   8  8.73 1 24.94 24.24 0.7
-## 9   9  9.31 0 29.34 28.64 0.7
+## 8   8  8.73 0 24.94 24.24 0.7
+## 9   9  9.31 1 29.34 28.64 0.7
 ## 10 10  9.55 1 28.89 28.19 0.7</code></pre>
 </div>
-<div id="treatment-effect-from-regression" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Treatment effect from Regression</h2>
+<div id="treatment-effect-from-regression" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Treatment effect from Regression<a href="compare.html#treatment-effect-from-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>What happens in observed data for a sample of size 10?</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="compare.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="compare.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A 
-##       29.96        0.74</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="compare.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+##       29.66        1.67</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="compare.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A           L 
-##       -0.08        0.73        3.01</code></pre>
+##       -7.30        1.99        3.64</code></pre>
 <p>What happens in observed data for a sample of size 10000?</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="compare.html#cb98-1" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">fnc</span>(<span class="at">n=</span><span class="dv">10000</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="compare.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="compare.html#cb99-1" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">fnc</span>(<span class="at">n=</span><span class="dv">10000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="compare.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A 
-##       29.91        0.86</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="compare.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+##       29.96        0.75</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="compare.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A           L 
-##       -0.08        0.73        3.01</code></pre>
+##       -0.07        0.69        3.01</code></pre>
 </div>
-<div id="treatment-effect-from-ps" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Treatment effect from PS</h2>
+<div id="treatment-effect-from-ps" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Treatment effect from PS<a href="compare.html#treatment-effect-from-ps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Propensity score model fitting:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="compare.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span>
-<span id="cb103-2"><a href="compare.html#cb103-2" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(A <span class="sc">~</span> L, <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
-<span id="cb103-3"><a href="compare.html#cb103-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> result.data<span class="sc">$</span>observed,</span>
-<span id="cb103-4"><a href="compare.html#cb103-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
-<span id="cb103-5"><a href="compare.html#cb103-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> <span class="fl">0.001</span>,</span>
-<span id="cb103-6"><a href="compare.html#cb103-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb103-7"><a href="compare.html#cb103-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
-<span id="cb103-8"><a href="compare.html#cb103-8" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="compare.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span>
+<span id="cb104-2"><a href="compare.html#cb104-2" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(A <span class="sc">~</span> L, <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
+<span id="cb104-3"><a href="compare.html#cb104-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> result.data<span class="sc">$</span>observed,</span>
+<span id="cb104-4"><a href="compare.html#cb104-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
+<span id="cb104-5"><a href="compare.html#cb104-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> <span class="fl">0.001</span>,</span>
+<span id="cb104-6"><a href="compare.html#cb104-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb104-7"><a href="compare.html#cb104-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Warning: Fewer control units than treated units; not all treated units will get
+## a match.</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="compare.html#cb106-1" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
 <pre><code>## A matchit object
 ##  - method: 1:1 nearest neighbor matching without replacement
 ##  - distance: Propensity score [caliper]
 ##              - estimated with logistic regression
 ##  - caliper: &lt;distance&gt; (0)
-##  - number of obs.: 10000 (original), 8282 (matched)
+##  - number of obs.: 10000 (original), 8346 (matched)
 ##  - target estimand: ATT
 ##  - covariates: L</code></pre>
 <p>Results from step 4: crude</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="compare.html#cb105-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="compare.html#cb108-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span></code></pre></div>
 <p>Results from step 4: adjusted</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="compare.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="compare.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A 
-##       29.96        0.73</code></pre>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="compare.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A<span class="sc">+</span>L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+##       29.98        0.71</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="compare.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A<span class="sc">+</span>L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A           L 
-##       -0.12        0.73        3.01</code></pre>
+##       -0.10        0.71        3.01</code></pre>
 </div>
-<div id="non-linear-model" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Non-linear Model</h2>
-<div id="data-generation" class="section level3" number="8.5.1">
-<h3><span class="header-section-number">8.5.1</span> Data generation</h3>
+<div id="non-linear-model" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Non-linear Model<a href="compare.html#non-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data-generation" class="section level3 hasAnchor" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Data generation<a href="compare.html#data-generation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <table>
 <tbody>
 <tr class="odd">
@@ -550,44 +569,44 @@ div.csl-indent {
 </ul>
 <p><em>The only difference</em> is <span class="math inline">\(L^3\)</span> instead of <span class="math inline">\(L\)</span> in the outcome mode.</p>
 <p>Again, <span class="math inline">\(\theta = 0.7\)</span></p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="compare.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data generating function</span></span>
-<span id="cb110-2"><a href="compare.html#cb110-2" aria-hidden="true" tabindex="-1"></a>fnc2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">seedx =</span> <span class="dv">123</span>){</span>
-<span id="cb110-3"><a href="compare.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(simcausal)</span>
-<span id="cb110-4"><a href="compare.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seedx)</span>
-<span id="cb110-5"><a href="compare.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">DAG.empty</span>()</span>
-<span id="cb110-6"><a href="compare.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> D <span class="sc">+</span></span>
-<span id="cb110-7"><a href="compare.html#cb110-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;L&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb110-8"><a href="compare.html#cb110-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(<span class="fl">0.4</span><span class="sc">*</span>L)) <span class="sc">+</span></span>
-<span id="cb110-9"><a href="compare.html#cb110-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;Y&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">3</span> <span class="sc">*</span> L<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> A, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb110-10"><a href="compare.html#cb110-10" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> <span class="fu">set.DAG</span>(D)</span>
-<span id="cb110-11"><a href="compare.html#cb110-11" aria-hidden="true" tabindex="-1"></a>  A1 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">1</span>)</span>
-<span id="cb110-12"><a href="compare.html#cb110-12" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A1&quot;</span>, <span class="at">nodes =</span> A1)</span>
-<span id="cb110-13"><a href="compare.html#cb110-13" aria-hidden="true" tabindex="-1"></a>  A0 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">0</span>)</span>
-<span id="cb110-14"><a href="compare.html#cb110-14" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A0&quot;</span>, <span class="at">nodes =</span> A0)</span>
-<span id="cb110-15"><a href="compare.html#cb110-15" aria-hidden="true" tabindex="-1"></a>  Cdat <span class="ot">&lt;-</span> <span class="fu">sim</span>(<span class="at">DAG =</span> Dset, <span class="at">actions =</span> <span class="fu">c</span>(<span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A0&quot;</span>), <span class="at">n =</span> n, <span class="at">rndseed =</span> <span class="dv">123</span>)</span>
-<span id="cb110-16"><a href="compare.html#cb110-16" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cbind</span>(Cdat<span class="sc">$</span>A1[<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y&quot;</span>)],Cdat<span class="sc">$</span>A0[<span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>)]),<span class="dv">2</span>)</span>
-<span id="cb110-17"><a href="compare.html#cb110-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(generated.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y0&quot;</span>)</span>
-<span id="cb110-18"><a href="compare.html#cb110-18" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>L, generated.data<span class="sc">$</span>ID),]</span>
-<span id="cb110-19"><a href="compare.html#cb110-19" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb110-20"><a href="compare.html#cb110-20" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(generated.data<span class="sc">$</span>A<span class="sc">==</span><span class="dv">0</span>, generated.data<span class="sc">$</span>Y0, generated.data<span class="sc">$</span>Y1)</span>
-<span id="cb110-21"><a href="compare.html#cb110-21" aria-hidden="true" tabindex="-1"></a>  counterfactual.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;Y0&quot;</span>)]</span>
-<span id="cb110-22"><a href="compare.html#cb110-22" aria-hidden="true" tabindex="-1"></a>  observed.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y&quot;</span>)]</span>
-<span id="cb110-23"><a href="compare.html#cb110-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">counterfactual=</span>counterfactual.dataset,</span>
-<span id="cb110-24"><a href="compare.html#cb110-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">observed=</span>observed.dataset))</span>
-<span id="cb110-25"><a href="compare.html#cb110-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="compare.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data generating function</span></span>
+<span id="cb113-2"><a href="compare.html#cb113-2" aria-hidden="true" tabindex="-1"></a>fnc2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">seedx =</span> <span class="dv">123</span>){</span>
+<span id="cb113-3"><a href="compare.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(simcausal)</span>
+<span id="cb113-4"><a href="compare.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seedx)</span>
+<span id="cb113-5"><a href="compare.html#cb113-5" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">DAG.empty</span>()</span>
+<span id="cb113-6"><a href="compare.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> D <span class="sc">+</span></span>
+<span id="cb113-7"><a href="compare.html#cb113-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;L&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb113-8"><a href="compare.html#cb113-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="fu">plogis</span>(<span class="fl">0.4</span><span class="sc">*</span>L)) <span class="sc">+</span></span>
+<span id="cb113-9"><a href="compare.html#cb113-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">node</span>(<span class="st">&quot;Y&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rnorm&quot;</span>, <span class="at">mean =</span> <span class="dv">3</span> <span class="sc">*</span> L<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> A, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb113-10"><a href="compare.html#cb113-10" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> <span class="fu">set.DAG</span>(D)</span>
+<span id="cb113-11"><a href="compare.html#cb113-11" aria-hidden="true" tabindex="-1"></a>  A1 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">1</span>)</span>
+<span id="cb113-12"><a href="compare.html#cb113-12" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A1&quot;</span>, <span class="at">nodes =</span> A1)</span>
+<span id="cb113-13"><a href="compare.html#cb113-13" aria-hidden="true" tabindex="-1"></a>  A0 <span class="ot">&lt;-</span> <span class="fu">node</span>(<span class="st">&quot;A&quot;</span>, <span class="at">distr =</span> <span class="st">&quot;rbern&quot;</span>, <span class="at">prob =</span> <span class="dv">0</span>)</span>
+<span id="cb113-14"><a href="compare.html#cb113-14" aria-hidden="true" tabindex="-1"></a>  Dset <span class="ot">&lt;-</span> Dset <span class="sc">+</span> <span class="fu">action</span>(<span class="st">&quot;A0&quot;</span>, <span class="at">nodes =</span> A0)</span>
+<span id="cb113-15"><a href="compare.html#cb113-15" aria-hidden="true" tabindex="-1"></a>  Cdat <span class="ot">&lt;-</span> <span class="fu">sim</span>(<span class="at">DAG =</span> Dset, <span class="at">actions =</span> <span class="fu">c</span>(<span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A0&quot;</span>), <span class="at">n =</span> n, <span class="at">rndseed =</span> <span class="dv">123</span>)</span>
+<span id="cb113-16"><a href="compare.html#cb113-16" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cbind</span>(Cdat<span class="sc">$</span>A1[<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y&quot;</span>)],Cdat<span class="sc">$</span>A0[<span class="fu">c</span>(<span class="st">&quot;Y&quot;</span>)]),<span class="dv">2</span>)</span>
+<span id="cb113-17"><a href="compare.html#cb113-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(generated.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;L&quot;</span>, <span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y0&quot;</span>)</span>
+<span id="cb113-18"><a href="compare.html#cb113-18" aria-hidden="true" tabindex="-1"></a>  generated.data <span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>L, generated.data<span class="sc">$</span>ID),]</span>
+<span id="cb113-19"><a href="compare.html#cb113-19" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>A <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb113-20"><a href="compare.html#cb113-20" aria-hidden="true" tabindex="-1"></a>  generated.data<span class="sc">$</span>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(generated.data<span class="sc">$</span>A<span class="sc">==</span><span class="dv">0</span>, generated.data<span class="sc">$</span>Y0, generated.data<span class="sc">$</span>Y1)</span>
+<span id="cb113-21"><a href="compare.html#cb113-21" aria-hidden="true" tabindex="-1"></a>  counterfactual.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;Y0&quot;</span>)]</span>
+<span id="cb113-22"><a href="compare.html#cb113-22" aria-hidden="true" tabindex="-1"></a>  observed.dataset<span class="ot">&lt;-</span> generated.data[<span class="fu">order</span>(generated.data<span class="sc">$</span>ID) , ][<span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;Y&quot;</span>)]</span>
+<span id="cb113-23"><a href="compare.html#cb113-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">counterfactual=</span>counterfactual.dataset,</span>
+<span id="cb113-24"><a href="compare.html#cb113-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">observed=</span>observed.dataset))</span>
+<span id="cb113-25"><a href="compare.html#cb113-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<div id="regression" class="section level3" number="8.5.2">
-<h3><span class="header-section-number">8.5.2</span> Regression</h3>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="compare.html#cb111-1" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">fnc2</span>(<span class="at">n=</span><span class="dv">10000</span>)</span></code></pre></div>
+<div id="regression" class="section level3 hasAnchor" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Regression<a href="compare.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="compare.html#cb114-1" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">fnc2</span>(<span class="at">n=</span><span class="dv">10000</span>)</span></code></pre></div>
 <p>Crude estimates</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="compare.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="compare.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A 
-##     3087.70        0.51</code></pre>
+##     3088.49       -1.07</code></pre>
 <p>Adjusted estimates</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="compare.html#cb114-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)</span>
-<span id="cb114-2"><a href="compare.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(fit),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="compare.html#cb117-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>result.data<span class="sc">$</span>observed)</span>
+<span id="cb117-2"><a href="compare.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(fit),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A           L 
-##    -6004.08        1.94      909.32</code></pre>
+##    -6004.56        2.86      909.33</code></pre>
 <ul>
 <li>In regression adjustments, the results could be subject to “model extrapolation” based on linearity assumption.
 <ul>
@@ -600,72 +619,77 @@ div.csl-indent {
 </ul></li>
 </ul>
 </div>
-<div id="ps-1" class="section level3" number="8.5.3">
-<h3><span class="header-section-number">8.5.3</span> PS</h3>
+<div id="ps-1" class="section level3 hasAnchor" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> PS<a href="compare.html#ps-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Matching with PS</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="compare.html#cb116-1" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(A <span class="sc">~</span> L, <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
-<span id="cb116-2"><a href="compare.html#cb116-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> result.data<span class="sc">$</span>observed,</span>
-<span id="cb116-3"><a href="compare.html#cb116-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
-<span id="cb116-4"><a href="compare.html#cb116-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb116-5"><a href="compare.html#cb116-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> <span class="fl">0.001</span>,</span>
-<span id="cb116-6"><a href="compare.html#cb116-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
-<span id="cb116-7"><a href="compare.html#cb116-7" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="compare.html#cb119-1" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(A <span class="sc">~</span> L, <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
+<span id="cb119-2"><a href="compare.html#cb119-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> result.data<span class="sc">$</span>observed,</span>
+<span id="cb119-3"><a href="compare.html#cb119-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
+<span id="cb119-4"><a href="compare.html#cb119-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb119-5"><a href="compare.html#cb119-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> <span class="fl">0.001</span>,</span>
+<span id="cb119-6"><a href="compare.html#cb119-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Warning: Fewer control units than treated units; not all treated units will get
+## a match.</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="compare.html#cb121-1" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
 <pre><code>## A matchit object
 ##  - method: 1:1 nearest neighbor matching without replacement
 ##  - distance: Propensity score [caliper]
 ##              - estimated with logistic regression
 ##  - caliper: &lt;distance&gt; (0)
-##  - number of obs.: 10000 (original), 8298 (matched)
+##  - number of obs.: 10000 (original), 8228 (matched)
 ##  - target estimand: ATT
 ##  - covariates: L</code></pre>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="compare.html#cb118-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="compare.html#cb123-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span></code></pre></div>
 <p>Results from step 4: crude</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="compare.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="compare.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A 
-##     3073.08        0.81</code></pre>
+##     3077.14        0.74</code></pre>
 <p>Results from step 4: adjusted</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="compare.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A<span class="sc">+</span>L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="compare.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A<span class="sc">+</span>L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A           L 
-##    -5983.79        0.81      905.91</code></pre>
+##    -5990.18        0.74      906.65</code></pre>
 </div>
-<div id="machine-learning" class="section level3" number="8.5.4">
-<h3><span class="header-section-number">8.5.4</span> Machine learning</h3>
+<div id="machine-learning" class="section level3 hasAnchor" number="8.5.4">
+<h3><span class="header-section-number">8.5.4</span> Machine learning<a href="compare.html#machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Using gradient boosted method for PS estimation</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="compare.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(twang)</span>
-<span id="cb123-2"><a href="compare.html#cb123-2" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>observed<span class="sc">$</span>S <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb123-3"><a href="compare.html#cb123-3" aria-hidden="true" tabindex="-1"></a>ps.gbm <span class="ot">&lt;-</span> <span class="fu">ps</span>(A <span class="sc">~</span> L <span class="sc">+</span> S,<span class="at">data =</span> result.data<span class="sc">$</span>observed,<span class="at">estimand =</span> <span class="st">&quot;ATT&quot;</span>,<span class="at">n.trees=</span><span class="dv">1000</span>)</span>
-<span id="cb123-4"><a href="compare.html#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ps.gbm)</span>
-<span id="cb123-5"><a href="compare.html#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ps.gbm<span class="sc">$</span>ps<span class="sc">$</span>es.mean.ATT)</span>
-<span id="cb123-6"><a href="compare.html#cb123-6" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>observed<span class="sc">$</span>ps <span class="ot">&lt;-</span> ps.gbm<span class="sc">$</span>ps<span class="sc">$</span>es.mean.ATT</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="compare.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(twang)</span>
+<span id="cb128-2"><a href="compare.html#cb128-2" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>observed<span class="sc">$</span>S <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb128-3"><a href="compare.html#cb128-3" aria-hidden="true" tabindex="-1"></a>ps.gbm <span class="ot">&lt;-</span> <span class="fu">ps</span>(A <span class="sc">~</span> L <span class="sc">+</span> S,<span class="at">data =</span> result.data<span class="sc">$</span>observed,<span class="at">estimand =</span> <span class="st">&quot;ATT&quot;</span>,<span class="at">n.trees=</span><span class="dv">1000</span>)</span>
+<span id="cb128-4"><a href="compare.html#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ps.gbm)</span>
+<span id="cb128-5"><a href="compare.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ps.gbm<span class="sc">$</span>ps<span class="sc">$</span>es.mean.ATT)</span>
+<span id="cb128-6"><a href="compare.html#cb128-6" aria-hidden="true" tabindex="-1"></a>result.data<span class="sc">$</span>observed<span class="sc">$</span>ps <span class="ot">&lt;-</span> ps.gbm<span class="sc">$</span>ps<span class="sc">$</span>es.mean.ATT</span></code></pre></div>
 <p>Matching with PS generated from gradient boosted method</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="compare.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(Matching)</span>
-<span id="cb124-2"><a href="compare.html#cb124-2" aria-hidden="true" tabindex="-1"></a>match.obj2 <span class="ot">&lt;-</span> <span class="fu">Match</span>(<span class="at">Y=</span>result.data<span class="sc">$</span>observed<span class="sc">$</span>Y, <span class="at">Tr=</span>result.data<span class="sc">$</span>observed<span class="sc">$</span>A, </span>
-<span id="cb124-3"><a href="compare.html#cb124-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">X=</span>result.data<span class="sc">$</span>observed<span class="sc">$</span>ps, <span class="at">M=</span><span class="dv">1</span>, <span class="at">caliper =</span> <span class="fl">0.001</span>,</span>
-<span id="cb124-4"><a href="compare.html#cb124-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">replace=</span><span class="cn">FALSE</span>)</span>
-<span id="cb124-5"><a href="compare.html#cb124-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match.obj2)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="compare.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(Matching)</span>
+<span id="cb129-2"><a href="compare.html#cb129-2" aria-hidden="true" tabindex="-1"></a>match.obj2 <span class="ot">&lt;-</span> <span class="fu">Match</span>(<span class="at">Y=</span>result.data<span class="sc">$</span>observed<span class="sc">$</span>Y, <span class="at">Tr=</span>result.data<span class="sc">$</span>observed<span class="sc">$</span>A, </span>
+<span id="cb129-3"><a href="compare.html#cb129-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">X=</span>result.data<span class="sc">$</span>observed<span class="sc">$</span>ps, <span class="at">M=</span><span class="dv">1</span>, <span class="at">caliper =</span> <span class="fl">0.001</span>,</span>
+<span id="cb129-4"><a href="compare.html#cb129-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">replace=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## Warning in Match(Y = result.data$observed$Y, Tr = result.data$observed$A, :
+## replace==FALSE, but there are more (weighted) treated obs than control obs. Some
+## treated obs will not be matched. You may want to estimate ATC instead.</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="compare.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(match.obj2)</span></code></pre></div>
 <pre><code>## 
-## Estimate...  4.1351 
-## SE.........  4.5805 
-## T-stat.....  0.90278 
-## p.val......  0.36664 
+## Estimate...  -0.31807 
+## SE.........  1.9774 
+## T-stat.....  -0.16085 
+## p.val......  0.87221 
 ## 
 ## Original number of observations..............  10000 
-## Original number of treated obs...............  4986 
-## Matched number of observations...............  4579 
-## Matched number of observations  (unweighted).  4579 
+## Original number of treated obs...............  5002 
+## Matched number of observations...............  4575 
+## Matched number of observations  (unweighted).  4575 
 ## 
 ## Caliper (SDs)........................................   0.001 
-## Number of obs dropped by &#39;exact&#39; or &#39;caliper&#39;  407</code></pre>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="compare.html#cb126-1" aria-hidden="true" tabindex="-1"></a>matched.data2 <span class="ot">&lt;-</span> result.data<span class="sc">$</span>observed[<span class="fu">c</span>(match.obj2<span class="sc">$</span>index.treated, match.obj2<span class="sc">$</span>index.control),]</span>
-<span id="cb126-2"><a href="compare.html#cb126-2" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">MatchBalance</span>(A<span class="sc">~</span>L, <span class="at">data=</span>result.data<span class="sc">$</span>observed, <span class="at">match.out=</span>match.obj2, <span class="at">nboots=</span><span class="dv">10</span>)</span></code></pre></div>
+## Number of obs dropped by &#39;exact&#39; or &#39;caliper&#39;  427</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="compare.html#cb133-1" aria-hidden="true" tabindex="-1"></a>matched.data2 <span class="ot">&lt;-</span> result.data<span class="sc">$</span>observed[<span class="fu">c</span>(match.obj2<span class="sc">$</span>index.treated, match.obj2<span class="sc">$</span>index.control),]</span>
+<span id="cb133-2"><a href="compare.html#cb133-2" aria-hidden="true" tabindex="-1"></a>mb <span class="ot">&lt;-</span> <span class="fu">MatchBalance</span>(A<span class="sc">~</span>L, <span class="at">data=</span>result.data<span class="sc">$</span>observed, <span class="at">match.out=</span>match.obj2, <span class="at">nboots=</span><span class="dv">10</span>)</span></code></pre></div>
 <p>Results from step 4: crude</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="compare.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data2)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="compare.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data2)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A 
-##     3078.05        4.14</code></pre>
+##     3076.45       -0.32</code></pre>
 <p>Results from step 4: adjusted</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="compare.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A<span class="sc">+</span>L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data2)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="compare.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A<span class="sc">+</span>L, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, <span class="at">data=</span>matched.data2)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## (Intercept)           A           L 
-##    -6000.46        0.76      908.44</code></pre>
+##    -6003.92        0.99      909.14</code></pre>
 <table>
 <tbody>
 <tr>
@@ -695,12 +719,12 @@ Always a good idea to check analysis with multiple sensitivity analysis.
 </tbody>
 </table>
 </div>
-<div id="regression-is-doomed" class="section level3" number="8.5.5">
-<h3><span class="header-section-number">8.5.5</span> Regression is doomed?</h3>
+<div id="regression-is-doomed" class="section level3 hasAnchor" number="8.5.5">
+<h3><span class="header-section-number">8.5.5</span> Regression is doomed?<a href="compare.html#regression-is-doomed" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Not really. Always a god idea to check the diagnostic plots to find any indication of assumption violation:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="compare.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb131-2"><a href="compare.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit)</span></code></pre></div>
-<p><img src="UnderstandingPropensityScore_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="compare.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb138-2"><a href="compare.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit)</span></code></pre></div>
+<p><img src="UnderstandingPropensityScore_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <ul>
 <li>Residual plot has a pattern!</li>
 <li>Indication that we may meed to reset the model-specification.</li>
@@ -715,7 +739,7 @@ Always a good idea to check analysis with multiple sensitivity analysis.
         </div>
       </div>
 <a href="s4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="misspecify.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

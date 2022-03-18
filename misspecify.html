@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Model-misspecification | Understanding Propensity Score Matching</title>
+  <meta name="description" content="Chapter 9 Model-misspecification | Understanding Propensity Score Matching." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Model-misspecification | Understanding Propensity Score Matching" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 9 Model-misspecification | Understanding Propensity Score Matching." />
+  <meta name="github-repo" content="ehsanx/UnderstandingPropensityScore" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Model-misspecification | Understanding Propensity Score Matching" />
+  
+  <meta name="twitter:description" content="Chapter 9 Model-misspecification | Understanding Propensity Score Matching." />
+  
+
+<meta name="author" content="Ehsan Karim" />
+
+
+<meta name="date" content="2022-03-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="compare.html"/>
+<link rel="next" href="guide.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script type="text/javascript">
+
+// toggle visibility of R source blocks in R Markdown output
+function toggle_R() {
+  var x = document.getElementsByClassName('r');
+  if (x.length == 0) return;
+  function toggle_vis(o) {
+    var d = o.style.display;
+    o.style.display = (d == 'block' || d == '') ? 'none':'block';
+  }
+
+  for (i = 0; i < x.length; i++) {
+    var y = x[i];
+    if (y.tagName.toLowerCase() === 'pre') toggle_vis(y);
+  }
+
+    var elem = document.getElementById("myButton1");
+    if (elem.value === "Hide Global") elem.value = "Show Global";
+    else elem.value = "Hide Global";
+}
+
+document.write('<input onclick="toggle_R();" type="button" value="Hide Global" id="myButton1" style="position: absolute; top: 10%; right: 2%; z-index: 200"></input>')
+
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Understanding Propensity Score Matching</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#preamble">Preamble<span></span></a>
+<ul>
+<li><a href="index.html#description">Description<span></span></a></li>
+<li><a href="index.html#main-references">Main references<span></span></a></li>
+<li><a href="index.html#version-history">Version history<span></span></a></li>
+<li><a href="index.html#prerequisites">Prerequisites<span></span></a>
+<ul>
+<li><a href="index.html#license">License<span></span></a></li>
+</ul></li>
+<li><a href="index.html#comments">Comments<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="terms.html"><a href="terms.html"><i class="fa fa-check"></i><b>1</b> Defining Parameter<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="terms.html"><a href="terms.html#potential-outcome"><i class="fa fa-check"></i><b>1.1</b> Potential outcome<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="terms.html"><a href="terms.html#parameters-of-interest"><i class="fa fa-check"></i><b>1.2</b> Parameters of interest<span></span></a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="terms.html"><a href="terms.html#te"><i class="fa fa-check"></i><b>1.2.1</b> TE<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="terms.html"><a href="terms.html#ate"><i class="fa fa-check"></i><b>1.2.2</b> ATE<span></span></a></li>
+<li class="chapter" data-level="1.2.3" data-path="terms.html"><a href="terms.html#interpretation-of-ate"><i class="fa fa-check"></i><b>1.2.3</b> Interpretation of ATE<span></span></a></li>
+<li class="chapter" data-level="1.2.4" data-path="terms.html"><a href="terms.html#identifiability-assumptions"><i class="fa fa-check"></i><b>1.2.4</b> Identifiability Assumptions<span></span></a></li>
+<li class="chapter" data-level="1.2.5" data-path="terms.html"><a href="terms.html#att"><i class="fa fa-check"></i><b>1.2.5</b> ATT<span></span></a></li>
+<li class="chapter" data-level="1.2.6" data-path="terms.html"><a href="terms.html#interpretation-of-att"><i class="fa fa-check"></i><b>1.2.6</b> Interpretation of ATT<span></span></a></li>
+<li class="chapter" data-level="1.2.7" data-path="terms.html"><a href="terms.html#att-vs.-ate"><i class="fa fa-check"></i><b>1.2.7</b> ATT vs. ATE<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="balance.html"><a href="balance.html"><i class="fa fa-check"></i><b>2</b> Balance and Overlap<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="balance.html"><a href="balance.html#balance-1"><i class="fa fa-check"></i><b>2.1</b> Balance<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="balance.html"><a href="balance.html#measures-of-balance"><i class="fa fa-check"></i><b>2.1.1</b> Measures of Balance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="balance.html"><a href="balance.html#adjustment"><i class="fa fa-check"></i><b>2.2</b> Adjustment<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="balance.html"><a href="balance.html#why-adjust"><i class="fa fa-check"></i><b>2.2.1</b> Why adjust?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="balance.html"><a href="balance.html#adjustment-methods"><i class="fa fa-check"></i><b>2.2.2</b> Adjustment Methods<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="balance.html"><a href="balance.html#lack-of-overlap"><i class="fa fa-check"></i><b>2.3</b> Lack of overlap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ps.html"><a href="ps.html"><i class="fa fa-check"></i><b>3</b> Propensity score<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ps.html"><a href="ps.html#motivating-problem"><i class="fa fa-check"></i><b>3.1</b> Motivating problem<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="ps.html"><a href="ps.html#defining-propensity-score"><i class="fa fa-check"></i><b>3.2</b> Defining Propensity score<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="ps.html"><a href="ps.html#theoretical-result"><i class="fa fa-check"></i><b>3.2.1</b> Theoretical result<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="ps.html"><a href="ps.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="ps.html"><a href="ps.html#ways-to-use-ps"><i class="fa fa-check"></i><b>3.2.3</b> Ways to use PS<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ps.html"><a href="ps.html#ps-matching-steps"><i class="fa fa-check"></i><b>3.3</b> PS Matching Steps<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="s1.html"><a href="s1.html"><i class="fa fa-check"></i><b>4</b> Step 1: Exposure modelling<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="s1.html"><a href="s1.html#model-specification"><i class="fa fa-check"></i><b>4.1</b> Model specification<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="s1.html"><a href="s1.html#updating-model-specification"><i class="fa fa-check"></i><b>4.1.1</b> Updating model specification<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="s1.html"><a href="s1.html#stability-of-ps"><i class="fa fa-check"></i><b>4.1.2</b> Stability of PS<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="s1.html"><a href="s1.html#variables-to-adjust"><i class="fa fa-check"></i><b>4.2</b> Variables to adjust<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="s1.html"><a href="s1.html#best-approach"><i class="fa fa-check"></i><b>4.2.1</b> Best approach<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="s1.html"><a href="s1.html#general-guideline-of-type-of-variables"><i class="fa fa-check"></i><b>4.2.2</b> General guideline of type of variables<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="s1.html"><a href="s1.html#what-not-to-include"><i class="fa fa-check"></i><b>4.2.3</b> What NOT to include<span></span></a></li>
+<li class="chapter" data-level="4.2.4" data-path="s1.html"><a href="s1.html#mediators"><i class="fa fa-check"></i><b>4.2.4</b> Mediators<span></span></a></li>
+<li class="chapter" data-level="4.2.5" data-path="s1.html"><a href="s1.html#unmeasured-confounding"><i class="fa fa-check"></i><b>4.2.5</b> Unmeasured confounding<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="s1.html"><a href="s1.html#model-selection-not-encouraged"><i class="fa fa-check"></i><b>4.3</b> Model selection (Not encouraged!)<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="s1.html"><a href="s1.html#based-on-association-with-outcome"><i class="fa fa-check"></i><b>4.3.1</b> Based on association with outcome<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="s1.html"><a href="s1.html#based-on-association-with-exposure"><i class="fa fa-check"></i><b>4.3.2</b> Based on association with exposure<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="s1.html"><a href="s1.html#alternative-modelling-strategies"><i class="fa fa-check"></i><b>4.4</b> Alternative modelling strategies<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="s1.html"><a href="s1.html#ps-estimation"><i class="fa fa-check"></i><b>4.5</b> PS estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="s2.html"><a href="s2.html"><i class="fa fa-check"></i><b>5</b> Step 2: Propensity score Matching<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="s2.html"><a href="s2.html#matching-method-nn"><i class="fa fa-check"></i><b>5.1</b> Matching method NN<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="s2.html"><a href="s2.html#initial-fit"><i class="fa fa-check"></i><b>5.2</b> Initial fit<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="s2.html"><a href="s2.html#fine-tuning-add-caliper"><i class="fa fa-check"></i><b>5.3</b> Fine tuning: add caliper<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="s2.html"><a href="s2.html#things-to-keep-track-of"><i class="fa fa-check"></i><b>5.4</b> Things to keep track of<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="s2.html"><a href="s2.html#matches"><i class="fa fa-check"></i><b>5.5</b> Matches<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="s2.html"><a href="s2.html#other-matching-algorithms"><i class="fa fa-check"></i><b>5.6</b> Other matching algorithms<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="s3.html"><a href="s3.html"><i class="fa fa-check"></i><b>6</b> Step 3: Balance and overlap<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="s3.html"><a href="s3.html#assessment-of-balance-by-smd"><i class="fa fa-check"></i><b>6.1</b> Assessment of Balance by SMD<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="s3.html"><a href="s3.html#smd-vs.-p-values"><i class="fa fa-check"></i><b>6.2</b> SMD vs. P-values<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="s3.html"><a href="s3.html#vizualization-for-overlap"><i class="fa fa-check"></i><b>6.3</b> Vizualization for Overlap<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="s3.html"><a href="s3.html#variance-ratio-1"><i class="fa fa-check"></i><b>6.4</b> Variance ratio<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="s3.html"><a href="s3.html#close-inspection-of-boundaries"><i class="fa fa-check"></i><b>6.5</b> Close inspection of boundaries<span></span></a></li>
+<li class="chapter" data-level="6.6" data-path="s3.html"><a href="s3.html#unsatirfactory-balance"><i class="fa fa-check"></i><b>6.6</b> Unsatirfactory balance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="s4.html"><a href="s4.html"><i class="fa fa-check"></i><b>7</b> Step 4: Outcome modelling<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="s4.html"><a href="s4.html#crude-outcome-model"><i class="fa fa-check"></i><b>7.1</b> Crude outcome model<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="s4.html"><a href="s4.html#double-adjustment"><i class="fa fa-check"></i><b>7.2</b> Double-adjustment<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="s4.html"><a href="s4.html#adjusted-outcome-model"><i class="fa fa-check"></i><b>7.3</b> Adjusted outcome model<span></span></a></li>
+<li class="chapter" data-level="7.4" data-path="s4.html"><a href="s4.html#variance-considerations"><i class="fa fa-check"></i><b>7.4</b> Variance considerations<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="s4.html"><a href="s4.html#cluster-option"><i class="fa fa-check"></i><b>7.4.1</b> Cluster option<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="s4.html"><a href="s4.html#bootstrap"><i class="fa fa-check"></i><b>7.4.2</b> Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="s4.html"><a href="s4.html#estimate-obtained"><i class="fa fa-check"></i><b>7.5</b> Estimate obtained<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>8</b> PS vs. Regression<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="compare.html"><a href="compare.html#data-simulation"><i class="fa fa-check"></i><b>8.1</b> Data Simulation<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="compare.html"><a href="compare.html#treatment-effect-from-counterfactuals"><i class="fa fa-check"></i><b>8.2</b> Treatment effect from counterfactuals<span></span></a></li>
+<li class="chapter" data-level="8.3" data-path="compare.html"><a href="compare.html#treatment-effect-from-regression"><i class="fa fa-check"></i><b>8.3</b> Treatment effect from Regression<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="compare.html"><a href="compare.html#treatment-effect-from-ps"><i class="fa fa-check"></i><b>8.4</b> Treatment effect from PS<span></span></a></li>
+<li class="chapter" data-level="8.5" data-path="compare.html"><a href="compare.html#non-linear-model"><i class="fa fa-check"></i><b>8.5</b> Non-linear Model<span></span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="compare.html"><a href="compare.html#data-generation"><i class="fa fa-check"></i><b>8.5.1</b> Data generation<span></span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="compare.html"><a href="compare.html#regression"><i class="fa fa-check"></i><b>8.5.2</b> Regression<span></span></a></li>
+<li class="chapter" data-level="8.5.3" data-path="compare.html"><a href="compare.html#ps-1"><i class="fa fa-check"></i><b>8.5.3</b> PS<span></span></a></li>
+<li class="chapter" data-level="8.5.4" data-path="compare.html"><a href="compare.html#machine-learning"><i class="fa fa-check"></i><b>8.5.4</b> Machine learning<span></span></a></li>
+<li class="chapter" data-level="8.5.5" data-path="compare.html"><a href="compare.html#regression-is-doomed"><i class="fa fa-check"></i><b>8.5.5</b> Regression is doomed?<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="misspecify.html"><a href="misspecify.html"><i class="fa fa-check"></i><b>9</b> Model-misspecification<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="misspecify.html"><a href="misspecify.html#complex-data-simulation"><i class="fa fa-check"></i><b>9.1</b> Complex Data Simulation<span></span></a>
+<ul>
+<li><a href="misspecify.html#true-exposure-model">True Exposure Model<span></span></a></li>
+<li><a href="misspecify.html#true-outcome-model">True Outcome Model<span></span></a></li>
+<li><a href="misspecify.html#outcomes-and-exposures-are-complex-functions-of-measured-covariates">Outcomes and exposures are complex functions of measured covariates<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="misspecify.html"><a href="misspecify.html#understanding-finite-sample-bias"><i class="fa fa-check"></i><b>9.2</b> Understanding finite sample bias<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="misspecify.html"><a href="misspecify.html#estimation-using-different-methods"><i class="fa fa-check"></i><b>9.3</b> Estimation using different methods<span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="misspecify.html"><a href="misspecify.html#regression-1"><i class="fa fa-check"></i><b>9.3.1</b> Regression<span></span></a></li>
+<li class="chapter" data-level="9.3.2" data-path="misspecify.html"><a href="misspecify.html#propensity-score"><i class="fa fa-check"></i><b>9.3.2</b> Propensity score<span></span></a></li>
+<li class="chapter" data-level="9.3.3" data-path="misspecify.html"><a href="misspecify.html#double-machine-learning-method"><i class="fa fa-check"></i><b>9.3.3</b> Double machine learning method<span></span></a></li>
+<li class="chapter" data-level="9.3.4" data-path="misspecify.html"><a href="misspecify.html#double-robust-method-tmle"><i class="fa fa-check"></i><b>9.3.4</b> Double robust method (TMLE)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>10</b> Reporting Guidelines<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>10.1</b> Discipline-specific Reviews<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>10.2</b> Suggested Guidelines<span></span></a></li>
+<li class="chapter" data-level="10.3" data-path="guide.html"><a href="guide.html#additional-topics"><i class="fa fa-check"></i><b>10.3</b> Additional topics<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="final.html"><a href="final.html"><i class="fa fa-check"></i><b>11</b> Final Words<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="final.html"><a href="final.html#common-misconception"><i class="fa fa-check"></i><b>11.1</b> Common misconception<span></span></a></li>
+<li class="chapter" data-level="11.2" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>11.2</b> Benifits of PS<span></span></a></li>
+<li class="chapter" data-level="11.3" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>11.3</b> Limitations of PS<span></span></a></li>
+<li class="chapter" data-level="11.4" data-path="final.html"><a href="final.html#sensitivity-analysis"><i class="fa fa-check"></i><b>11.4</b> Sensitivity analysis<span></span></a></li>
+<li class="chapter" data-level="11.5" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>11.5</b> Software<span></span></a></li>
+<li class="chapter" data-level="11.6" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>11.6</b> Further Resources<span></span></a></li>
+</ul></li>
+<li><a href="references.html#references">References<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://ehsank.com/" target="blank">Ehsan Karim</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Understanding Propensity Score Matching</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="misspecify" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Model-misspecification<a href="misspecify.html#misspecify" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Understanding sources of bias is important</p>
+<p>Bias = Average of our estimates in repeated sampling - true treatment effect = bias due to finite sample + bias due to not designing the study properly + bias due to model misspecification</p>
+<p>The past part is often less talked about. Nonparametric or machine learning methods could be an advantage if used properly to reduce bias due to this source. A topic for a different <a href="https://ehsanx.github.io/TMLEworkshop/">tutorial</a>, but here we will show an example of the implication of avoiding the possibility of model-misspecification.</p>
+<div id="complex-data-simulation" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Complex Data Simulation<a href="misspecify.html#complex-data-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="true-exposure-model" class="section level3 unnumbered hasAnchor">
+<h3>True Exposure Model<a href="misspecify.html#true-exposure-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+P(A=1|C) &amp;= f(C) \\
+        &amp;= \frac{1}{1+exp[\alpha_0 + \alpha_1 C_1 + \alpha_2 C_2 + \alpha_3 C_3 + \alpha_4 C_4 ]}\nonumber
+\end{aligned}
+\end{equation}\]</span></p>
+</div>
+<div id="true-outcome-model" class="section level3 unnumbered hasAnchor">
+<h3>True Outcome Model<a href="misspecify.html#true-outcome-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+E(Y|A,C) &amp;= g(A,C)\\
+&amp;= \beta_0 + \psi A + \beta_1 C_1 + \beta_2 C_2 + \beta_3 C_3 + \beta_4 C_4 \nonumber
+\end{aligned}
+\end{equation}\]</span></p>
+<p>In our example, <span class="math inline">\(\psi\)</span> = 6, which is our treatment effect.</p>
+</div>
+<div id="outcomes-and-exposures-are-complex-functions-of-measured-covariates" class="section level3 unnumbered hasAnchor">
+<h3>Outcomes and exposures are complex functions of measured covariates<a href="misspecify.html#outcomes-and-exposures-are-complex-functions-of-measured-covariates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using example from <span class="citation"><a href="#ref-balzer2021demystifying" role="doc-biblioref">Balzer and Westling</a> (<a href="#ref-balzer2021demystifying" role="doc-biblioref">2021</a>)</span> and <span class="citation"><a href="#ref-naimi2017challenges" role="doc-biblioref">Naimi, Mishler, and Kennedy</a> (<a href="#ref-naimi2017challenges" role="doc-biblioref">2017</a>)</span>, let us assume that we don’t observed the <span class="math inline">\(C\)</span> variables directly, and we only have access to a set of transformed covariates <span class="math inline">\(L\)</span>s.</p>
+<p><span class="math display">\[\begin{equation} 
+\begin{aligned}
+L_1 &amp;= \exp(C1/2) \nonumber\\
+L_2 &amp;= [(C2/(1+\exp(C1)) + 10)]\nonumber\\ 
+L_3 &amp;= [(C1*C3/25 + 0.6)^3] \nonumber\\
+L_4 &amp;= [(C2 + C4 + 20)^2\nonumber
+\end{aligned}
+\end{equation}\]</span></p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="misspecify.html#cb139-1" aria-hidden="true" tabindex="-1"></a>create.data <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">te =</span> <span class="dv">6</span>){</span>
+<span id="cb139-2"><a href="misspecify.html#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># original covariates that generates A and Y</span></span>
+<span id="cb139-3"><a href="misspecify.html#cb139-3" aria-hidden="true" tabindex="-1"></a>  C1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb139-4"><a href="misspecify.html#cb139-4" aria-hidden="true" tabindex="-1"></a>  C2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb139-5"><a href="misspecify.html#cb139-5" aria-hidden="true" tabindex="-1"></a>  C3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb139-6"><a href="misspecify.html#cb139-6" aria-hidden="true" tabindex="-1"></a>  C4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb139-7"><a href="misspecify.html#cb139-7" aria-hidden="true" tabindex="-1"></a>  pscore <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span><span class="fu">log</span>(<span class="fl">1.75</span>)<span class="sc">*</span>(C1<span class="sc">+</span>C2<span class="sc">+</span>C3<span class="sc">+</span>C4) )</span>
+<span id="cb139-8"><a href="misspecify.html#cb139-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># treatment generation model</span></span>
+<span id="cb139-9"><a href="misspecify.html#cb139-9" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, pscore)</span>
+<span id="cb139-10"><a href="misspecify.html#cb139-10" aria-hidden="true" tabindex="-1"></a>  eps <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">6</span>) <span class="co"># error term</span></span>
+<span id="cb139-11"><a href="misspecify.html#cb139-11" aria-hidden="true" tabindex="-1"></a>  get.Y <span class="ot">&lt;-</span> <span class="cf">function</span>(A, <span class="at">TE=</span>te) {<span class="dv">120</span><span class="sc">+</span>TE<span class="sc">*</span>A<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>(C1<span class="sc">+</span>C2<span class="sc">+</span>C3<span class="sc">+</span>C4)<span class="sc">+</span>eps}</span>
+<span id="cb139-12"><a href="misspecify.html#cb139-12" aria-hidden="true" tabindex="-1"></a>  Y1 <span class="ot">&lt;-</span> <span class="fu">get.Y</span>(<span class="at">A=</span><span class="dv">1</span>, <span class="at">TE=</span>te)</span>
+<span id="cb139-13"><a href="misspecify.html#cb139-13" aria-hidden="true" tabindex="-1"></a>  Y0 <span class="ot">&lt;-</span> <span class="fu">get.Y</span>(<span class="at">A=</span><span class="dv">0</span>, <span class="at">TE=</span>te)</span>
+<span id="cb139-14"><a href="misspecify.html#cb139-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># potential outcomes</span></span>
+<span id="cb139-15"><a href="misspecify.html#cb139-15" aria-hidden="true" tabindex="-1"></a>  PO <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(pscore, Y1,Y0, C1, C2, C3, C4))</span>
+<span id="cb139-16"><a href="misspecify.html#cb139-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># outcome generation model</span></span>
+<span id="cb139-17"><a href="misspecify.html#cb139-17" aria-hidden="true" tabindex="-1"></a>  Y <span class="ot">&lt;-</span> <span class="fu">get.Y</span>(<span class="at">A=</span>A, <span class="at">TE=</span>te)</span>
+<span id="cb139-18"><a href="misspecify.html#cb139-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># misspecified versions of covariates</span></span>
+<span id="cb139-19"><a href="misspecify.html#cb139-19" aria-hidden="true" tabindex="-1"></a>  L1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(C1<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb139-20"><a href="misspecify.html#cb139-20" aria-hidden="true" tabindex="-1"></a>  L2 <span class="ot">&lt;-</span> C2<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(C1)) <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb139-21"><a href="misspecify.html#cb139-21" aria-hidden="true" tabindex="-1"></a>  L3 <span class="ot">&lt;-</span> (C1<span class="sc">*</span>C3<span class="sc">/</span><span class="dv">25</span> <span class="sc">+</span> <span class="fl">0.6</span>)<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb139-22"><a href="misspecify.html#cb139-22" aria-hidden="true" tabindex="-1"></a>  L4 <span class="ot">&lt;-</span> (C2 <span class="sc">+</span> C4 <span class="sc">+</span> <span class="dv">20</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb139-23"><a href="misspecify.html#cb139-23" aria-hidden="true" tabindex="-1"></a>  obs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(L1,L2,L3,L4,A,Y))</span>
+<span id="cb139-24"><a href="misspecify.html#cb139-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">observed=</span>obs, </span>
+<span id="cb139-25"><a href="misspecify.html#cb139-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">Potential.Outcome=</span> PO, </span>
+<span id="cb139-26"><a href="misspecify.html#cb139-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">ate =</span> <span class="fu">mean</span>(PO<span class="sc">$</span>Y1)<span class="sc">-</span><span class="fu">mean</span>(PO<span class="sc">$</span>Y0)))</span>
+<span id="cb139-27"><a href="misspecify.html#cb139-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb139-28"><a href="misspecify.html#cb139-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-29"><a href="misspecify.html#cb139-29" aria-hidden="true" tabindex="-1"></a><span class="fu">create.data</span>(<span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## $observed
+##          L1        L2        L3       L4 A        Y
+## 1 0.7709438  9.596847 0.2158522 326.3949 0 116.9973
+## 2 0.7683369  9.277930 0.1973672 383.7650 0 120.6344
+## 3 0.5354555 10.198262 0.1822214 438.1944 1 130.3286
+## 4 1.2913516  9.504684 0.2554713 387.6709 1 144.0857
+## 5 1.0084095 10.649730 0.2156414 513.3582 1 121.1914
+## 6 0.9844828  9.851512 0.2136319 415.1421 0 132.7153
+## 
+## $Potential.Outcome
+##       pscore       Y1       Y0          C1         C2           C3         C4
+## 1 0.08552443 122.9973 116.9973 -0.52027962 -0.6427682  0.006575874 -1.2908299
+## 2 0.25871980 126.6344 120.6344 -0.52705400 -1.1483381  0.843080063  0.7382599
+## 3 0.30860479 130.3286 124.3286 -1.24927517  0.2551068  0.661687231  0.6779858
+## 4 0.51420197 144.0857 138.0857  0.51137888 -1.3212991  1.687741714  1.0106584
+## 5 0.55453087 121.1914 115.1914  0.01674861  1.3104328 -0.495888000  1.3469770
+## 6 0.54407215 138.7153 132.7153 -0.03127761 -0.2924041  1.759018591  0.6674403
+## 
+## $ate
+## [1] 6</code></pre>
+</div>
+</div>
+<div id="understanding-finite-sample-bias" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Understanding finite sample bias<a href="misspecify.html#understanding-finite-sample-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First try:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="misspecify.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb141-2"><a href="misspecify.html#cb141-2" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">create.data</span>(<span class="dv">100</span>)</span>
+<span id="cb141-3"><a href="misspecify.html#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb141-4"><a href="misspecify.html#cb141-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A          L1          L2          L3          L4 
+##       91.23        8.46        3.50        0.81      -19.83        0.05</code></pre>
+<p>Second try:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="misspecify.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22</span>)</span>
+<span id="cb143-2"><a href="misspecify.html#cb143-2" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">create.data</span>(<span class="dv">100</span>)</span>
+<span id="cb143-3"><a href="misspecify.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb143-4"><a href="misspecify.html#cb143-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A          L1          L2          L3          L4 
+##       70.05       10.20        4.48        2.29        9.53        0.05</code></pre>
+<p>Third try:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="misspecify.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">33</span>)</span>
+<span id="cb145-2"><a href="misspecify.html#cb145-2" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">create.data</span>(<span class="dv">100</span>)</span>
+<span id="cb145-3"><a href="misspecify.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb145-4"><a href="misspecify.html#cb145-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A          L1          L2          L3          L4 
+##       97.51        7.13        2.32       -0.40       12.16        0.05</code></pre>
+</div>
+<div id="estimation-using-different-methods" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Estimation using different methods<a href="misspecify.html#estimation-using-different-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now work with a larger data: <span class="math inline">\(n = 10,000\)</span></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="misspecify.html#cb147-1" aria-hidden="true" tabindex="-1"></a>result.data <span class="ot">&lt;-</span> <span class="fu">create.data</span>(<span class="dv">10000</span>)</span></code></pre></div>
+<div id="regression-1" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Regression<a href="misspecify.html#regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="misspecify.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb148-2"><a href="misspecify.html#cb148-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A          L1          L2          L3          L4 
+##       87.21        7.56        4.46       -0.08       -1.41        0.07</code></pre>
+</div>
+<div id="propensity-score" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Propensity score<a href="misspecify.html#propensity-score" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Propensity score model fitting:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="misspecify.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span>
+<span id="cb150-2"><a href="misspecify.html#cb150-2" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(A <span class="sc">~</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
+<span id="cb150-3"><a href="misspecify.html#cb150-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> result.data<span class="sc">$</span>observed,</span>
+<span id="cb150-4"><a href="misspecify.html#cb150-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
+<span id="cb150-5"><a href="misspecify.html#cb150-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> <span class="fl">0.2</span>,</span>
+<span id="cb150-6"><a href="misspecify.html#cb150-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb150-7"><a href="misspecify.html#cb150-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
+<span id="cb150-8"><a href="misspecify.html#cb150-8" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
+<pre><code>## A matchit object
+##  - method: 1:1 nearest neighbor matching without replacement
+##  - distance: Propensity score [caliper]
+##              - estimated with logistic regression
+##  - caliper: &lt;distance&gt; (0.034)
+##  - number of obs.: 10000 (original), 5676 (matched)
+##  - target estimand: ATT
+##  - covariates: L1, L2, L3, L4</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="misspecify.html#cb152-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span></code></pre></div>
+<p>Results from step 4: crude</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="misspecify.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, </span>
+<span id="cb153-2"><a href="misspecify.html#cb153-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb153-3"><a href="misspecify.html#cb153-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A 
+##      121.33        7.74</code></pre>
+<p>Results from step 4: double adjustment</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="misspecify.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, </span>
+<span id="cb155-2"><a href="misspecify.html#cb155-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb155-3"><a href="misspecify.html#cb155-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A          L1          L2          L3          L4 
+##       89.57        7.56        4.20       -0.55       11.33        0.07</code></pre>
+</div>
+<div id="double-machine-learning-method" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Double machine learning method<a href="misspecify.html#double-machine-learning-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We are using DML with only one learner:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="misspecify.html#cb157-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> result.data<span class="sc">$</span>observed</span>
+<span id="cb157-2"><a href="misspecify.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(DoubleML)</span>
+<span id="cb157-3"><a href="misspecify.html#cb157-3" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> DoubleMLData<span class="sc">$</span><span class="fu">new</span>(res, </span>
+<span id="cb157-4"><a href="misspecify.html#cb157-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y_col =</span> <span class="st">&quot;Y&quot;</span>, </span>
+<span id="cb157-5"><a href="misspecify.html#cb157-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">d_cols =</span> <span class="st">&quot;A&quot;</span>, </span>
+<span id="cb157-6"><a href="misspecify.html#cb157-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">x_cols =</span> <span class="fu">c</span>(<span class="st">&quot;L1&quot;</span>,<span class="st">&quot;L2&quot;</span>,<span class="st">&quot;L3&quot;</span>,<span class="st">&quot;L4&quot;</span>))</span>
+<span id="cb157-7"><a href="misspecify.html#cb157-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dd)</span></code></pre></div>
+<pre><code>## ================= DoubleMLData Object ==================
+## 
+## 
+## ------------------ Data summary      ------------------
+## Outcome variable: Y
+## Treatment variable(s): A
+## Covariates: L1, L2, L3, L4
+## Instrument(s): 
+## No. Observations: 10000</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="misspecify.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span></code></pre></div>
+<pre><code>## Warning: package &#39;mlr3&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;mlr3&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:skimr&#39;:
+## 
+##     partition</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="misspecify.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3learners)</span></code></pre></div>
+<pre><code>## Warning: package &#39;mlr3learners&#39; was built under R version 4.1.3</code></pre>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="misspecify.html#cb165-1" aria-hidden="true" tabindex="-1"></a>lgr<span class="sc">::</span><span class="fu">get_logger</span>(<span class="st">&quot;mlr3&quot;</span>)<span class="sc">$</span><span class="fu">set_threshold</span>(<span class="st">&quot;warn&quot;</span>)</span>
+<span id="cb165-2"><a href="misspecify.html#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="misspecify.html#cb165-3" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">&quot;regr.ranger&quot;</span>, <span class="at">num.trees=</span><span class="dv">500</span>, <span class="at">mtry=</span><span class="fu">floor</span>(<span class="fu">sqrt</span>(<span class="dv">5</span>)), <span class="at">max.depth=</span><span class="dv">5</span>, <span class="at">min.node.size=</span><span class="dv">2</span>)</span>
+<span id="cb165-4"><a href="misspecify.html#cb165-4" aria-hidden="true" tabindex="-1"></a>ml_g <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">clone</span>() <span class="co"># outcome modelling</span></span>
+<span id="cb165-5"><a href="misspecify.html#cb165-5" aria-hidden="true" tabindex="-1"></a>ml_m <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">clone</span>() <span class="co"># exposure modelling</span></span>
+<span id="cb165-6"><a href="misspecify.html#cb165-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-7"><a href="misspecify.html#cb165-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb165-8"><a href="misspecify.html#cb165-8" aria-hidden="true" tabindex="-1"></a>dml.res <span class="ot">&lt;-</span> DoubleMLPLR<span class="sc">$</span><span class="fu">new</span>(dd, <span class="at">ml_g=</span>ml_g, <span class="at">ml_m=</span>ml_m)</span>
+<span id="cb165-9"><a href="misspecify.html#cb165-9" aria-hidden="true" tabindex="-1"></a>dml.res<span class="sc">$</span><span class="fu">fit</span>()</span>
+<span id="cb165-10"><a href="misspecify.html#cb165-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dml.res)</span></code></pre></div>
+<pre><code>## ================= DoubleMLPLR Object ==================
+## 
+## 
+## ------------------ Data summary      ------------------
+## Outcome variable: Y
+## Treatment variable(s): A
+## Covariates: L1, L2, L3, L4
+## Instrument(s): 
+## No. Observations: 10000
+## 
+## ------------------ Score &amp; algorithm ------------------
+## Score function: partialling out
+## DML algorithm: dml2
+## 
+## ------------------ Machine learner   ------------------
+## ml_g: regr.ranger
+## ml_m: regr.ranger
+## 
+## ------------------ Resampling        ------------------
+## No. folds: 5
+## No. repeated sample splits: 1
+## Apply cross-fitting: TRUE
+## 
+## ------------------ Fit summary       ------------------
+##  Estimates and significance testing of the effect of target variables
+##   Estimate. Std. Error t value Pr(&gt;|t|)    
+## A    6.7948     0.1516   44.81   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="misspecify.html#cb167-1" aria-hidden="true" tabindex="-1"></a>dml.res<span class="sc">$</span><span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## Estimates and significance testing of the effect of target variables
+##   Estimate. Std. Error t value Pr(&gt;|t|)    
+## A    6.7948     0.1516   44.81   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="double-robust-method-tmle" class="section level3 hasAnchor" number="9.3.4">
+<h3><span class="header-section-number">9.3.4</span> Double robust method (TMLE)<a href="misspecify.html#double-robust-method-tmle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>TMLE with superlearner</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="misspecify.html#cb169-1" aria-hidden="true" tabindex="-1"></a>tmle.res <span class="ot">&lt;-</span> <span class="fu">ltmle</span>(<span class="at">data=</span>result.data<span class="sc">$</span>observed, <span class="at">Anodes=</span><span class="st">&#39;A&#39;</span>, <span class="at">Ynodes=</span><span class="st">&#39;Y&#39;</span>, <span class="at">abar=</span><span class="fu">list</span>(<span class="dv">1</span>,<span class="dv">0</span>), </span>
+<span id="cb169-2"><a href="misspecify.html#cb169-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">SL.library=</span><span class="fu">c</span>(<span class="st">&#39;SL.glm&#39;</span>, <span class="st">&#39;SL.step.interaction&#39;</span>, <span class="st">&#39;SL.earth&#39;</span>, <span class="st">&#39;SL.mean&#39;</span>), </span>
+<span id="cb169-3"><a href="misspecify.html#cb169-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">estimate.time=</span>F,</span>
+<span id="cb169-4"><a href="misspecify.html#cb169-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">SL.cvControl=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">10</span>),</span>
+<span id="cb169-5"><a href="misspecify.html#cb169-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">gbounds=</span><span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="misspecify.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tmle.res)</span></code></pre></div>
+<pre><code>## Estimator:  tmle 
+## Call:
+## ltmle(data = result.data$observed, Anodes = &quot;A&quot;, Ynodes = &quot;Y&quot;, 
+##     abar = list(1, 0), gbounds = c(0.025, 0.975), SL.library = c(&quot;SL.glm&quot;, 
+##         &quot;SL.step.interaction&quot;, &quot;SL.earth&quot;, &quot;SL.mean&quot;), SL.cvControl = list(V = 10), 
+##     estimate.time = F)
+## 
+## Treatment Estimate:
+##    Parameter Estimate:  126.28 
+##     Estimated Std Err:  0.15274 
+##               p-value:  &lt;2e-16 
+##     95% Conf Interval: (125.98, 126.58) 
+## 
+## Control Estimate:
+##    Parameter Estimate:  119.91 
+##     Estimated Std Err:  0.097454 
+##               p-value:  &lt;2e-16 
+##     95% Conf Interval: (119.71, 120.1) 
+## 
+## Additive Treatment Effect:
+##    Parameter Estimate:  6.376 
+##     Estimated Std Err:  0.16207 
+##               p-value:  &lt;2e-16 
+##     95% Conf Interval: (6.0583, 6.6936)</code></pre>
+<p>You can also try with more candidate learners within super learner</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="misspecify.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Time consuming</span></span>
+<span id="cb172-2"><a href="misspecify.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tmle.res1 &lt;- ltmle(data=result.data$observed, Anodes=&#39;A&#39;, Ynodes=&#39;Y&#39;, abar=list(1,0), </span></span>
+<span id="cb172-3"><a href="misspecify.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                 SL.library=c(&#39;SL.glm&#39;, &#39;SL.step.interaction&#39;, </span></span>
+<span id="cb172-4"><a href="misspecify.html#cb172-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                              &#39;SL.gam&#39;, &#39;SL.glmnet&#39;, &#39;SL.cforest&#39;,</span></span>
+<span id="cb172-5"><a href="misspecify.html#cb172-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                              &quot;SL.ranger&quot;, &quot;SL.xgboost&quot;,</span></span>
+<span id="cb172-6"><a href="misspecify.html#cb172-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                              &quot;SL.rpart&quot;, &quot;SL.rpartPrune&quot;,    </span></span>
+<span id="cb172-7"><a href="misspecify.html#cb172-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                              &#39;SL.earth&#39;, &#39;SL.mean&#39;), </span></span>
+<span id="cb172-8"><a href="misspecify.html#cb172-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                 estimate.time=F,</span></span>
+<span id="cb172-9"><a href="misspecify.html#cb172-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                 SL.cvControl=list(V=10),</span></span>
+<span id="cb172-10"><a href="misspecify.html#cb172-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                 gbounds=c(0.025, 0.975))</span></span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="misspecify.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(tmle.res1)</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-balzer2021demystifying" class="csl-entry">
+Balzer, Laura B, and Ted Westling. 2021. <span>“Demystifying Statistical Inference When Using Machine Learning in Causal Research.”</span> <em>American Journal of Epidemiology</em>.
+</div>
+<div id="ref-naimi2017challenges" class="csl-entry">
+Naimi, Ashley I, Alan E Mishler, and Edward H Kennedy. 2017. <span>“Challenges in Obtaining Valid Causal Effect Estimates with Machine Learning Algorithms.”</span> <em>arXiv Preprint arXiv:1711.07137</em>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="compare.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ehsanx/UnderstandingPropensityScore/edit/master/09-misspecify.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["UnderstandingPropensityScore.pdf", "UnderstandingPropensityScore.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

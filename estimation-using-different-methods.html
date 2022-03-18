@@ -4,20 +4,20 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Propensity score | Understanding Propensity Score Matching</title>
-  <meta name="description" content="Chapter 3 Propensity score | Understanding Propensity Score Matching." />
+  <title>Chapter 10 Estimation using different methods | Understanding Propensity Score Matching</title>
+  <meta name="description" content="Chapter 10 Estimation using different methods | Understanding Propensity Score Matching." />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Propensity score | Understanding Propensity Score Matching" />
+  <meta property="og:title" content="Chapter 10 Estimation using different methods | Understanding Propensity Score Matching" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Chapter 3 Propensity score | Understanding Propensity Score Matching." />
+  <meta property="og:description" content="Chapter 10 Estimation using different methods | Understanding Propensity Score Matching." />
   <meta name="github-repo" content="ehsanx/UnderstandingPropensityScore" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Propensity score | Understanding Propensity Score Matching" />
+  <meta name="twitter:title" content="Chapter 10 Estimation using different methods | Understanding Propensity Score Matching" />
   
-  <meta name="twitter:description" content="Chapter 3 Propensity score | Understanding Propensity Score Matching." />
+  <meta name="twitter:description" content="Chapter 10 Estimation using different methods | Understanding Propensity Score Matching." />
   
 
 <meta name="author" content="Ehsan Karim" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="balance.html"/>
-<link rel="next" href="s1.html"/>
+<link rel="prev" href="misspecify.html"/>
+<link rel="next" href="guide.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -52,8 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script type="text/javascript">
 
 // toggle visibility of R source blocks in R Markdown output
@@ -307,31 +305,34 @@ div.csl-indent {
 <ul>
 <li><a href="misspecify.html#true-exposure-model">True Exposure Model<span></span></a></li>
 <li><a href="misspecify.html#true-outcome-model">True Outcome Model<span></span></a></li>
+<li><a href="misspecify.html#assumption">Assumption<span></span></a></li>
 <li><a href="misspecify.html#outcomes-and-exposures-are-complex-functions-of-measured-covariates">Outcomes and exposures are complex functions of measured covariates<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="misspecify.html"><a href="misspecify.html#understanding-finite-sample-bias"><i class="fa fa-check"></i><b>9.2</b> Understanding finite sample bias<span></span></a></li>
-<li class="chapter" data-level="9.3" data-path="misspecify.html"><a href="misspecify.html#estimation-using-different-methods"><i class="fa fa-check"></i><b>9.3</b> Estimation using different methods<span></span></a>
+<li class="chapter" data-level="9.2" data-path="misspecify.html"><a href="misspecify.html#generate-data"><i class="fa fa-check"></i><b>9.2</b> Generate data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="estimation-using-different-methods.html"><a href="estimation-using-different-methods.html"><i class="fa fa-check"></i><b>10</b> Estimation using different methods<span></span></a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="misspecify.html"><a href="misspecify.html#regression-1"><i class="fa fa-check"></i><b>9.3.1</b> Regression<span></span></a></li>
-<li class="chapter" data-level="9.3.2" data-path="misspecify.html"><a href="misspecify.html#propensity-score"><i class="fa fa-check"></i><b>9.3.2</b> Propensity score<span></span></a></li>
-<li class="chapter" data-level="9.3.3" data-path="misspecify.html"><a href="misspecify.html#double-machine-learning-method"><i class="fa fa-check"></i><b>9.3.3</b> Double machine learning method<span></span></a></li>
-<li class="chapter" data-level="9.3.4" data-path="misspecify.html"><a href="misspecify.html#double-robust-method-tmle"><i class="fa fa-check"></i><b>9.3.4</b> Double robust method (TMLE)<span></span></a></li>
+<li class="chapter" data-level="10.1" data-path="estimation-using-different-methods.html"><a href="estimation-using-different-methods.html#regression-1"><i class="fa fa-check"></i><b>10.1</b> Regression<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="estimation-using-different-methods.html"><a href="estimation-using-different-methods.html#propensity-score"><i class="fa fa-check"></i><b>10.2</b> Propensity score<span></span></a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="estimation-using-different-methods.html"><a href="estimation-using-different-methods.html#tmle-with-superlearner"><i class="fa fa-check"></i><b>10.2.1</b> TMLE with superlearner<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>10</b> Reporting Guidelines<span></span></a>
+<li class="chapter" data-level="11" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>11</b> Reporting Guidelines<span></span></a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>10.1</b> Discipline-specific Reviews<span></span></a></li>
-<li class="chapter" data-level="10.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>10.2</b> Suggested Guidelines<span></span></a></li>
-<li class="chapter" data-level="10.3" data-path="guide.html"><a href="guide.html#additional-topics"><i class="fa fa-check"></i><b>10.3</b> Additional topics<span></span></a></li>
+<li class="chapter" data-level="11.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>11.1</b> Discipline-specific Reviews<span></span></a></li>
+<li class="chapter" data-level="11.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>11.2</b> Suggested Guidelines<span></span></a></li>
+<li class="chapter" data-level="11.3" data-path="guide.html"><a href="guide.html#additional-topics"><i class="fa fa-check"></i><b>11.3</b> Additional topics<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="final.html"><a href="final.html"><i class="fa fa-check"></i><b>11</b> Final Words<span></span></a>
+<li class="chapter" data-level="12" data-path="final.html"><a href="final.html"><i class="fa fa-check"></i><b>12</b> Final Words<span></span></a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="final.html"><a href="final.html#common-misconception"><i class="fa fa-check"></i><b>11.1</b> Common misconception<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>11.2</b> Benifits of PS<span></span></a></li>
-<li class="chapter" data-level="11.3" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>11.3</b> Limitations of PS<span></span></a></li>
-<li class="chapter" data-level="11.4" data-path="final.html"><a href="final.html#sensitivity-analysis"><i class="fa fa-check"></i><b>11.4</b> Sensitivity analysis<span></span></a></li>
-<li class="chapter" data-level="11.5" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>11.5</b> Software<span></span></a></li>
-<li class="chapter" data-level="11.6" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>11.6</b> Further Resources<span></span></a></li>
+<li class="chapter" data-level="12.1" data-path="final.html"><a href="final.html#common-misconception"><i class="fa fa-check"></i><b>12.1</b> Common misconception<span></span></a></li>
+<li class="chapter" data-level="12.2" data-path="final.html"><a href="final.html#understanding-sources-of-bias-is-important"><i class="fa fa-check"></i><b>12.2</b> Understanding sources of bias is important<span></span></a></li>
+<li class="chapter" data-level="12.3" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>12.3</b> Benifits of PS<span></span></a></li>
+<li class="chapter" data-level="12.4" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>12.4</b> Limitations of PS<span></span></a></li>
+<li class="chapter" data-level="12.5" data-path="final.html"><a href="final.html#sensitivity-analysis"><i class="fa fa-check"></i><b>12.5</b> Sensitivity analysis<span></span></a></li>
+<li class="chapter" data-level="12.6" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>12.6</b> Software<span></span></a></li>
+<li class="chapter" data-level="12.7" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>12.7</b> Further Resources<span></span></a></li>
 </ul></li>
 <li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
@@ -354,196 +355,82 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ps" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Propensity score<a href="ps.html#ps" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="motivating-problem" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Motivating problem<a href="ps.html#motivating-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(Y\)</span> : Outcome</td>
-<td>Cholesterol levels (high vs. low)</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(A\)</span> : Exposure</td>
-<td>Diabetes</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(L\)</span> : Known Confounders</td>
-<td>gender, age, race, education, married, BMI</td>
-</tr>
-</tbody>
-</table>
-<p>Search literature for the confounder variables, and look for those variables in the data source (<a href="https://wwwn.cdc.gov/nchs/nhanes/continuousnhanes/default.aspx?BeginYear=2017">NHANES 2017-2018</a>).</p>
-<ul>
-<li><strong>Data recourses</strong>:
-<ul>
-<li>All of the data files used in this workshop are available in the <a href="https://github.com/ehsanx/psw/tree/main/data">GitHub repo</a>.</li>
-<li>If you are interested in how to obtain NHANES datasets and prepare analytic data, <a href="https://ehsanx.github.io/SurveyDataAnalysis/">here</a> is an example (outside of the scope of the current tutorial).</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="ps.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file=</span><span class="st">&quot;data/NHANES17.RData&quot;</span>) </span>
-<span id="cb11-2"><a href="ps.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr) </span>
-<span id="cb11-3"><a href="ps.html#cb11-3" aria-hidden="true" tabindex="-1"></a>analytic <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(analytic, </span>
-<span id="cb11-4"><a href="ps.html#cb11-4" aria-hidden="true" tabindex="-1"></a>                  cholesterol, <span class="co"># outcome</span></span>
-<span id="cb11-5"><a href="ps.html#cb11-5" aria-hidden="true" tabindex="-1"></a>                  gender, age, race, education, </span>
-<span id="cb11-6"><a href="ps.html#cb11-6" aria-hidden="true" tabindex="-1"></a>                  married, bmi, <span class="co"># confounders</span></span>
-<span id="cb11-7"><a href="ps.html#cb11-7" aria-hidden="true" tabindex="-1"></a>                  diabetes) <span class="co"># exposure</span></span>
-<span id="cb11-8"><a href="ps.html#cb11-8" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>cholesterol <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(analytic<span class="sc">$</span>cholesterol <span class="sc">&gt;</span> <span class="dv">240</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb11-9"><a href="ps.html#cb11-9" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>diabetes <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(analytic<span class="sc">$</span>diabetes <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="images/overallnhanesplan.png" width="256" /></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ps.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(summarytools)</span>
-<span id="cb12-2"><a href="ps.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dfSummary</span>(analytic)</span></code></pre></div>
-<pre><code>## Data Frame Summary  
-## analytic  
-## Dimensions: 1562 x 8  
-## Duplicates: 2  
-## 
-## -------------------------------------------------------------------------------------------------------------------------------------------------
-## No   Variable              Label                       Stats / Values            Freqs (% of Valid)    Graph                 Valid      Missing  
-## ---- --------------------- --------------------------- ------------------------- --------------------- --------------------- ---------- ---------
-## 1    cholesterol                                       Min  : 0                  0 : 1391 (89.1%)      IIIIIIIIIIIIIIIII     1562       0        
-##      [numeric]                                         Mean : 0.1                1 :  171 (10.9%)      II                    (100.0%)   (0.0%)   
-##                                                        Max  : 1                                                                                  
-## 
-## 2    gender                                            1. Female                 603 (38.6%)           IIIIIII               1562       0        
-##      [character]                                       2. Male                   959 (61.4%)           IIIIIIIIIIII          (100.0%)   (0.0%)   
-## 
-## 3    age                   Age in years at screening   Mean (sd) : 53.2 (17.2)   61 distinct values                : :   :   1562       0        
-##      [labelled, integer]                               min &lt; med &lt; max:                                  . : . . : : : : :   (100.0%)   (0.0%)   
-##                                                        20 &lt; 55 &lt; 80                                    : : : : : : : : : :                       
-##                                                        IQR (CV) : 29 (0.3)                             : : : : : : : : : :                       
-##                                                                                                        : : : : : : : : : :                       
-## 
-## 4    race                                              1. Black                  324 (20.7%)           IIII                  1562       0        
-##      [character]                                       2. Hispanic               284 (18.2%)           III                   (100.0%)   (0.0%)   
-##                                                        3. Other                  228 (14.6%)           II                                        
-##                                                        4. White                  726 (46.5%)           IIIIIIIII                                 
-## 
-## 5    education                                         1. College                806 (51.6%)           IIIIIIIIII            1562       0        
-##      [character]                                       2. High.School            658 (42.1%)           IIIIIIII              (100.0%)   (0.0%)   
-##                                                        3. School                  98 ( 6.3%)           I                                         
-## 
-## 6    married                                           1. Married                921 (59.0%)           IIIIIIIIIII           1562       0        
-##      [character]                                       2. Never.married          228 (14.6%)           II                    (100.0%)   (0.0%)   
-##                                                        3. Previously.married     413 (26.4%)           IIIII                                     
-## 
-## 7    bmi                   Body Mass Index (kg/m2)     Mean (sd) : 30 (7.3)      314 distinct values       :                 1562       0        
-##      [labelled, numeric]                               min &lt; med &lt; max:                                    : .               (100.0%)   (0.0%)   
-##                                                        14.8 &lt; 28.9 &lt; 64.2                                : : :                                   
-##                                                        IQR (CV) : 8.8 (0.2)                              : : : :                                 
-##                                                                                                        . : : : : : .                             
-## 
-## 8    diabetes                                          Min  : 0                  0 : 1232 (78.9%)      IIIIIIIIIIIIIII       1562       0        
-##      [numeric]                                         Mean : 0.2                1 :  330 (21.1%)      IIII                  (100.0%)   (0.0%)   
-##                                                        Max  : 1                                                                                  
-## -------------------------------------------------------------------------------------------------------------------------------------------------</code></pre>
+<div id="estimation-using-different-methods" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Estimation using different methods<a href="estimation-using-different-methods.html#estimation-using-different-methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="regression-1" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Regression<a href="estimation-using-different-methods.html#regression-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="estimation-using-different-methods.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb4-2"><a href="estimation-using-different-methods.html#cb4-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>result.data<span class="sc">$</span>observed)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A          L1          L2          L3          L4 
+##       86.32        7.59        4.42       -0.06       -2.90        0.07</code></pre>
 </div>
-<div id="defining-propensity-score" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Defining Propensity score<a href="ps.html#defining-propensity-score" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Conditional Probability of getting treatment, given the observed covariates</li>
-</ul>
-<blockquote>
-<p>Prob(treatment: <span class="math inline">\(A = 1\)</span> | baseline or pre-treatment covariates: <span class="math inline">\(L\)</span>)</p>
-</blockquote>
-<blockquote>
-<p>Prob(<span class="math inline">\(A = 1\)</span>: Has diabetes | <span class="math inline">\(L\)</span>: gender, age, race, education, married, bmi)</p>
-</blockquote>
-<ul>
-<li>PS = <span class="math inline">\(Prob(A=1|L)\)</span></li>
-</ul>
-<p><strong>Condensing multiple variables (in L) into one summary variable (PS)</strong>.</p>
-<ul>
-<li>Essentially a dimension reduction exercise!</li>
-</ul>
-<div id="theoretical-result" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Theoretical result<a href="ps.html#theoretical-result" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><span class="citation"><a href="#ref-rosenbaum1983central" role="doc-biblioref">Rosenbaum and Rubin</a> (<a href="#ref-rosenbaum1983central" role="doc-biblioref">1983</a>)</span> showed:</p>
-<ul>
-<li>For potential outcomes <span class="math inline">\(Y(1), Y(0)\)</span>, if you have sufficient observed covariate list <span class="math inline">\(L\)</span> to reduce confounding (`strong ignoribility’):
-<ul>
-<li>i.e., if <span class="math inline">\((Y(1), Y(0)) \perp A | L\)</span></li>
-<li>Note that is this NOT <span class="math inline">\(Y \perp A | L\)</span></li>
-</ul></li>
-<li>then
-<ul>
-<li><span class="math inline">\((Y(1), Y(0)) \perp A | PS\)</span> and</li>
-<li><span class="math inline">\(A \perp L | PS\)</span></li>
-</ul></li>
-</ul>
-</div>
-<div id="assumptions" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Assumptions<a href="ps.html#assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Conditional Exchangeability</td>
-<td><span class="math inline">\(Y(1), Y(0) \perp A | L\)</span></td>
-<td>Treatment assignment is independent of the potential outcome, given L</td>
-</tr>
-<tr class="even">
-<td>Positivity</td>
-<td><span class="math inline">\(0 &lt; P(A=1 | L) &lt; 1\)</span></td>
-<td>Subjects are eligible to receive both treatment, given L</td>
-</tr>
-<tr class="odd">
-<td>Consistency</td>
-<td><span class="math inline">\(Y = Y(a) \forall A=a\)</span></td>
-<td>No multiple version of the treatment</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="ways-to-use-ps" class="section level3 hasAnchor" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Ways to use PS<a href="ps.html#ways-to-use-ps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Many ways to use propensity scores (PS) in the analysis</p>
-<ul>
-<li><strong>PS matching</strong> [our focus today]</li>
-<li>PS weighting</li>
-<li>PS stratification</li>
-<li>PS used as a covariate</li>
-</ul>
-</div>
-</div>
-<div id="ps-matching-steps" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> PS Matching Steps<a href="ps.html#ps-matching-steps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Propensity score matching has 4 steps <span class="citation">(<a href="#ref-austin2011tutorial" role="doc-biblioref">Austin 2011a</a>)</span></p>
-<table>
-<tbody>
-<tr class="odd">
-<td>Step 1</td>
-<td>exposure modelling: <span class="math inline">\(PS = Prob(A=1|L)\)</span></td>
-</tr>
-<tr class="even">
-<td>Step 2</td>
-<td>Match by <span class="math inline">\(PS\)</span></td>
-</tr>
-<tr class="odd">
-<td>Step 3</td>
-<td>Assess balance and overlap (<span class="math inline">\(PS\)</span> and <span class="math inline">\(L\)</span>)</td>
-</tr>
-<tr class="even">
-<td>Step 4</td>
-<td>outcome modelling: <span class="math inline">\(Prob(Y=1|A=1)\)</span></td>
-</tr>
-</tbody>
-</table>
+<div id="propensity-score" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Propensity score<a href="estimation-using-different-methods.html#propensity-score" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Propensity score model fitting:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estimation-using-different-methods.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MatchIt)</span></code></pre></div>
+<pre><code>## Loading required package: MatchIt</code></pre>
+<pre><code>## Warning: package &#39;MatchIt&#39; was built under R version 4.1.3</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="estimation-using-different-methods.html#cb9-1" aria-hidden="true" tabindex="-1"></a>match.obj <span class="ot">&lt;-</span> <span class="fu">matchit</span>(A <span class="sc">~</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, <span class="at">method =</span> <span class="st">&quot;nearest&quot;</span>, </span>
+<span id="cb9-2"><a href="estimation-using-different-methods.html#cb9-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> result.data<span class="sc">$</span>observed,</span>
+<span id="cb9-3"><a href="estimation-using-different-methods.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distance =</span> <span class="st">&#39;logit&#39;</span>, </span>
+<span id="cb9-4"><a href="estimation-using-different-methods.html#cb9-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">caliper =</span> <span class="fl">0.2</span>,</span>
+<span id="cb9-5"><a href="estimation-using-different-methods.html#cb9-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">replace =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb9-6"><a href="estimation-using-different-methods.html#cb9-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ratio =</span> <span class="dv">1</span>)</span>
+<span id="cb9-7"><a href="estimation-using-different-methods.html#cb9-7" aria-hidden="true" tabindex="-1"></a>match.obj</span></code></pre></div>
+<pre><code>## A matchit object
+##  - method: 1:1 nearest neighbor matching without replacement
+##  - distance: Propensity score [caliper]
+##              - estimated with logistic regression
+##  - caliper: &lt;distance&gt; (0.035)
+##  - number of obs.: 10000 (original), 5800 (matched)
+##  - target estimand: ATT
+##  - covariates: L1, L2, L3, L4</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="estimation-using-different-methods.html#cb11-1" aria-hidden="true" tabindex="-1"></a>matched.data <span class="ot">&lt;-</span> <span class="fu">match.data</span>(match.obj)</span></code></pre></div>
+<p>Results from step 4: crude and adjusted</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="estimation-using-different-methods.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A, </span>
+<span id="cb12-2"><a href="estimation-using-different-methods.html#cb12-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb12-3"><a href="estimation-using-different-methods.html#cb12-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A 
+##      121.28        7.89</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estimation-using-different-methods.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(<span class="fu">glm</span>(Y <span class="sc">~</span> A <span class="sc">+</span> L1 <span class="sc">+</span> L2 <span class="sc">+</span> L3 <span class="sc">+</span> L4, </span>
+<span id="cb14-2"><a href="estimation-using-different-methods.html#cb14-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb14-3"><a href="estimation-using-different-methods.html#cb14-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>matched.data)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           A          L1          L2          L3          L4 
+##       83.64        7.63        4.39       -0.02       11.43        0.07</code></pre>
+<div id="tmle-with-superlearner" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> TMLE with superlearner<a href="estimation-using-different-methods.html#tmle-with-superlearner" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="estimation-using-different-methods.html#cb16-1" aria-hidden="true" tabindex="-1"></a>tmle.res <span class="ot">&lt;-</span> <span class="fu">ltmle</span>(<span class="at">data=</span>result.data<span class="sc">$</span>observed, <span class="at">Anodes=</span><span class="st">&#39;A&#39;</span>, <span class="at">Ynodes=</span><span class="st">&#39;Y&#39;</span>, <span class="at">abar=</span><span class="fu">list</span>(<span class="dv">1</span>,<span class="dv">0</span>), </span>
+<span id="cb16-2"><a href="estimation-using-different-methods.html#cb16-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">SL.library=</span><span class="fu">c</span>(<span class="st">&#39;SL.glm&#39;</span>, <span class="st">&#39;SL.step.interaction&#39;</span>, <span class="st">&#39;SL.earth&#39;</span>, <span class="st">&#39;SL.mean&#39;</span>), </span>
+<span id="cb16-3"><a href="estimation-using-different-methods.html#cb16-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">estimate.time=</span>F,</span>
+<span id="cb16-4"><a href="estimation-using-different-methods.html#cb16-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">SL.cvControl=</span><span class="fu">list</span>(<span class="at">V=</span><span class="dv">10</span>),</span>
+<span id="cb16-5"><a href="estimation-using-different-methods.html#cb16-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">gbounds=</span><span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="estimation-using-different-methods.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tmle.res)</span></code></pre></div>
+<pre><code>## Estimator:  tmle 
+## Call:
+## ltmle(data = result.data$observed, Anodes = &quot;A&quot;, Ynodes = &quot;Y&quot;, 
+##     abar = list(1, 0), gbounds = c(0.025, 0.975), SL.library = c(&quot;SL.glm&quot;, 
+##         &quot;SL.step.interaction&quot;, &quot;SL.earth&quot;, &quot;SL.mean&quot;), SL.cvControl = list(V = 10), 
+##     estimate.time = F)
+## 
+## Treatment Estimate:
+##    Parameter Estimate:  126.01 
+##     Estimated Std Err:  0.16692 
+##               p-value:  &lt;2e-16 
+##     95% Conf Interval: (125.69, 126.34) 
+## 
+## Control Estimate:
+##    Parameter Estimate:  119.84 
+##     Estimated Std Err:  0.098537 
+##               p-value:  &lt;2e-16 
+##     95% Conf Interval: (119.64, 120.03) 
+## 
+## Additive Treatment Effect:
+##    Parameter Estimate:  6.1786 
+##     Estimated Std Err:  0.17483 
+##               p-value:  &lt;2e-16 
+##     95% Conf Interval: (5.8359, 6.5213)</code></pre>
 
 </div>
-</div>
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-austin2011tutorial" class="csl-entry">
-———. 2011a. <span>“A Tutorial and Case Study in Propensity Score Analysis: An Application to Estimating the Effect of in-Hospital Smoking Cessation Counseling on Mortality.”</span> <em>Multivariate Behavioral Research</em> 46 (1): 119–51.
-</div>
-<div id="ref-rosenbaum1983central" class="csl-entry">
-Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of the Propensity Score in Observational Studies for Causal Effects.”</span> <em>Biometrika</em> 70 (1): 41–55.
 </div>
 </div>
             </section>
@@ -551,8 +438,8 @@ Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of the Pr
           </div>
         </div>
       </div>
-<a href="balance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="s1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="misspecify.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="guide.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -583,7 +470,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ehsanx/UnderstandingPropensityScore/edit/master/03-PS.Rmd",
+"link": "https://github.com/ehsanx/UnderstandingPropensityScore/edit/master/09-misspecify.Rmd",
 "text": "Edit"
 },
 "history": {
