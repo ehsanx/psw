@@ -23,7 +23,7 @@
 <meta name="author" content="Ehsan Karim" />
 
 
-<meta name="date" content="2022-03-20" />
+<meta name="date" content="2022-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -333,10 +333,8 @@ div.csl-indent {
 <li class="chapter" data-level="11.2" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>11.2</b> Benifits of PS<span></span></a></li>
 <li class="chapter" data-level="11.3" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>11.3</b> Limitations of PS<span></span></a></li>
 <li class="chapter" data-level="11.4" data-path="final.html"><a href="final.html#when-ps-may-not-be-useful"><i class="fa fa-check"></i><b>11.4</b> When PS may not be useful?<span></span></a></li>
-<li class="chapter" data-level="11.5" data-path="final.html"><a href="final.html#effect-modifications"><i class="fa fa-check"></i><b>11.5</b> Effect modifications<span></span></a></li>
-<li class="chapter" data-level="11.6" data-path="final.html"><a href="final.html#sensitivity-analysis"><i class="fa fa-check"></i><b>11.6</b> Sensitivity analysis<span></span></a></li>
-<li class="chapter" data-level="11.7" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>11.7</b> Software<span></span></a></li>
-<li class="chapter" data-level="11.8" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>11.8</b> Further Resources<span></span></a></li>
+<li class="chapter" data-level="11.5" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>11.5</b> Software<span></span></a></li>
+<li class="chapter" data-level="11.6" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>11.6</b> Further Resources<span></span></a></li>
 </ul></li>
 <li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
@@ -406,6 +404,22 @@ div.csl-indent {
 </ul>
 <p><img src="images/SMD.png" /></p>
 <p>Generally, <span class="math inline">\(0.1\)</span> is used as a cut-point. But some suggest more liberal cut-points. More on that later.</p>
+<p><strong>COVID example</strong> from <span class="citation"><a href="#ref-gautret2020hydroxychloroquine" role="doc-biblioref">Gautret et al.</a> (<a href="#ref-gautret2020hydroxychloroquine" role="doc-biblioref">2020</a>)</span></p>
+<p>p-value vs. SMD</p>
+<p><img src="images/hql.png" /></p>
+<ul>
+<li>Statistical tests are affected by sample size
+<ul>
+<li>t-test</li>
+<li>McNemar tests</li>
+<li>Wilcoxon rank test</li>
+</ul></li>
+<li>Balance of what?
+<ul>
+<li>statistical tests make inference about balance at the population level</li>
+<li>but we are really interested in balance at the sample level</li>
+</ul></li>
+</ul>
 </div>
 <div id="variance-ratio" class="section level4 hasAnchor" number="2.1.1.2">
 <h4><span class="header-section-number">2.1.1.2</span> Variance ratio<a href="balance.html#variance-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -449,8 +463,8 @@ div.csl-indent {
 <h3><span class="header-section-number">2.2.2</span> Adjustment Methods<a href="balance.html#adjustment-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Adjustment of imbalance could mean</p>
 <ul>
-<li>exact matching</li>
-<li>stratification</li>
+<li>exact matching <span class="citation">(<a href="#ref-rubin1973matching" role="doc-biblioref">Rubin 1973</a>)</span></li>
+<li>stratification, restriction</li>
 </ul>
 <table>
 <tbody>
@@ -464,7 +478,7 @@ When L includes a large number of covariates, matching method would result in a 
 </tr>
 </tbody>
 </table>
-<p>Regression is also a popular adjustment method. Below is a list of adjustment methods that uses different combinations of exposure and outcome modelling.</p>
+<p>Regression and machine learning methods are popular adjustment methods. Below is a list of adjustment methods that uses different combinations of exposure and outcome modelling.</p>
 <table>
 <colgroup>
 <col width="32%" />
@@ -485,24 +499,34 @@ When L includes a large number of covariates, matching method would result in a 
 <td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+\color{red}{\text{L}})\)</span></td>
 </tr>
 <tr class="even">
+<td>Propensity score matching <span class="citation">(<a href="#ref-rosenbaum1983central" role="doc-biblioref">Rosenbaum and Rubin 1983</a>)</span></td>
+<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
+<td align="center">Crude comparison on matched data <span class="math inline">\((Y \sim \color{green}{\text{A}})\)</span></td>
+</tr>
+<tr class="odd">
+<td>Propensity score Weighting <span class="citation">(<a href="#ref-rosenbaum1983central" role="doc-biblioref">Rosenbaum and Rubin 1983</a>)</span></td>
+<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
+<td align="center">Crude comparison on weighted data <span class="math inline">\((Y \sim \color{green}{\text{A}})\)</span></td>
+</tr>
+<tr class="even">
+<td>Propensity score double adjustment</td>
+<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
+<td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+ \color{red}{\text{L}})\)</span></td>
+</tr>
+<tr class="odd">
+<td>Decision tree-based method <span class="citation">(<a href="#ref-breiman1984classification" role="doc-biblioref">Breiman et al. 1984</a>)</span></td>
+<td align="center">No <span class="math inline">\(\color{green}{\text{A}}\)</span> modelling</td>
+<td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+\color{red}{\text{L}})\)</span></td>
+</tr>
+<tr class="even">
 <td>G-Computation <span class="citation">(<a href="#ref-robins1986new" role="doc-biblioref">J. Robins 1986</a>)</span></td>
 <td align="center">No <span class="math inline">\(\color{green}{\text{A}}\)</span> modelling</td>
 <td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A=1 vs. 0}}+\color{red}{\text{L}})\)</span></td>
 </tr>
 <tr class="odd">
-<td>Propensity score matching <span class="citation">(<a href="#ref-rosenbaum1983central" role="doc-biblioref">Rosenbaum and Rubin 1983</a>)</span></td>
-<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
-<td align="center">Crude comparison on matched data <span class="math inline">\((Y \sim \color{green}{\text{A}})\)</span></td>
-</tr>
-<tr class="even">
-<td>Propensity score Weighting <span class="citation">(<a href="#ref-rosenbaum1983central" role="doc-biblioref">Rosenbaum and Rubin 1983</a>)</span></td>
-<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
-<td align="center">Crude comparison on weighted data <span class="math inline">\((Y \sim \color{green}{\text{A}})\)</span></td>
-</tr>
-<tr class="odd">
-<td>Propensity score double adjustment</td>
-<td align="center">Yes <span class="math inline">\((\color{green}{\text{A}} \sim \color{red}{\text{L}})\)</span></td>
-<td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+ \color{red}{\text{L}})\)</span></td>
+<td>Random Forest <span class="citation">(<a href="#ref-ho1995random" role="doc-biblioref">Ho 1995</a>)</span></td>
+<td align="center">No <span class="math inline">\(\color{green}{\text{A}}\)</span> modelling</td>
+<td align="center">Yes <span class="math inline">\((Y \sim \color{green}{\text{A}}+\color{red}{\text{L}})\)</span></td>
 </tr>
 <tr class="even">
 <td>Double robust <span class="citation">(<a href="#ref-rrr" role="doc-biblioref">J. M. Robins and Rotnitzky 2001</a>)</span>, <span class="citation">(<a href="#ref-van2006targeted" role="doc-biblioref">Van Der Laan and Rubin 2006</a>)</span> (augmented weighted, or TMLE), potentially using machine learning</td>
@@ -537,6 +561,15 @@ When L includes a large number of covariates, matching method would result in a 
 <div id="ref-austin2011introduction" class="csl-entry">
 ———. 2011b. <span>“An Introduction to Propensity Score Methods for Reducing the Effects of Confounding in Observational Studies.”</span> <em>Multivariate Behavioral Research</em> 46 (3): 399–424.
 </div>
+<div id="ref-breiman1984classification" class="csl-entry">
+Breiman, L, JH Friedman, R Olshen, and CJ Stone. 1984. <span>“Classification and Regression Trees.”</span>
+</div>
+<div id="ref-gautret2020hydroxychloroquine" class="csl-entry">
+Gautret, Philippe, Jean-Christophe Lagier, Philippe Parola, Line Meddeb, Morgane Mailhe, Barbara Doudier, Johan Courjon, et al. 2020. <span>“Hydroxychloroquine and Azithromycin as a Treatment of COVID-19: Results of an Open-Label Non-Randomized Clinical Trial.”</span> <em>International Journal of Antimicrobial Agents</em> 56 (1): 105949.
+</div>
+<div id="ref-ho1995random" class="csl-entry">
+Ho, Tin Kam. 1995. <span>“Random Decision Forests.”</span> In <em>Proceedings of 3rd International Conference on Document Analysis and Recognition</em>, 1:278–82. IEEE.
+</div>
 <div id="ref-rrr" class="csl-entry">
 Robins, J. M., and A G Rotnitzky. 2001. <span>“Comment on the Bickel and Kwon Article, ’Inference for Semiparametric Models: Some Questions and an Answer’.”</span> <em>Statistica Sinica</em> 11 (January): 920–36.
 </div>
@@ -545,6 +578,9 @@ Robins, James. 1986. <span>“A New Approach to Causal Inference in Mortality St
 </div>
 <div id="ref-rosenbaum1983central" class="csl-entry">
 Rosenbaum, Paul R, and Donald B Rubin. 1983. <span>“The Central Role of the Propensity Score in Observational Studies for Causal Effects.”</span> <em>Biometrika</em> 70 (1): 41–55.
+</div>
+<div id="ref-rubin1973matching" class="csl-entry">
+Rubin, Donald B. 1973. <span>“Matching to Remove Bias in Observational Studies.”</span> <em>Biometrics</em>, 159–83.
 </div>
 <div id="ref-stanton2001galton" class="csl-entry">
 Stanton, Jeffrey M. 2001. <span>“Galton, Pearson, and the Peas: A Brief History of Linear Regression for Statistics Instructors.”</span> <em>Journal of Statistics Education</em> 9 (3).

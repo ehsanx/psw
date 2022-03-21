@@ -93,7 +93,5 @@ common-misconception
 benifits-of-ps
 limitations-of-ps
 when-ps-may-not-be-useful
-effect-modifications
-sensitivity-analysis
 software
 further-resources
