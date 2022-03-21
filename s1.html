@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Step 1: Exposure modelling | Understanding Propensity Score Matching</title>
   <meta name="description" content="Chapter 4 Step 1: Exposure modelling | Understanding Propensity Score Matching." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Step 1: Exposure modelling | Understanding Propensity Score Matching" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Chapter 4 Step 1: Exposure modelling | Understanding Propensity Score Matching." />
   <meta name="github-repo" content="ehsanx/UnderstandingPropensityScore" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Ehsan Karim" />
 
 
-<meta name="date" content="2022-03-17" />
+<meta name="date" content="2022-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="ps.html"/>
 <link rel="next" href="s2.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script type="text/javascript">
@@ -185,158 +184,161 @@ div.csl-indent {
 <li><a href="./">Understanding Propensity Score Matching</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preamble</a>
+<li><a href="index.html#preamble">Preamble<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#description"><i class="fa fa-check"></i>Description</a>
+<li><a href="index.html#description">Description<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#main-references"><i class="fa fa-check"></i>Main references</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#version-history"><i class="fa fa-check"></i>Version history</a></li>
+<li><a href="index.html#main-references">Main references<span></span></a></li>
+<li><a href="index.html#version-history">Version history<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a>
+<li><a href="index.html#prerequisites">Prerequisites<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#comments"><i class="fa fa-check"></i>Comments</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="terms.html"><a href="terms.html"><i class="fa fa-check"></i><b>1</b> Defining Parameter</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="terms.html"><a href="terms.html#potential-outcome"><i class="fa fa-check"></i><b>1.1</b> Potential outcome</a></li>
-<li class="chapter" data-level="1.2" data-path="terms.html"><a href="terms.html#parameters-of-interest"><i class="fa fa-check"></i><b>1.2</b> Parameters of interest</a>
-<ul>
-<li class="chapter" data-level="1.2.1" data-path="terms.html"><a href="terms.html#te"><i class="fa fa-check"></i><b>1.2.1</b> TE</a></li>
-<li class="chapter" data-level="1.2.2" data-path="terms.html"><a href="terms.html#ate"><i class="fa fa-check"></i><b>1.2.2</b> ATE</a></li>
-<li class="chapter" data-level="1.2.3" data-path="terms.html"><a href="terms.html#interpretation-of-ate"><i class="fa fa-check"></i><b>1.2.3</b> Interpretation of ATE</a></li>
-<li class="chapter" data-level="1.2.4" data-path="terms.html"><a href="terms.html#identifiability-assumptions"><i class="fa fa-check"></i><b>1.2.4</b> Identifiability Assumptions</a></li>
-<li class="chapter" data-level="1.2.5" data-path="terms.html"><a href="terms.html#att"><i class="fa fa-check"></i><b>1.2.5</b> ATT</a></li>
-<li class="chapter" data-level="1.2.6" data-path="terms.html"><a href="terms.html#interpretation-of-att"><i class="fa fa-check"></i><b>1.2.6</b> Interpretation of ATT</a></li>
-<li class="chapter" data-level="1.2.7" data-path="terms.html"><a href="terms.html#att-vs.-ate"><i class="fa fa-check"></i><b>1.2.7</b> ATT vs. ATE</a></li>
+<li><a href="index.html#license">License<span></span></a></li>
+<li><a href="index.html#comments">Comments<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="balance.html"><a href="balance.html"><i class="fa fa-check"></i><b>2</b> Balance and Overlap</a>
+<li class="chapter" data-level="1" data-path="terms.html"><a href="terms.html"><i class="fa fa-check"></i><b>1</b> Defining Parameter<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="balance.html"><a href="balance.html#balance-1"><i class="fa fa-check"></i><b>2.1</b> Balance</a>
+<li class="chapter" data-level="1.1" data-path="terms.html"><a href="terms.html#potential-outcome"><i class="fa fa-check"></i><b>1.1</b> Potential outcome<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="terms.html"><a href="terms.html#parameters-of-interest"><i class="fa fa-check"></i><b>1.2</b> Parameters of interest<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="balance.html"><a href="balance.html#measures-of-balance"><i class="fa fa-check"></i><b>2.1.1</b> Measures of Balance</a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="balance.html"><a href="balance.html#adjustment"><i class="fa fa-check"></i><b>2.2</b> Adjustment</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="balance.html"><a href="balance.html#why-adjust"><i class="fa fa-check"></i><b>2.2.1</b> Why adjust?</a></li>
-<li class="chapter" data-level="2.2.2" data-path="balance.html"><a href="balance.html#adjustment-methods"><i class="fa fa-check"></i><b>2.2.2</b> Adjustment Methods</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="balance.html"><a href="balance.html#lack-of-overlap"><i class="fa fa-check"></i><b>2.3</b> Lack of overlap</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="ps.html"><a href="ps.html"><i class="fa fa-check"></i><b>3</b> Propensity score</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="ps.html"><a href="ps.html#motivating-problem"><i class="fa fa-check"></i><b>3.1</b> Motivating problem</a></li>
-<li class="chapter" data-level="3.2" data-path="ps.html"><a href="ps.html#defining-propensity-score"><i class="fa fa-check"></i><b>3.2</b> Defining Propensity score</a>
-<ul>
-<li class="chapter" data-level="3.2.1" data-path="ps.html"><a href="ps.html#theoretical-result"><i class="fa fa-check"></i><b>3.2.1</b> Theoretical result</a></li>
-<li class="chapter" data-level="3.2.2" data-path="ps.html"><a href="ps.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions</a></li>
-<li class="chapter" data-level="3.2.3" data-path="ps.html"><a href="ps.html#ways-to-use-ps"><i class="fa fa-check"></i><b>3.2.3</b> Ways to use PS</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="ps.html"><a href="ps.html#ps-matching-steps"><i class="fa fa-check"></i><b>3.3</b> PS Matching Steps</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="s1.html"><a href="s1.html"><i class="fa fa-check"></i><b>4</b> Step 1: Exposure modelling</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="s1.html"><a href="s1.html#model-specification"><i class="fa fa-check"></i><b>4.1</b> Model specification</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="s1.html"><a href="s1.html#updating-model-specification"><i class="fa fa-check"></i><b>4.1.1</b> Updating model specification</a></li>
-<li class="chapter" data-level="4.1.2" data-path="s1.html"><a href="s1.html#stability-of-ps"><i class="fa fa-check"></i><b>4.1.2</b> Stability of PS</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="s1.html"><a href="s1.html#variables-to-adjust"><i class="fa fa-check"></i><b>4.2</b> Variables to adjust</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="s1.html"><a href="s1.html#best-approach"><i class="fa fa-check"></i><b>4.2.1</b> Best approach</a></li>
-<li class="chapter" data-level="4.2.2" data-path="s1.html"><a href="s1.html#general-guideline-of-type-of-variables"><i class="fa fa-check"></i><b>4.2.2</b> General guideline of type of variables</a></li>
-<li class="chapter" data-level="4.2.3" data-path="s1.html"><a href="s1.html#what-not-to-include"><i class="fa fa-check"></i><b>4.2.3</b> What NOT to include</a></li>
-<li class="chapter" data-level="4.2.4" data-path="s1.html"><a href="s1.html#mediators"><i class="fa fa-check"></i><b>4.2.4</b> Mediators</a></li>
-<li class="chapter" data-level="4.2.5" data-path="s1.html"><a href="s1.html#unmeasured-confounding"><i class="fa fa-check"></i><b>4.2.5</b> Unmeasured confounding</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="s1.html"><a href="s1.html#model-selection-not-encouraged"><i class="fa fa-check"></i><b>4.3</b> Model selection (Not encouraged!)</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="s1.html"><a href="s1.html#based-on-association-with-outcome"><i class="fa fa-check"></i><b>4.3.1</b> Based on association with outcome</a></li>
-<li class="chapter" data-level="4.3.2" data-path="s1.html"><a href="s1.html#based-on-association-with-exposure"><i class="fa fa-check"></i><b>4.3.2</b> Based on association with exposure</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="s1.html"><a href="s1.html#alternative-modelling-strategies"><i class="fa fa-check"></i><b>4.4</b> Alternative modelling strategies</a></li>
-<li class="chapter" data-level="4.5" data-path="s1.html"><a href="s1.html#ps-estimation"><i class="fa fa-check"></i><b>4.5</b> PS estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="s2.html"><a href="s2.html"><i class="fa fa-check"></i><b>5</b> Step 2: Propensity score Matching</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="s2.html"><a href="s2.html#matching-method-nn"><i class="fa fa-check"></i><b>5.1</b> Matching method NN</a></li>
-<li class="chapter" data-level="5.2" data-path="s2.html"><a href="s2.html#initial-fit"><i class="fa fa-check"></i><b>5.2</b> Initial fit</a></li>
-<li class="chapter" data-level="5.3" data-path="s2.html"><a href="s2.html#fine-tuning-add-caliper"><i class="fa fa-check"></i><b>5.3</b> Fine tuning: add caliper</a></li>
-<li class="chapter" data-level="5.4" data-path="s2.html"><a href="s2.html#things-to-keep-track-of"><i class="fa fa-check"></i><b>5.4</b> Things to keep track of</a></li>
-<li class="chapter" data-level="5.5" data-path="s2.html"><a href="s2.html#matches"><i class="fa fa-check"></i><b>5.5</b> Matches</a></li>
-<li class="chapter" data-level="5.6" data-path="s2.html"><a href="s2.html#other-matching-algorithms"><i class="fa fa-check"></i><b>5.6</b> Other matching algorithms</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="s3.html"><a href="s3.html"><i class="fa fa-check"></i><b>6</b> Step 3: Balance and overlap</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="s3.html"><a href="s3.html#assessment-of-balance-by-smd"><i class="fa fa-check"></i><b>6.1</b> Assessment of Balance by SMD</a></li>
-<li class="chapter" data-level="6.2" data-path="s3.html"><a href="s3.html#smd-vs.-p-values"><i class="fa fa-check"></i><b>6.2</b> SMD vs. P-values</a></li>
-<li class="chapter" data-level="6.3" data-path="s3.html"><a href="s3.html#vizualization-for-overlap"><i class="fa fa-check"></i><b>6.3</b> Vizualization for Overlap</a></li>
-<li class="chapter" data-level="6.4" data-path="s3.html"><a href="s3.html#variance-ratio-1"><i class="fa fa-check"></i><b>6.4</b> Variance ratio</a></li>
-<li class="chapter" data-level="6.5" data-path="s3.html"><a href="s3.html#close-inspection-of-boundaries"><i class="fa fa-check"></i><b>6.5</b> Close inspection of boundaries</a></li>
-<li class="chapter" data-level="6.6" data-path="s3.html"><a href="s3.html#unsatirfactory-balance"><i class="fa fa-check"></i><b>6.6</b> Unsatirfactory balance</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="s4.html"><a href="s4.html"><i class="fa fa-check"></i><b>7</b> Step 4: Outcome modelling</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="s4.html"><a href="s4.html#crude-outcome-model"><i class="fa fa-check"></i><b>7.1</b> Crude outcome model</a></li>
-<li class="chapter" data-level="7.2" data-path="s4.html"><a href="s4.html#double-adjustment"><i class="fa fa-check"></i><b>7.2</b> Double-adjustment</a></li>
-<li class="chapter" data-level="7.3" data-path="s4.html"><a href="s4.html#adjusted-outcome-model"><i class="fa fa-check"></i><b>7.3</b> Adjusted outcome model</a></li>
-<li class="chapter" data-level="7.4" data-path="s4.html"><a href="s4.html#variance-considerations"><i class="fa fa-check"></i><b>7.4</b> Variance considerations</a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="s4.html"><a href="s4.html#cluster-option"><i class="fa fa-check"></i><b>7.4.1</b> Cluster option</a></li>
-<li class="chapter" data-level="7.4.2" data-path="s4.html"><a href="s4.html#bootstrap"><i class="fa fa-check"></i><b>7.4.2</b> Bootstrap</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="s4.html"><a href="s4.html#estimate-obtained"><i class="fa fa-check"></i><b>7.5</b> Estimate obtained</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>8</b> PS vs. Regression</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="compare.html"><a href="compare.html#data-simulation"><i class="fa fa-check"></i><b>8.1</b> Data Simulation</a></li>
-<li class="chapter" data-level="8.2" data-path="compare.html"><a href="compare.html#treatment-effect-from-counterfactuals"><i class="fa fa-check"></i><b>8.2</b> Treatment effect from counterfactuals</a></li>
-<li class="chapter" data-level="8.3" data-path="compare.html"><a href="compare.html#treatment-effect-from-regression"><i class="fa fa-check"></i><b>8.3</b> Treatment effect from Regression</a></li>
-<li class="chapter" data-level="8.4" data-path="compare.html"><a href="compare.html#treatment-effect-from-ps"><i class="fa fa-check"></i><b>8.4</b> Treatment effect from PS</a></li>
-<li class="chapter" data-level="8.5" data-path="compare.html"><a href="compare.html#non-linear-model"><i class="fa fa-check"></i><b>8.5</b> Non-linear Model</a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="compare.html"><a href="compare.html#data-generation"><i class="fa fa-check"></i><b>8.5.1</b> Data generation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="compare.html"><a href="compare.html#regression"><i class="fa fa-check"></i><b>8.5.2</b> Regression</a></li>
-<li class="chapter" data-level="8.5.3" data-path="compare.html"><a href="compare.html#ps-1"><i class="fa fa-check"></i><b>8.5.3</b> PS</a></li>
-<li class="chapter" data-level="8.5.4" data-path="compare.html"><a href="compare.html#machine-learning"><i class="fa fa-check"></i><b>8.5.4</b> Machine learning</a></li>
-<li class="chapter" data-level="8.5.5" data-path="compare.html"><a href="compare.html#regression-is-doomed"><i class="fa fa-check"></i><b>8.5.5</b> Regression is doomed?</a></li>
+<li class="chapter" data-level="1.2.1" data-path="terms.html"><a href="terms.html#te"><i class="fa fa-check"></i><b>1.2.1</b> TE<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="terms.html"><a href="terms.html#ate"><i class="fa fa-check"></i><b>1.2.2</b> ATE<span></span></a></li>
+<li class="chapter" data-level="1.2.3" data-path="terms.html"><a href="terms.html#interpretation-of-ate"><i class="fa fa-check"></i><b>1.2.3</b> Interpretation of ATE<span></span></a></li>
+<li class="chapter" data-level="1.2.4" data-path="terms.html"><a href="terms.html#identifiability-assumptions"><i class="fa fa-check"></i><b>1.2.4</b> Identifiability Assumptions<span></span></a></li>
+<li class="chapter" data-level="1.2.5" data-path="terms.html"><a href="terms.html#att"><i class="fa fa-check"></i><b>1.2.5</b> ATT<span></span></a></li>
+<li class="chapter" data-level="1.2.6" data-path="terms.html"><a href="terms.html#interpretation-of-att"><i class="fa fa-check"></i><b>1.2.6</b> Interpretation of ATT<span></span></a></li>
+<li class="chapter" data-level="1.2.7" data-path="terms.html"><a href="terms.html#att-vs.-ate"><i class="fa fa-check"></i><b>1.2.7</b> ATT vs. ATE<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="misspecify.html"><a href="misspecify.html"><i class="fa fa-check"></i><b>9</b> Model-misspecification</a>
+<li class="chapter" data-level="2" data-path="balance.html"><a href="balance.html"><i class="fa fa-check"></i><b>2</b> Balance and Overlap<span></span></a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="misspecify.html"><a href="misspecify.html#complex-data-simulation"><i class="fa fa-check"></i><b>9.1</b> Complex Data Simulation</a>
+<li class="chapter" data-level="2.1" data-path="balance.html"><a href="balance.html#balance-1"><i class="fa fa-check"></i><b>2.1</b> Balance<span></span></a>
 <ul>
-<li class="chapter" data-level="" data-path="misspecify.html"><a href="misspecify.html#true-exposure-model"><i class="fa fa-check"></i>True Exposure Model</a></li>
-<li class="chapter" data-level="" data-path="misspecify.html"><a href="misspecify.html#true-outcome-model"><i class="fa fa-check"></i>True Outcome Model</a></li>
-<li class="chapter" data-level="" data-path="misspecify.html"><a href="misspecify.html#outcomes-and-exposures-are-complex-functions-of-measured-covariates"><i class="fa fa-check"></i>Outcomes and exposures are complex functions of measured covariates</a></li>
+<li class="chapter" data-level="2.1.1" data-path="balance.html"><a href="balance.html#measures-of-balance"><i class="fa fa-check"></i><b>2.1.1</b> Measures of Balance<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="misspecify.html"><a href="misspecify.html#understanding-finite-sample-bias"><i class="fa fa-check"></i><b>9.2</b> Understanding finite sample bias</a></li>
-<li class="chapter" data-level="9.3" data-path="misspecify.html"><a href="misspecify.html#estimation-using-different-methods"><i class="fa fa-check"></i><b>9.3</b> Estimation using different methods</a>
+<li class="chapter" data-level="2.2" data-path="balance.html"><a href="balance.html#adjustment"><i class="fa fa-check"></i><b>2.2</b> Adjustment<span></span></a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="misspecify.html"><a href="misspecify.html#regression-1"><i class="fa fa-check"></i><b>9.3.1</b> Regression</a></li>
-<li class="chapter" data-level="9.3.2" data-path="misspecify.html"><a href="misspecify.html#propensity-score"><i class="fa fa-check"></i><b>9.3.2</b> Propensity score</a></li>
-<li class="chapter" data-level="9.3.3" data-path="misspecify.html"><a href="misspecify.html#double-machine-learning-method"><i class="fa fa-check"></i><b>9.3.3</b> Double machine learning method</a></li>
-<li class="chapter" data-level="9.3.4" data-path="misspecify.html"><a href="misspecify.html#double-robust-method-tmle"><i class="fa fa-check"></i><b>9.3.4</b> Double robust method (TMLE)</a></li>
+<li class="chapter" data-level="2.2.1" data-path="balance.html"><a href="balance.html#why-adjust"><i class="fa fa-check"></i><b>2.2.1</b> Why adjust?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="balance.html"><a href="balance.html#adjustment-methods"><i class="fa fa-check"></i><b>2.2.2</b> Adjustment Methods<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="2.3" data-path="balance.html"><a href="balance.html#lack-of-overlap"><i class="fa fa-check"></i><b>2.3</b> Lack of overlap<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>10</b> Reporting Guidelines</a>
+<li class="chapter" data-level="3" data-path="ps.html"><a href="ps.html"><i class="fa fa-check"></i><b>3</b> Propensity score<span></span></a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>10.1</b> Discipline-specific Reviews</a></li>
-<li class="chapter" data-level="10.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>10.2</b> Suggested Guidelines</a></li>
-<li class="chapter" data-level="10.3" data-path="guide.html"><a href="guide.html#additional-topics"><i class="fa fa-check"></i><b>10.3</b> Additional topics</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="final.html"><a href="final.html"><i class="fa fa-check"></i><b>11</b> Final Words</a>
+<li class="chapter" data-level="3.1" data-path="ps.html"><a href="ps.html#motivating-problem"><i class="fa fa-check"></i><b>3.1</b> Motivating problem<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="ps.html"><a href="ps.html#defining-propensity-score"><i class="fa fa-check"></i><b>3.2</b> Defining Propensity score<span></span></a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="final.html"><a href="final.html#common-misconception"><i class="fa fa-check"></i><b>11.1</b> Common misconception</a></li>
-<li class="chapter" data-level="11.2" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>11.2</b> Benifits of PS</a></li>
-<li class="chapter" data-level="11.3" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>11.3</b> Limitations of PS</a></li>
-<li class="chapter" data-level="11.4" data-path="final.html"><a href="final.html#sensitivity-analysis"><i class="fa fa-check"></i><b>11.4</b> Sensitivity analysis</a></li>
-<li class="chapter" data-level="11.5" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>11.5</b> Software</a></li>
-<li class="chapter" data-level="11.6" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>11.6</b> Further Resources</a></li>
+<li class="chapter" data-level="3.2.1" data-path="ps.html"><a href="ps.html#theoretical-result"><i class="fa fa-check"></i><b>3.2.1</b> Theoretical result<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="ps.html"><a href="ps.html#assumptions"><i class="fa fa-check"></i><b>3.2.2</b> Assumptions<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="ps.html"><a href="ps.html#ways-to-use-ps"><i class="fa fa-check"></i><b>3.2.3</b> Ways to use PS<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="3.3" data-path="ps.html"><a href="ps.html#ps-matching-steps"><i class="fa fa-check"></i><b>3.3</b> PS Matching Steps<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="s1.html"><a href="s1.html"><i class="fa fa-check"></i><b>4</b> Step 1: Exposure modelling<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="s1.html"><a href="s1.html#model-specification"><i class="fa fa-check"></i><b>4.1</b> Model specification<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="s1.html"><a href="s1.html#updating-model-specification"><i class="fa fa-check"></i><b>4.1.1</b> Updating model specification<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="s1.html"><a href="s1.html#stability-of-ps"><i class="fa fa-check"></i><b>4.1.2</b> Stability of PS<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="s1.html"><a href="s1.html#variables-to-adjust"><i class="fa fa-check"></i><b>4.2</b> Variables to adjust<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="s1.html"><a href="s1.html#best-approach"><i class="fa fa-check"></i><b>4.2.1</b> Best approach<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="s1.html"><a href="s1.html#general-guideline-of-type-of-variables"><i class="fa fa-check"></i><b>4.2.2</b> General guideline of type of variables<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="s1.html"><a href="s1.html#what-not-to-include"><i class="fa fa-check"></i><b>4.2.3</b> What NOT to include<span></span></a></li>
+<li class="chapter" data-level="4.2.4" data-path="s1.html"><a href="s1.html#mediators"><i class="fa fa-check"></i><b>4.2.4</b> Mediators<span></span></a></li>
+<li class="chapter" data-level="4.2.5" data-path="s1.html"><a href="s1.html#unmeasured-confounding"><i class="fa fa-check"></i><b>4.2.5</b> Unmeasured confounding<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="s1.html"><a href="s1.html#model-selection"><i class="fa fa-check"></i><b>4.3</b> Model selection<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="s1.html"><a href="s1.html#based-on-association-with-outcome"><i class="fa fa-check"></i><b>4.3.1</b> Based on association with outcome<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="s1.html"><a href="s1.html#based-on-association-with-exposure"><i class="fa fa-check"></i><b>4.3.2</b> Based on association with exposure<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="s1.html"><a href="s1.html#alternative-modelling-strategies"><i class="fa fa-check"></i><b>4.4</b> Alternative modelling strategies<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="s1.html"><a href="s1.html#ps-estimation"><i class="fa fa-check"></i><b>4.5</b> PS estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="s2.html"><a href="s2.html"><i class="fa fa-check"></i><b>5</b> Step 2: Propensity score Matching<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="s2.html"><a href="s2.html#matching-method-nn"><i class="fa fa-check"></i><b>5.1</b> Matching method NN<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="s2.html"><a href="s2.html#initial-fit"><i class="fa fa-check"></i><b>5.2</b> Initial fit<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="s2.html"><a href="s2.html#fine-tuning-add-caliper"><i class="fa fa-check"></i><b>5.3</b> Fine tuning: add caliper<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="s2.html"><a href="s2.html#things-to-keep-track-of"><i class="fa fa-check"></i><b>5.4</b> Things to keep track of<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="s2.html"><a href="s2.html#matches"><i class="fa fa-check"></i><b>5.5</b> Matches<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="s2.html"><a href="s2.html#other-matching-algorithms"><i class="fa fa-check"></i><b>5.6</b> Other matching algorithms<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="s3.html"><a href="s3.html"><i class="fa fa-check"></i><b>6</b> Step 3: Balance and overlap<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="s3.html"><a href="s3.html#assessment-of-balance-by-smd"><i class="fa fa-check"></i><b>6.1</b> Assessment of Balance by SMD<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="s3.html"><a href="s3.html#smd-vs.-p-values"><i class="fa fa-check"></i><b>6.2</b> SMD vs. P-values<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="s3.html"><a href="s3.html#vizualization-for-overlap"><i class="fa fa-check"></i><b>6.3</b> Vizualization for Overlap<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="s3.html"><a href="s3.html#variance-ratio-1"><i class="fa fa-check"></i><b>6.4</b> Variance ratio<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="s3.html"><a href="s3.html#close-inspection-of-boundaries"><i class="fa fa-check"></i><b>6.5</b> Close inspection of boundaries<span></span></a></li>
+<li class="chapter" data-level="6.6" data-path="s3.html"><a href="s3.html#unsatirfactory-balance"><i class="fa fa-check"></i><b>6.6</b> Unsatirfactory balance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="s4.html"><a href="s4.html"><i class="fa fa-check"></i><b>7</b> Step 4: Outcome modelling<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="s4.html"><a href="s4.html#crude-outcome-model"><i class="fa fa-check"></i><b>7.1</b> Crude outcome model<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="s4.html"><a href="s4.html#double-adjustment"><i class="fa fa-check"></i><b>7.2</b> Double-adjustment<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="s4.html"><a href="s4.html#adjusted-outcome-model"><i class="fa fa-check"></i><b>7.3</b> Adjusted outcome model<span></span></a></li>
+<li class="chapter" data-level="7.4" data-path="s4.html"><a href="s4.html#variance-considerations"><i class="fa fa-check"></i><b>7.4</b> Variance considerations<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="s4.html"><a href="s4.html#cluster-option"><i class="fa fa-check"></i><b>7.4.1</b> Cluster option<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="s4.html"><a href="s4.html#bootstrap"><i class="fa fa-check"></i><b>7.4.2</b> Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="s4.html"><a href="s4.html#estimate-obtained"><i class="fa fa-check"></i><b>7.5</b> Estimate obtained<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>8</b> PS vs. Regression<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="compare.html"><a href="compare.html#data-simulation"><i class="fa fa-check"></i><b>8.1</b> Data Simulation<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="compare.html"><a href="compare.html#treatment-effect-from-counterfactuals"><i class="fa fa-check"></i><b>8.2</b> Treatment effect from counterfactuals<span></span></a></li>
+<li class="chapter" data-level="8.3" data-path="compare.html"><a href="compare.html#treatment-effect-from-regression"><i class="fa fa-check"></i><b>8.3</b> Treatment effect from Regression<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="compare.html"><a href="compare.html#treatment-effect-from-ps"><i class="fa fa-check"></i><b>8.4</b> Treatment effect from PS<span></span></a></li>
+<li class="chapter" data-level="8.5" data-path="compare.html"><a href="compare.html#non-linear-model"><i class="fa fa-check"></i><b>8.5</b> Non-linear Model<span></span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="compare.html"><a href="compare.html#data-generation"><i class="fa fa-check"></i><b>8.5.1</b> Data generation<span></span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="compare.html"><a href="compare.html#regression"><i class="fa fa-check"></i><b>8.5.2</b> Regression<span></span></a></li>
+<li class="chapter" data-level="8.5.3" data-path="compare.html"><a href="compare.html#ps-1"><i class="fa fa-check"></i><b>8.5.3</b> PS<span></span></a></li>
+<li class="chapter" data-level="8.5.4" data-path="compare.html"><a href="compare.html#machine-learning"><i class="fa fa-check"></i><b>8.5.4</b> Machine learning<span></span></a></li>
+<li class="chapter" data-level="8.5.5" data-path="compare.html"><a href="compare.html#regression-is-doomed"><i class="fa fa-check"></i><b>8.5.5</b> Regression is doomed?<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="misspecify.html"><a href="misspecify.html"><i class="fa fa-check"></i><b>9</b> PS vs. Double robust methods<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="misspecify.html"><a href="misspecify.html#complex-data-simulation"><i class="fa fa-check"></i><b>9.1</b> Complex Data Simulation<span></span></a>
+<ul>
+<li><a href="misspecify.html#true-exposure-model">True Exposure Model<span></span></a></li>
+<li><a href="misspecify.html#true-outcome-model">True Outcome Model<span></span></a></li>
+<li><a href="misspecify.html#outcomes-and-exposures-are-complex-functions-of-measured-covariates">Outcomes and exposures are complex functions of measured covariates<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="misspecify.html"><a href="misspecify.html#understanding-finite-sample-bias"><i class="fa fa-check"></i><b>9.2</b> Understanding finite sample bias<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="misspecify.html"><a href="misspecify.html#estimation-using-different-methods"><i class="fa fa-check"></i><b>9.3</b> Estimation using different methods<span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="misspecify.html"><a href="misspecify.html#regression-1"><i class="fa fa-check"></i><b>9.3.1</b> Regression<span></span></a></li>
+<li class="chapter" data-level="9.3.2" data-path="misspecify.html"><a href="misspecify.html#propensity-score"><i class="fa fa-check"></i><b>9.3.2</b> Propensity score<span></span></a></li>
+<li class="chapter" data-level="9.3.3" data-path="misspecify.html"><a href="misspecify.html#double-machine-learning-method"><i class="fa fa-check"></i><b>9.3.3</b> Double machine learning method<span></span></a></li>
+<li class="chapter" data-level="9.3.4" data-path="misspecify.html"><a href="misspecify.html#augmented-inverse-probability-weighting"><i class="fa fa-check"></i><b>9.3.4</b> Augmented Inverse probability weighting<span></span></a></li>
+<li class="chapter" data-level="9.3.5" data-path="misspecify.html"><a href="misspecify.html#double-robust-method-tmle"><i class="fa fa-check"></i><b>9.3.5</b> Double robust method (TMLE)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="guide.html"><a href="guide.html"><i class="fa fa-check"></i><b>10</b> Reporting Guidelines<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="guide.html"><a href="guide.html#discipline-specific-reviews"><i class="fa fa-check"></i><b>10.1</b> Discipline-specific Reviews<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="guide.html"><a href="guide.html#suggested-guidelines"><i class="fa fa-check"></i><b>10.2</b> Suggested Guidelines<span></span></a></li>
+<li class="chapter" data-level="10.3" data-path="guide.html"><a href="guide.html#additional-topics"><i class="fa fa-check"></i><b>10.3</b> Additional topics<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="final.html"><a href="final.html"><i class="fa fa-check"></i><b>11</b> Final Words<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="final.html"><a href="final.html#common-misconception"><i class="fa fa-check"></i><b>11.1</b> Common misconception<span></span></a></li>
+<li class="chapter" data-level="11.2" data-path="final.html"><a href="final.html#benifits-of-ps"><i class="fa fa-check"></i><b>11.2</b> Benifits of PS<span></span></a></li>
+<li class="chapter" data-level="11.3" data-path="final.html"><a href="final.html#limitations-of-ps"><i class="fa fa-check"></i><b>11.3</b> Limitations of PS<span></span></a></li>
+<li class="chapter" data-level="11.4" data-path="final.html"><a href="final.html#when-ps-may-not-be-useful"><i class="fa fa-check"></i><b>11.4</b> When PS may not be useful?<span></span></a></li>
+<li class="chapter" data-level="11.5" data-path="final.html"><a href="final.html#effect-modifications"><i class="fa fa-check"></i><b>11.5</b> Effect modifications<span></span></a></li>
+<li class="chapter" data-level="11.6" data-path="final.html"><a href="final.html#sensitivity-analysis"><i class="fa fa-check"></i><b>11.6</b> Sensitivity analysis<span></span></a></li>
+<li class="chapter" data-level="11.7" data-path="final.html"><a href="final.html#software"><i class="fa fa-check"></i><b>11.7</b> Software<span></span></a></li>
+<li class="chapter" data-level="11.8" data-path="final.html"><a href="final.html#further-resources"><i class="fa fa-check"></i><b>11.8</b> Further Resources<span></span></a></li>
+</ul></li>
+<li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://ehsank.com/" target="blank">Ehsan Karim</a></li>
 
@@ -357,10 +359,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="s1" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Step 1: Exposure modelling</h1>
-<div id="model-specification" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Model specification</h2>
+<div id="s1" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Step 1: Exposure modelling<a href="s1.html#s1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="model-specification" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Model specification<a href="s1.html#model-specification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Specify the propensity score model to estimate propensity scores, and fit the model:</p>
 <p><span class="math inline">\(A \sim L\)</span></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="s1.html#cb16-1" aria-hidden="true" tabindex="-1"></a>baselinevars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;married&quot;</span>, <span class="st">&quot;bmi&quot;</span>)</span>
@@ -683,32 +685,47 @@ bmi
 <li>SE too high?</li>
 </ul></li>
 </ul>
-<div id="updating-model-specification" class="section level3" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Updating model specification</h3>
+<div id="updating-model-specification" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Updating model specification<a href="s1.html#updating-model-specification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>What other model specifications are possible?
+<li>What other model specifications are possible?</li>
+</ul>
+<div id="interactions" class="section level4 hasAnchor" number="4.1.1.1">
+<h4><span class="header-section-number">4.1.1.1</span> Interactions<a href="s1.html#interactions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Common terms to add (indeed based on biological plausibility; requiring subject area knowledge)</li>
-</ul></li>
 </ul>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="s1.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactions</span></span>
-<span id="cb19-2"><a href="s1.html#cb19-2" aria-hidden="true" tabindex="-1"></a>ps.formula2 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ education:bmi + gender:age&quot;</span>))</span>
-<span id="cb19-3"><a href="s1.html#cb19-3" aria-hidden="true" tabindex="-1"></a>ps.formula2</span></code></pre></div>
+<span id="cb19-2"><a href="s1.html#cb19-2" aria-hidden="true" tabindex="-1"></a>ps.formula2 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, </span>
+<span id="cb19-3"><a href="s1.html#cb19-3" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), </span>
+<span id="cb19-4"><a href="s1.html#cb19-4" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;+ education:bmi + gender:age&quot;</span>))</span>
+<span id="cb19-5"><a href="s1.html#cb19-5" aria-hidden="true" tabindex="-1"></a>ps.formula2</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + education + married + bmi + 
 ##     education:bmi + gender:age</code></pre>
+</div>
+<div id="polynomial-terms" class="section level4 hasAnchor" number="4.1.1.2">
+<h4><span class="header-section-number">4.1.1.2</span> Polynomial terms<a href="s1.html#polynomial-terms" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="s1.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># polynomials or splines</span></span>
-<span id="cb21-2"><a href="s1.html#cb21-2" aria-hidden="true" tabindex="-1"></a>ps.formula3 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ age^2 + age^3&quot;</span>))</span>
-<span id="cb21-3"><a href="s1.html#cb21-3" aria-hidden="true" tabindex="-1"></a>ps.formula3</span></code></pre></div>
+<span id="cb21-2"><a href="s1.html#cb21-2" aria-hidden="true" tabindex="-1"></a>ps.formula3 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, </span>
+<span id="cb21-3"><a href="s1.html#cb21-3" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), </span>
+<span id="cb21-4"><a href="s1.html#cb21-4" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;+ age^2 + age^3&quot;</span>))</span>
+<span id="cb21-5"><a href="s1.html#cb21-5" aria-hidden="true" tabindex="-1"></a>ps.formula3</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + education + married + bmi + 
 ##     age^2 + age^3</code></pre>
+</div>
+<div id="more-complex-functions" class="section level4 hasAnchor" number="4.1.1.3">
+<h4><span class="header-section-number">4.1.1.3</span> More complex functions<a href="s1.html#more-complex-functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="s1.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformations</span></span>
-<span id="cb23-2"><a href="s1.html#cb23-2" aria-hidden="true" tabindex="-1"></a>ps.formula4 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), <span class="st">&quot;+ log(age)&quot;</span>))</span>
-<span id="cb23-3"><a href="s1.html#cb23-3" aria-hidden="true" tabindex="-1"></a>ps.formula4</span></code></pre></div>
+<span id="cb23-2"><a href="s1.html#cb23-2" aria-hidden="true" tabindex="-1"></a>ps.formula4 <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(<span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;~&quot;</span>, </span>
+<span id="cb23-3"><a href="s1.html#cb23-3" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">paste</span>(baselinevars, <span class="at">collapse =</span> <span class="st">&quot;+&quot;</span>), </span>
+<span id="cb23-4"><a href="s1.html#cb23-4" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;+ log(age)&quot;</span>))</span>
+<span id="cb23-5"><a href="s1.html#cb23-5" aria-hidden="true" tabindex="-1"></a>ps.formula4</span></code></pre></div>
 <pre><code>## diabetes ~ gender + age + race + education + married + bmi + 
 ##     log(age)</code></pre>
 </div>
-<div id="stability-of-ps" class="section level3" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Stability of PS</h3>
+</div>
+<div id="stability-of-ps" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Stability of PS<a href="s1.html#stability-of-ps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><strong>How many variables</strong> in PS model are too many?
 <ul>
@@ -722,10 +739,10 @@ bmi
 </ul>
 </div>
 </div>
-<div id="variables-to-adjust" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Variables to adjust</h2>
-<div id="best-approach" class="section level3" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Best approach</h3>
+<div id="variables-to-adjust" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Variables to adjust<a href="s1.html#variables-to-adjust" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="best-approach" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Best approach<a href="s1.html#best-approach" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Subject area expertise</li>
 <li>known from literature</li>
@@ -733,8 +750,8 @@ bmi
 </ul>
 <p><img src="images/overallnhanesplan.png" width="256" /></p>
 </div>
-<div id="general-guideline-of-type-of-variables" class="section level3" number="4.2.2">
-<h3><span class="header-section-number">4.2.2</span> General guideline of type of variables</h3>
+<div id="general-guideline-of-type-of-variables" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> General guideline of type of variables<a href="s1.html#general-guideline-of-type-of-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>See <span class="citation"><a href="#ref-brookhart2006variable" role="doc-biblioref">Brookhart et al.</a> (<a href="#ref-brookhart2006variable" role="doc-biblioref">2006</a>)</span> for a guideline (not based on empirical association in the same data)</p>
 <ul>
 <li>Observed covariates are used to fix design</li>
@@ -745,8 +762,8 @@ bmi
 </ul></li>
 </ul>
 </div>
-<div id="what-not-to-include" class="section level3" number="4.2.3">
-<h3><span class="header-section-number">4.2.3</span> What NOT to include</h3>
+<div id="what-not-to-include" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> What NOT to include<a href="s1.html#what-not-to-include" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Two types
 <ul>
@@ -755,8 +772,8 @@ bmi
 </ul></li>
 </ul>
 </div>
-<div id="mediators" class="section level3" number="4.2.4">
-<h3><span class="header-section-number">4.2.4</span> Mediators</h3>
+<div id="mediators" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Mediators<a href="s1.html#mediators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Why not incorporate <strong>mediator variable</strong> in the PS analysis?
 <ul>
@@ -766,8 +783,8 @@ bmi
 </ul>
 <p><img src="images/overallnhanesplan2.png" width="349" /></p>
 </div>
-<div id="unmeasured-confounding" class="section level3" number="4.2.5">
-<h3><span class="header-section-number">4.2.5</span> Unmeasured confounding</h3>
+<div id="unmeasured-confounding" class="section level3 hasAnchor" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Unmeasured confounding<a href="s1.html#unmeasured-confounding" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>What if an important variable is unmeasured / not available in the data?
 <ul>
@@ -777,8 +794,9 @@ bmi
 </ul>
 </div>
 </div>
-<div id="model-selection-not-encouraged" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Model selection (Not encouraged!)</h2>
+<div id="model-selection" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Model selection<a href="s1.html#model-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Not encouraged, but popularly done!</p>
 <ul>
 <li>not encouraged, as this is utilizing empirical associations
 <ul>
@@ -789,12 +807,12 @@ bmi
 <li>see <span class="citation"><a href="#ref-karim2018can" role="doc-biblioref">Karim, Pang, and Platt</a> (<a href="#ref-karim2018can" role="doc-biblioref">2018</a>)</span> for an example.</li>
 </ul></li>
 </ul>
-<div id="based-on-association-with-outcome" class="section level3" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Based on association with outcome</h3>
+<div id="based-on-association-with-outcome" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Based on association with outcome<a href="s1.html#based-on-association-with-outcome" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Selecting just based on association with the outcome (<span class="math inline">\(Y\)</span>) in your data to select covariates is not encouraged
 <ul>
-<li>seperation between outcome and exposure modelling is broken!</li>
+<li>separation between outcome and exposure modelling is broken!</li>
 </ul></li>
 <li>Usually done in a situation when
 <ul>
@@ -840,8 +858,8 @@ bmi
 </ul></li>
 </ul>
 </div>
-<div id="based-on-association-with-exposure" class="section level3" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Based on association with exposure</h3>
+<div id="based-on-association-with-exposure" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Based on association with exposure<a href="s1.html#based-on-association-with-exposure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Selecting based on association with the exposure (<span class="math inline">\(A\)</span>) in your data to select covariates can be the worst!
 <ul>
@@ -868,8 +886,8 @@ bmi
 <span id="cb34-2"><a href="s1.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We, however, did not use this approach below.</span></span></code></pre></div>
 </div>
 </div>
-<div id="alternative-modelling-strategies" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Alternative modelling strategies</h2>
+<div id="alternative-modelling-strategies" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Alternative modelling strategies<a href="s1.html#alternative-modelling-strategies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Other machine learning alternatives are possible to use instead of logistic regression.
 <ul>
@@ -880,8 +898,8 @@ bmi
 </ul></li>
 </ul>
 </div>
-<div id="ps-estimation" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> PS estimation</h2>
+<div id="ps-estimation" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> PS estimation<a href="s1.html#ps-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>PS is unknown, and needs to be estimated from the fitted exposure model:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="s1.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract estimated propensity scores from the fit</span></span>
 <span id="cb35-2"><a href="s1.html#cb35-2" aria-hidden="true" tabindex="-1"></a>analytic<span class="sc">$</span>PS <span class="ot">&lt;-</span> <span class="fu">predict</span>(PS.fit, <span class="at">newdata =</span> analytic, <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
@@ -922,7 +940,7 @@ May attract variables highly associated with <span class="math inline">\(A\)</sp
 
 </div>
 </div>
-<h3>References</h3>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-brookhart2006variable" class="csl-entry">
 Brookhart, M Alan, Sebastian Schneeweiss, Kenneth J Rothman, Robert J Glynn, Jerry Avorn, and Til Stürmer. 2006. <span>“Variable Selection for Propensity Score Models.”</span> <em>American Journal of Epidemiology</em> 163 (12): 1149–56.

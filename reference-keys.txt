@@ -27,6 +27,9 @@ ps-matching-steps
 s1
 model-specification
 updating-model-specification
+interactions
+polynomial-terms
+more-complex-functions
 stability-of-ps
 variables-to-adjust
 best-approach
@@ -34,7 +37,7 @@ general-guideline-of-type-of-variables
 what-not-to-include
 mediators
 unmeasured-confounding
-model-selection-not-encouraged
+model-selection
 based-on-association-with-outcome
 based-on-association-with-exposure
 alternative-modelling-strategies
@@ -79,6 +82,7 @@ estimation-using-different-methods
 regression-1
 propensity-score
 double-machine-learning-method
+augmented-inverse-probability-weighting
 double-robust-method-tmle
 guide
 discipline-specific-reviews
@@ -88,6 +92,8 @@ final
 common-misconception
 benifits-of-ps
 limitations-of-ps
+when-ps-may-not-be-useful
+effect-modifications
 sensitivity-analysis
 software
 further-resources
