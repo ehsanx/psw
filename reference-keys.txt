@@ -1,4 +1,5 @@
 terms
+epidemiological-research-goals
 potential-outcome
 parameters-of-interest
 te
